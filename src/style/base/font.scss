@@ -1,0 +1,35 @@
+// 通用字体大小
+// 12px
+.font12{ font-size: 0.6rem; }
+// 14px
+.font14{ font-size: 0.7rem; }
+// 16px
+.font16{ font-size: 0.8rem; }
+// 18px
+.font18{ font-size: 0.9rem; }
+// 24px
+.font24{ font-size: 1.2rem; }
+// 28px
+.font28{ font-size: 1.4rem; }
+// 字体加粗
+.fontBold{ font-weight: bold; }
+// 默认字体设置
+html{
+	font-family: "Microsoft Yahei", 微软雅黑, "PingFang SC", 苹方, 思源黑体, sans-serif;
+	color: #3b4348;
+	a{ color: #3b4348; }
+}
+// 蓝色突出字
+.blueFont{ color: #007fe0; }
+// 灰色链接字
+.gruyAFont{
+	color: #999;
+	text-decoration: underline;
+}
+// 彩色背景白字
+.whiteFont{ color: #fff; }
+// 引入字体
+@font-face{
+	font-family: "思源黑体";
+	src: url(../static/font/SourceHanSansCN-Regular.otf);
+}

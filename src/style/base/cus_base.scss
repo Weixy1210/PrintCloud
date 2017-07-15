@@ -1,0 +1,9 @@
+header, .content, footer{
+	min-width: 54rem;    // 保证包裹住container
+}
+.container{
+	width: 54rem;
+	box-sizing: border-box;
+	margin: 0 auto;
+	padding: 0 1.2rem;
+}

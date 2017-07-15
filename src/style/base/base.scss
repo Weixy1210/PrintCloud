@@ -1,0 +1,48 @@
+// 去默认样式
+html, body, ul, hr{
+	margin: 0;
+	padding: 0;
+} 
+a{ text-decoration: none; }
+ul{ list-style: none; }
+// 将默认的select选择框样式清除
+select{
+	appearance:none;
+	-moz-appearance:none;
+	-webkit-appearance:none;
+}
+// 清除ie的默认选择框样式清除，隐藏下拉箭头
+select::-ms-expand { display: none; }
+// 屏幕适配, 目前只考虑960及以上的屏幕
+@media screen and (min-device-width: 960px){
+	html{
+		font-size: 17px;
+	}
+}
+@media screen and (min-device-width: 1080px){    // 1080-1600px间的PC
+	html{
+		font-size: 20px;
+	}
+}
+@media screen and (min-device-width: 1600px){    // 1600px~的PC
+	html{
+		font-size: 24px;
+	}
+}
+// 通用样式
+.fl{ float: left; }
+.fr{ float: right; }
+html{
+	position: relative;
+	line-height: 1;
+	select{
+		border: 1px #abb7bd solid;
+		border-radius: 2px;
+		// 添加自定义下拉箭头
+		background-color: #fff;
+		background-image: url(../static/img/form_select_icon.png);
+		background-repeat:no-repeat;
+		background-size: 0.6rem 0.55rem;
+		background-position: 94% 50%;
+	}
+}

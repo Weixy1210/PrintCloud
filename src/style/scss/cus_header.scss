@@ -1,0 +1,102 @@
+header{
+	position: absolute;
+	width: 100%;
+	box-shadow: 0 1px 2px rgba(35, 24, 21, 0.2);
+	.container{
+		height: 3.6rem;
+		.headerLogo{
+			margin-top: 1.05rem;
+			width: 5rem;
+		}
+		.cusState1{
+			a{
+				width: 3.2rem;
+				height: 3.6rem;
+				text-align: center;
+				img{
+					margin-top: 0.8rem;
+				}
+				div{
+					margin-top: 0.4rem;
+					line-height: 1;
+				}
+			}
+			a.register{
+				background-color: #859ca6;
+			}
+			a.register:hover{
+				background-color: #4082c4;
+			}
+			a.logIn:hover{
+				background-color: #e9eff2;
+			}
+		}
+		.cusState2{
+			height: 3.6rem;
+			overflow: hidden;
+			.cusInfo{
+				cursor: pointer;
+				height: 3.6rem;
+				div{ 
+					height: 3.6rem;
+					line-height: 3.6rem;
+				}
+				div.portraitBox{
+					margin: 0 0.4rem 0 0.5rem;
+					line-height: 4.5rem;
+					img{
+						width: 1.6rem;
+						height: 1.6rem;
+						border-radius: 50%;
+					}
+				}
+				div.selectIcon{ 
+					margin: 0 0.7rem 0 0.3rem;
+					line-height: 3.7rem;
+					img{
+						width: 0.6rem;
+					}
+				}
+			}
+			.dropDownBox{
+				background-color: #fff;
+				box-shadow: 0 0 4px 2px rgba(35, 24, 21, 0.05);
+				padding: 0.75rem 0;
+				a{
+					cursor: pointer;
+					display: block;
+					padding: 0 0.4rem;
+					height: 1.8rem;
+					line-height: 1.8rem;
+					img{
+						margin: 0.5rem;
+						width: 0.6rem;
+					}
+					.msgNumber{
+						width: 1.3rem;
+						height: 0.8rem;
+						border-radius: 0.3rem;
+						background-color: #f53;
+						margin: 0.5rem 0.3rem;
+						line-height: 0.8rem;
+						text-align: center;
+					}
+				}
+				a:hover{
+					background-color: #e8eff1;
+				}
+			}
+		}
+		.cusState2:hover{
+			background-color: #e8eff1;
+			overflow: visible;
+		}
+	}
+}
+header::after{    // 第二层阴影
+	content: "";
+	display: block;
+	height: 10px;
+	margin-top: -10px;
+	box-shadow: 0 2px 4px rgba(35, 24, 21, 0.05);
+}
