@@ -1,6 +1,6 @@
-.content{
+#cusIndex{
 	.banner{
-		background-image: url(../../static/img/cus_index_banner.jpg);
+		background-image: url(/static/img/cus_index_banner.jpg);
 		background-size: cover;
 		height: 32.5rem;
 		padding-top: 3.6rem;
@@ -143,19 +143,8 @@
 					}
 				}
 			}
-			.conMsgBox{
-				opacity: 0;
-				position: absolute;
-				top: 12.1rem; left: 45%;
-				height: 3.8rem;
-				line-height: 3.8rem;
-				background-color: rgba(36, 46, 51, 0.75);
-				border-radius: 4px;
-				padding: 0 1.6rem 0 1.4rem;
-				img{
-					width: 1.6rem;
-					margin: 1.1rem 1.2rem 0 0;
-				}
+			.coMsgBox{
+				top: 13rem; left: 50%;
 			}
 		}
 		.registerNow{

@@ -15,7 +15,5 @@
 </script>
 
 <style lang="scss">
-  @import "./style/base/base.scss";
-  @import "./style/base/font.scss";
-  @import "./style/base/color.scss";
+  @import "./style/style.scss";
 </style>

@@ -1,0 +1,66 @@
+#cusLog{
+	padding-top: 3.6rem;
+	padding-bottom: 10.2rem;
+	position: relative;
+	.logBox{
+		margin: 4.9rem auto 0;
+		width: 12.8rem;
+		.titleLogo{
+			text-align: center;
+			margin-bottom: 3.4rem;
+			img{
+				width: 9.1rem;
+			}
+		}
+		form{
+			.coInputText{
+				margin-bottom: 1rem;
+				.imgRight{
+					button{
+						border: none;
+						background: none;
+						padding: 0;
+						cursor: pointer;
+					}
+					button:focus{ outline: none; }
+				}
+			}
+			.inputCheckboxBox{
+				margin-bottom: 1.4rem;
+				margin-top: -0.2rem;
+				height: 1rem;
+				line-height: 1rem;
+				position: relative;
+				div{
+					display: inline-block;
+					width: 1rem;
+					height: 1rem;
+					cursor: pointer;
+					position: absolute;
+					top: 0; left: 0;
+					div{
+						box-sizing: border-box;
+						border: 1px solid #a3c0cc;
+						border-radius: 1px;
+						background-color: #fff;
+					}
+					img{
+						width: 1rem;
+					}
+				}
+				label{
+					margin-left: 1.6rem;
+				}
+				a{
+					text-decoration: underline;
+				}
+			}
+			.buttonBox{
+				margin-bottom: 1rem;
+			}
+		}
+	}
+	.coMsgBox{
+		top: 17.3rem; left: 50%;
+	}
+}

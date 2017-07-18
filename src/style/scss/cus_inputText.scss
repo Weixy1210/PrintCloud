@@ -1,0 +1,63 @@
+.coInputText{
+	position: relative;
+	input{
+		box-sizing: border-box;
+		width: 100%;
+		height: 2rem;
+		line-height: 2rem;
+		border: 1px solid #a3c0cc;
+		border-radius: 2px;
+		padding: 0;
+	}
+	input:focus{
+		box-shadow: 0 0 4px #8ea5e9;
+	}
+	input.warn{
+		border-color: #f5be4a !important;
+		box-shadow: 0 0 4px #f5be4a !important;
+	}
+	input.leftPadding{
+		padding-left: 2.8rem;
+	}
+	input.rightPadding{
+		padding-right: 2.8rem;
+	}
+	.imgLeft{
+		position: absolute;
+		left: 0; top: 0;
+		width: 2rem;
+		height: 2rem;
+		line-height: 2rem;
+		display: inline-block;
+		text-align: center;
+	}
+	.imgLeft::after{
+		content: '';
+		border-right: 1px solid #e4edf1;
+		float: right;
+		height: 1.4rem;
+		margin-top: 0.3rem;
+	}
+	.imgRight{
+		position: absolute;
+		right: 0; top: 0;
+		width: 2rem;
+		height: 2rem;
+		line-height: 2rem;
+		display: inline-block;
+		text-align: center;
+	}
+	.warnMsg{
+		opacity: 0;
+		position: absolute;
+		top: 0;
+		width: 20rem;
+		height: 2rem;
+		line-height: 2rem;
+		img{
+			width: 1.2rem;
+			margin: 0.4rem;
+			margin-left: 0.9rem;
+		}
+	}
+}

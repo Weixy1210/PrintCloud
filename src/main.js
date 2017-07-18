@@ -1,6 +1,9 @@
 import Vue from 'vue'
 // 引用路由文件
 import router from './config/routers.js'
+// 引用api文件
+import api from './config/api.js'
+Vue.prototype.$api = api
 // 引用vuex实例化生成的store
 import store from './config/store.js'
 // 引用主模板

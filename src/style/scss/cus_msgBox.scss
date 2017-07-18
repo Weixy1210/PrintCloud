@@ -1,0 +1,14 @@
+.coMsgBox{
+	display: none;
+	opacity: 0;
+	height: 3.8rem;
+	line-height: 3.8rem;
+	background-color: rgba(36, 46, 51, 0.75);
+	border-radius: 4px;
+	padding: 0 1.2rem;
+	position: absolute;
+	img{
+		width: 1.6rem;
+		margin: 1.1rem 1.2rem 1.1rem 0.2rem;
+	}
+}
