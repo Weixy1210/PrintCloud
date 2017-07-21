@@ -3,11 +3,18 @@
 @import "./base/color.scss";
 @import "./base/cus_base.scss";
 
-@import "./scss/cus_footer.scss";
-@import "./scss/cus_header.scss";
-@import "./scss/cus_msgBox.scss";
-@import "./scss/cus_inputText.scss";
-@import "./scss/cus_button.scss";
+@import "./scss/component/cus_footer.scss";
+@import "./scss/component/cus_header.scss";
+@import "./scss/component/cus_msgBox.scss";
+@import "./scss/component/cus_inputText.scss";
+// @import "./scss/component/cus_inputText1.scss";
+// @import "./scss/component/cus_inputText2.scss";
+// @import "./scss/component/cus_inputText3.scss";
+@import "./scss/component/cus_button.scss";
+@import "./scss/component/cus_checkbox.scss";
+@import "./scss/component/cus_regMainModule.scss";
 
-@import "./scss/cus_index.scss";
-@import "./scss/cus_log.scss";
+@import "./scss/page/cus_index.scss";
+@import "./scss/page/cus_log.scss";
+@import "./scss/page/cus_reg.scss";
+// @import "./scss/page/cus_regIndex.scss";

@@ -13,7 +13,7 @@
             </div>
             <hr/>
             <router-link to="/" class="inputFile">
-            	<img src="../../static/img/cus_index_uploud.png">
+            	<img src="/static/img/cus_index_uploud.png">
             	<div class="blueFont">上传文件</div>
             </router-link>
           </form>
@@ -25,7 +25,7 @@
         <div class="introTitle font18 fontBold">如何使用印云</div>
         <ul>
           <li>
-            <aside class="fl"><img src="../../static/img/cus_index_intro1.png"></aside>
+            <aside class="fl"><img src="/static/img/cus_index_intro1.png"></aside>
             <article>
               <div class="subTitle font24">
                 <span class="subStep blueFont">STEP1</span>
@@ -36,11 +36,11 @@
                 <br>
                 我们会把重要的信息发送到您绑定的手机号上。  
               </div>
-              <router-link to="/" class="font14 gruyAFont">现在注册</router-link>
+              <router-link to="/reg" class="font14 gruyAFont">现在注册</router-link>
             </article>
           </li>
           <li>
-            <aside class="fl"><img src="../../static/img/cus_index_intro2.png"></aside>
+            <aside class="fl"><img src="/static/img/cus_index_intro2.png"></aside>
             <article>
               <div class="subTitle font24">
                 <span class="subStep blueFont">STEP2</span>
@@ -55,7 +55,7 @@
             </article>
           </li>
           <li>
-            <aside class="fl"><img src="../../static/img/cus_index_intro3.png"></aside>
+            <aside class="fl"><img src="/static/img/cus_index_intro3.png"></aside>
             <article>
               <div class="subTitle font24">
                 <span class="subStep blueFont">STEP3</span>
@@ -76,23 +76,36 @@
         <form class="connectForm">
           <div class="conFormTitle font18 fontBold whiteFont">联系我们</div>
           <div class="conFormBody">
-            <div><input type="text" name="conName" placeholder="您的称呼" class="whiteFont" @focus='focusBgColor' @blur='blurBgColor'><input type="text" name="conAddress" placeholder="联系方式（手机/邮箱/QQ）" class="whiteFont" @focus='focusBgColor' @blur='blurBgColor'></div>
-            <div><textarea name="conText" placeholder="说点什么"  rows="4" class="whiteFont" @focus='focusBgColor' @blur='blurBgColor'></textarea></div>
-            <div><input type="submit" value="发送" class="bgColor font18" @click.prevent="submit"></div>
+            <div>
+              <input type="text" name="conName"
+                placeholder="您的称呼" class="whiteFont"
+                @blur='blurBgColor'>
+              <input type="text" name="conAddress"
+                placeholder="联系方式（手机/邮箱/QQ）" class="whiteFont fr"
+                @blur='blurBgColor'>
+            </div>
+            <div>
+              <textarea name="conText"
+                placeholder="说点什么" rows="4"
+                class="whiteFont"
+                @blur='blurBgColor'>
+              </textarea>
+            </div>
+            <div><input type="submit" value="发送" class="bgColor font18" @click.prevent="submitSuggest"></div>
           </div>
         </form>
-        <cus-msgBox v-if="this.$store.state.cusIndex.sendMsgState == '1'" imgSrc="../../static/img/cus_msgBox_notice_achieve.png" msg="已发送"></cus-msgBox>
-        <cus-msgBox v-else-if="this.$store.state.cusIndex.sendMsgState == '2'" imgSrc="../../static/img/cus_msgBox_notice_notice.png" msg="内容为空"></cus-msgBox>
-        <cus-msgBox v-else-if="this.$store.state.cusIndex.sendMsgState == '3'" imgSrc="../../static/img/cus_msgBox_notice_notice.png" msg="请填写正确的联系方式"></cus-msgBox>
-        <cus-msgBox v-else-if="this.$store.state.cusIndex.sendMsgState == '4'" imgSrc="../../static/img/cus_msgBox_notice_blaskface.png" msg="发送失败，请检查网络"></cus-msgBox>
-        <img src="../../static/img/cus_index_sideImg.jpg" class="rBgImg">  
+        <!-- 消息提示框 -->
+        <cus-msgBox :imgSrc="this.$store.state.cusIndex.msgImgSrc" :msg="this.$store.state.cusIndex.msgText">
+        </cus-msgBox>
+        <!-- 右侧背景图片 -->
+        <img src="/static/img/cus_index_sideImg.jpg" class="rBgImg">  
       </div>
       <div class="registerNow">
         <div class="container">
-          <img src="../../static/img/cus_index_footPIC.png">
+          <img src="/static/img/cus_index_footPIC.png">
           <div class="registerNowContent">
             <div class="whiteFont font16">现在开始，使用我们的服务，节约宝贵的时间</div>
-            <router-link to="/" class="whiteFont font18">立即注册</router-link>
+            <router-link to="/reg" class="whiteFont font18">立即注册</router-link>
           </div>
         </div>
       </div>
@@ -102,35 +115,35 @@
 
 <script>
   import $ from 'jquery'
-  import cusMsgBox from '../components/cus_msgBox.vue'
+  import cusMsgBox from '../../components/msgBox.vue'
   export default{
     name: 'cusIndex',
     components: {
       'cus-msgBox': cusMsgBox
     },
     methods: {
-      // 更改输入框背景
-      focusBgColor: function (event) {
-        event.target.style.backgroundColor = '#105bb1'
-      },
+      // 输入文字后永久更改输入框背景
       blurBgColor: function (event) {
         if (event.target.value === '') {
           event.target.style.backgroundColor = '#186ccc'
+        } else {
+          event.target.style.backgroundColor = '#105bb1'
         }
       },
       // 提交建议
-      submit: function () {
-        this.$store.dispatch('cusIndexSubmitSuggest', {
+      submitSuggest: function () {
+        this.$store.dispatch('cusIndexSendSuggest', {
           textarea: $('.content .connectForm textarea').val(),
           address: $('.content .connectForm input[name=conAddress]').val(),
-          $: $('.content .coMsgBox')
+          $msgbox: $('.content .coMsgBox')
         })
       }
     },
+    // 实例已经创建完成
+    created: function () { this.$store.dispatch('cusHeaderShowStyle', {b: true}) },
     // 组件写入dom结构后
-    mounted: function () {
-      // 提交建议的结果提示框居中
-      this.$api.MsgBoxLocationX($('.content .coMsgBox'), $('.view').css('font-size'))
-    }
+    mounted: function () { this.$api.MsgBoxLocationX($('.content .coMsgBox'), $('.view').css('font-size')) },
+    // 组件销毁后
+    destroyed: function () { this.$store.dispatch('cusHeaderShowStyle', {b: false}) }
   }
 </script>

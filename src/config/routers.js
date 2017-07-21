@@ -4,10 +4,14 @@ import Router from 'vue-router'
 // 第一层
 import pageError from '../pages/pageError.vue'
 import pageError2 from '../pages/pageError2.vue'
-import pageCustomerMain from '../pages/cus_pageMain.vue'
+import pageCustomerMain from '../pages/cus/cus_pageMain.vue'
 // 第二层
-import pageCustomerIndex from '../pages/cus_pageIndex.vue'
-import pageCustomerLog from '../pages/cus_pageLog.vue'
+import pageCustomerIndex from '../pages/cus/cus_pageIndex.vue'
+import pageCustomerLog from '../pages/cus/cus_pageLog.vue'
+import pageCustomerReg from '../pages/cus/cus_pageReg.vue'
+// 第三层
+import pageCustomerRegIndex from '../pages/cus/cus_pageRegIndex.vue'
+import pageCustomerRegFind from '../pages/cus/cus_pageRegFind.vue'
 // 配置路由
 Vue.use(Router)
 const router = new Router({
@@ -24,6 +28,20 @@ const router = new Router({
         {
           path: 'log',
           component: pageCustomerLog
+        },
+        {
+          path: 'reg',
+          component: pageCustomerReg,
+          children: [
+            {
+              path: '/',
+              component: pageCustomerRegIndex
+            },
+            {
+              path: 'find',
+              component: pageCustomerRegFind
+            }
+          ]
         }
       ]
     },

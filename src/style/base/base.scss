@@ -34,6 +34,9 @@ select::-ms-expand { display: none; }  // 清除ie的默认选择框样式清除
 html{
 	position: relative;
 	line-height: 1;
+	// height: 100%;
+	// body{ height: 100%; }
+	// .view{ height: 100%; }
 	select{
 		border: 1px #abb7bd solid;
 		border-radius: 2px;

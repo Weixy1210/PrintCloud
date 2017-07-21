@@ -22,11 +22,15 @@ header#cusHeader{
 					line-height: 1;
 				}
 			}
-			a.register{
+			a.registerDark{
 				background-color: #859ca6;
+				color: #fff;
 			}
-			a.register:hover{
+			a.registerDark:hover{
 				background-color: #4082c4;
+			}
+			a.registerLight:hover{
+				background-color: #e9eff2;
 			}
 			a.logIn:hover{
 				background-color: #e9eff2;

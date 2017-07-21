@@ -1,0 +1,96 @@
+.coInputText{
+	position: relative;
+	display: inline-block;
+	.labelLeft{
+		color: #242e33;
+		margin-right: 0.4rem;
+	}
+	input{
+		box-sizing: border-box;
+		height: 2rem;
+		line-height: 2rem;
+		border: 1px solid #a3c0cc;
+		border-radius: 2px;
+		padding: 0 1rem;
+		color: #242e33;
+	}
+	// 提示字颜色
+	input::-webkit-input-placeholder{ color: #667880; }
+	// 选中效果
+	input:focus{ box-shadow: 0 0 4px #8ea5e9; }
+	// 警告效果
+	input.warn{  
+		border-color: #f5be4a;
+		box-shadow: 0 0 4px #f5be4a;
+	}
+	// 禁止使用状态
+	input.forbid{  
+		background-color: #edeff0;
+		border-color: #bdbfbf;
+	}
+	input.forbid::-webkit-input-placeholder{ color: #979999; }
+	// 左侧有图标时
+	input.leftPadding{ padding-left: 2.8rem; }
+    // 左侧图标样式
+	.imgLeft{
+		position: absolute;
+		left: 0; top: 0;
+		width: 2rem;
+		height: 2rem;
+		line-height: 2rem;
+		display: inline-block;
+		text-align: center;
+		img{ width: 0.9rem; }
+	}
+	.imgLeft::after{
+		content: '';
+		border-right: 1px solid #e4edf1;
+		float: right;
+		height: 1.4rem;
+		margin-top: 0.3rem;
+	}
+	// 右侧有图标时
+	input.rightPadding{ padding-right: 2rem; }
+	// 右侧图标样式
+	.imgRight{
+		position: absolute;
+		right: 0; top: 0;
+		width: 2rem;
+		height: 2rem;
+		line-height: 2rem;
+		display: inline-block;
+		text-align: center;
+		img{ width: 0.9rem; }
+	}
+	.buttonRight{
+		width: 5.8rem;
+		height: 1.8rem;
+		margin-left: 0.7rem;
+		border: none;
+		background-color: #667880;
+		cursor: pointer;
+	}
+	.buttonRight:hover{ background-color: #009cff; }
+	.buttonRight:focus{ background-color: #0087dd; }
+	.buttonRight.forbid{  // 禁用状态
+		border: 1px solid #bdbfbf;
+		background-color: #f5f7f7;
+		color: #979999;
+		cursor: default;
+	}
+	.buttonRight.forbid:hover{ background-color: #f5f7f7; }
+	.buttonRight.forbid:focus{ background-color: #f5f7f7; }
+	.warnMsg{
+		opacity: 0;
+		position: absolute;
+		top: 0;
+		width: 20rem;
+		height: 2rem;
+		line-height: 2rem;
+		img{
+			width: 1.2rem;
+			margin: 0.35rem 0.3rem 0 0;
+		}
+	}
+	.warnMsgShow{ opacity: 1; }
+}

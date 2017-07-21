@@ -1,15 +1,17 @@
 <template>
-  <input type="button" class="coFormButton" :class="buttonType" :value="buttonValue" @click="clickAction">
+  <input type="button" :value="buttonValue"
+    class="coFormButton font14" :class="extraClass"
+    @click="clickAction">
 </template>
 
 <script>
   export default{
     name: 'coFormButton',
     props: {
-      buttonType: {
+      buttonValue: '',
+      extraClass: {
         default: 'lightStyle'
-      },
-      buttonValue: ''
+      }
     },
     methods: {
       clickAction: function () {

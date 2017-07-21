@@ -7,3 +7,56 @@ header, .content, footer{
 	margin: 0 auto;
 	padding: 0 1.2rem;
 }
+.cover{
+	z-index: 9999;
+	position: fixed;
+	top: 0; left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	.coverMain{
+		position: absolute;
+		left: 50%; top: 50%;
+		margin-left: -13.8rem;
+		margin-top: -12.2rem;
+		width: 27.6rem;
+		background-color: #fff;
+		.title{
+			height: 3.6rem;
+			line-height: 3.6rem;
+			text-align: center;
+		}
+		.body{
+			background-color: #f7fbfc;
+			overflow: auto;
+			height: 13.8rem;
+			line-height: 1.7;
+			border-bottom: 1px solid #e3e3e3;
+			padding: 1.7rem;
+			// padding-bottom: 0;
+			// border-bottom: 1.7rem solid #f7fbfc;
+		}
+		// 设置滚动条（仅支持webkit内核）
+		.body::-webkit-scrollbar{
+			width: 0.6rem;
+		}
+		.body::-webkit-scrollbar{
+			background-color: #edf3f5;
+		}
+		.body::-webkit-scrollbar-thumb{
+			background-color: #99b4bf;
+			border: 3px solid #edf3f5;
+		}
+		.close{
+			height: 3.6rem;
+			line-height: 3.6rem;
+			text-align: center;
+			input{
+				width: 4.8rem;
+				height: 1.8rem;
+				line-height: 1.8rem;
+				border-radius: 1px;
+			}
+		}
+	}
+}

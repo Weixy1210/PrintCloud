@@ -2,8 +2,8 @@
 	.banner{
 		background-image: url(/static/img/cus_index_banner.jpg);
 		background-size: cover;
-		height: 32.5rem;
 		padding-top: 3.6rem;
+		height: 32.5rem;
 		.container{
 			article{
 				margin-top: 10.5rem;
@@ -119,9 +119,11 @@
 						input[type=text]::-webkit-input-placeholder, textarea::-webkit-input-placeholder{
 							color: #9fc9f8;
 						}
+						input[type=text]:focus, textarea:focus{
+							background-color: #105bb1;
+						}
 						input[type=text]:nth-child(1){
 							width: 14.5rem;
-							margin-right: 1.2rem;
 						}
 						input[type=text]:nth-child(2){
 							width: 19.5rem;

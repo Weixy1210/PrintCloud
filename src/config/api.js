@@ -65,7 +65,8 @@ function apiAxios (method, url, params, success, failure) {
     }
   })
 }
-// 消息提示框横向位置调整
+
+// 消息提示框横向位置调整（居中）
 function MsgBoxLocationX ($, font) {
   let boxWidth = $.width()
   let fontSize = parseInt(font.match(/[0-9]+/g))
@@ -83,6 +84,48 @@ function MsgBoxShow ($) {
     }, 1000)
   })
 }
+
+// input填写错误提醒
+function InputWrong (str, msg, context) {
+  context.commit('cus' + str + 'Judge', {
+    b: false,
+    src: '/static/img/cus_msgBox_notice_notice.png',
+    str: msg
+  })
+  context.commit('cus' + str + 'WarnClassChange', 'warnMsgShow')
+  context.commit('cus' + str + 'ClassChange', 'warn')
+}
+// input填写正确
+function InputRight (str, state, context) {
+  if (state === 'hide') {
+    context.commit('cus' + str + 'Judge', {b: true, src: '', str: ''})
+    context.commit('cus' + str + 'WarnClassChange', '')
+  }
+  if (state === 'show') {
+    context.commit('cus' + str + 'Judge', {
+      b: true,
+      src: '/static/img/cus_msgBox_notice_right.png',
+      str: ''
+    })
+    context.commit('cus' + str + 'WarnClassChange', 'warnMsgShow')
+  }
+  context.commit('cus' + str + 'ClassChange', '')
+}
+// 验证码初始化
+function CusRegVerificationInit (str, state, context) {
+  if (state === 'use') {
+    context.commit('cus' + str + 'VerificationInputStateChange', true)
+    context.commit('cus' + str + 'VerificationButtonChange', {b: true})
+  }
+  if (state === 'forbid') {
+    context.commit('cus' + str + 'VerificationInputStateChange', false)
+    context.commit('cus' + str + 'VerificationButtonChange', {b: false})
+  }
+  context.commit('cus' + str + 'VerificationSet', '')
+  context.commit('cusRegVerificationWarnClassChange', '')
+  context.commit('cus' + str + 'VerificationClassChange', '')
+}
+
 // 返回在vue模板中的调用接口
 export default {
   get: function (url, params, success, failure) {
@@ -102,5 +145,14 @@ export default {
   },
   MsgBoxLocationX: function ($, font) {
     return MsgBoxLocationX($, font)
+  },
+  InputWrong: function (str, msg, context) {
+    return InputWrong(str, msg, context)
+  },
+  InputRight: function (str, state, context) {
+    return InputRight(str, state, context)
+  },
+  CusRegVerificationInit: function (str, state, context) {
+    return CusRegVerificationInit(str, state, context)
   }
 }

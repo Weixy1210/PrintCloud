@@ -1,0 +1,90 @@
+#cusReg{
+	.banner{
+		position: relative;
+		background-color: #4e73dd;
+		height: 16.5rem;
+		overflow: hidden;
+		img.fl{ width: 23rem; }
+		img.fr{ 
+			width: 16.15rem;
+			margin-top: 2.15rem;
+		}
+		.introWords{
+			width: 54rem;
+			position: absolute;
+			top: 8.8rem;
+			text-align: center;
+			span{ display: block; }
+			span:nth-child(1){ margin-bottom: 0.9rem; }
+		}
+	}
+	.main{
+		background-color: #f7fbfc;
+		overflow: hidden;
+		.container{
+			position: relative;
+			aside{
+				width: 12.3rem;
+				height: 36.1rem;
+				ul{
+					padding: 5.2rem 2.4rem 0 0.1rem;
+					li a{
+						display: block;
+						height: 2.4rem;
+						line-height: 2.4rem;
+						text-align: center;
+						margin-bottom: 0.8rem;
+						color: #667880;
+					}
+					li a:hover{
+						background-color: #f1f8fa;
+					}
+					li a.active{
+						background-color: #e9f1f3 !important;
+						color: #242e33 !important;
+					}
+					li a.active:hover{
+						background-color: #e9f1f3 !important;
+					}
+				}
+			}
+			article form{
+				>div{ margin-bottom: 1.2rem; }
+				.coInputText{
+					label{ 
+						display: inline-block;
+						width: 4rem; 
+						text-align: right;
+					}
+					input{ width: 12.6rem; }
+					input[name=verification]{ width: 5.8rem; }
+					.imgRight{
+						button{
+							border: none;
+							background: none;
+							padding: 0;
+							cursor: pointer;
+						}
+						button:focus{ outline: none; }
+					}
+				}
+				.coCheckbox{
+					margin-left: 4.6rem;
+					a{
+						text-decoration: underline;
+						cursor: pointer;
+						color: #4e73dd;
+					}
+				}
+				.buttonBox{
+					margin-left: 4.6rem;
+					width: 11rem;
+					margin-top: 2.4rem;
+				}
+				.coMsgBox{
+					top: 10rem; left: 7.5rem;
+				}
+			}
+		}
+	}
+}

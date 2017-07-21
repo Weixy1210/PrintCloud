@@ -17,17 +17,19 @@
 }
 .darkStyle{
 	color: #fff;
-	border: 1px solid #2987f9;
+	border: none;
 	background-color: #2987f9;
 	cursor: pointer;
 }
 .darkStyle:hover{
-	border-color: #216ecc;
+	background-color: #2479e0;
+}
+.darkStyle:active{
 	background-color: #216ecc;
 }
 .darkStyleForbid{
 	color: #fff;
-	border: 1px solid #999;
+	border: none;
 	background-color: #999;
 	cursor: default;
 }
