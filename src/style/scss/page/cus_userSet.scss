@@ -1,0 +1,38 @@
+#cusUserSet{
+	.coCusRightMainModule{ height: 40.7rem; }
+	.body{
+		padding: 0 2.1rem;
+		.partOne label, .partTwo label{
+			display: inline-block;
+			width: 5rem;
+			text-align: right;
+		}
+		.partOne input, .partTwo input{ width: 12.7rem; }
+		.partOne{
+			>div{
+				margin: 1.2rem 0;
+				position: relative;
+				width: 25.5rem;
+				input[name=verification]{ width: 5.9rem; }
+				.changeBtn{
+					position: absolute;
+					top: 0; right: 0;
+					width: 5.7rem;
+					height: 2rem;
+				}
+				.showOnly input{ background-color: #fff; }
+			}
+		}
+		.partTwo{
+			margin-top: 3rem;
+			.imgRight button{
+				border: none;
+				background: none;
+			}
+		}
+		.partThree{
+			margin: 2.4rem 0 0 5.7rem;
+			input[type=button]{ width: 11rem; }
+		}
+	}
+}

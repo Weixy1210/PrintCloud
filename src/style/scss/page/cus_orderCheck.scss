@@ -1,0 +1,84 @@
+#cusOrderCheck{
+	padding-top: 3.6rem;
+	>section:nth-child(1){
+		margin: 1.5rem 0;
+		a{
+			border: 1px solid #e9f1f5;
+			display: inline-block;
+			@include lineHeight(2.3rem);
+			padding-left: 1.4rem;
+			padding-right: 2.6rem;
+			img{ margin-right: 0.9rem; }
+		}	
+	}
+	.main{
+		padding-bottom: 4.3rem;
+		.banner{
+			height: 7.4rem;
+			width: 51.6rem;
+			background-image: url(/static/img/cus_orderCheck_banner.jpg);
+			position: relative;
+			div{ padding: 1.9rem 2.9rem; }
+			button{
+				position: absolute;
+				top: 1.8rem; right: 5.4rem;
+				width: 6.6rem;
+				@include lineHeight(2rem);
+				border: none;
+				background-color: #53b15b;
+			}
+		}
+		article{
+			padding: 0 3.1rem;
+			position: relative;
+			border: 1px solid #d9e3e5;
+			border-top: none;
+			.table{
+				position: absolute;
+				top: -2.4rem;
+				width: 45.4rem;
+				.tableTitle, .tableLine, .priceCheck, .finalPrice{
+					width: 100%;
+					display: flex;
+					flex-wrap: nowrap;
+					.column1{ flex: 1; }
+					.column2{ flex: 2; }
+					.column3{ flex: 3; }
+					.column4{ flex: 4; }
+					.column6{ flex: 6; }
+					.col1{ margin-right: 0.5rem; }
+					.col2{ margin-right: 1.7rem; }
+				}
+				.tableTitle{ line-height: 2.4rem; }
+				.tableLine{
+					line-height: 3.2rem;
+					border-bottom: 1px solid #d9e3e5;
+				}
+				.priceCheck{
+					line-height: 2rem;
+					padding: 0.6rem 0;
+				}
+				.finalPrice{
+					line-height: 6rem;
+					padding-bottom: 2.7rem; 
+					.price{ color: #1b72db; }
+				} 		
+			}
+			.pay{
+				position: absolute;
+				bottom: 0;
+				width: 45.4rem;
+				height: 7.4rem;
+				// padding-bottom: 4.7rem;
+				label{ @include lineHeight(2.7rem); }
+				button{
+					border: 1px solid #d9e3e5;
+					height: 2.7rem;
+					width: 10.3rem;
+					padding: 0;
+					margin-left: 1.2rem;
+				}
+			}
+		}
+	}
+}

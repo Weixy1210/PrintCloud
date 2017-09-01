@@ -6,6 +6,11 @@ import cusIndex from './modules/cusIndex.js'
 import cusLog from './modules/cusLog.js'
 import cusReg from './modules/cusReg.js'
 import cusRegFind from './modules/cusRegFind.js'
+import cusOrder from './modules/cusOrder.js'
+import userSet from './modules/cusUserSet.js'
+import userMessage from './modules/cusUserMessage.js'
+import userOrder from './modules/cusUserOrder.js'
+import userOrderDetail from './modules/cusUserOrderDetail.js'
 // 配置Vuex
 Vue.use(Vuex)
 const store = new Vuex.Store({
@@ -14,10 +19,16 @@ const store = new Vuex.Store({
     cusIndex: cusIndex,
     cusLog: cusLog,
     cusReg: cusReg,
-    cusRegFind: cusRegFind
+    cusRegFind: cusRegFind,
+    cusOrder: cusOrder,
+    userSet: userSet,
+    userMessage: userMessage,
+    userOrder: userOrder,
+    userOrderDetail: userOrderDetail
   },
   state: {
-    cusCover: false
+    cusCover: false,
+    cusCoverLog: false
   },
   mutations: {
     cusCoverToggle (state) {
@@ -26,10 +37,14 @@ const store = new Vuex.Store({
       } else {
         state.cusCover = true
       }
-    }
+    },
+    cusCoverLogClose (state) { state.cusCoverLog = false },
+    cusCoverLogOpen (state) { state.cusCoverLog = true }
   },
   actions: {
-    cusCoverToggle (context) { context.commit('cusCoverToggle') }
+    cusCoverToggle (context) { context.commit('cusCoverToggle') },
+    cusCoverLogClose (context) { context.commit('cusCoverLogClose') },
+    cusCoverLogOpen (context) { context.commit('cusCoverLogOpen') }
   }
 })
 export default store

@@ -1,2 +1,13 @@
-// 通用背景色
-.bgColor{ background-color: #f1f8fa; }
+// 背景色
+.bgLightColor1{ background-color: #f1f8fa; }    // 首页、header
+.bgLightColor2{ background-color: #f1f7f9; }    // 登录、订单支付
+.bgLightColor3{ background-color: #f7fbfc; }    // 左侧栏、用户协议内容
+.bgBlueColor1{ background-color: #268bff; }      // 首页第三部分
+.bgBlueColor2{ background-color: #4e73dd; }      // 注册、订单banner
+.bgWhiteColor{ background-color: #fff; }        // 右侧栏等
+
+// 按钮色
+.btnHover1:hover{ background-color: #e9eff2 !important; }  // header登录与注册
+.btnHover2:hover{ background-color: #e8eff1 !important; }  // header用户按钮、首页建议发送、登录覆盖窗口关闭
+.btnBlue1{ background-color: #4082c4; }         // 首页底部注册按钮
+.btnBlue1:hover{ background-color: #2e79c4; }

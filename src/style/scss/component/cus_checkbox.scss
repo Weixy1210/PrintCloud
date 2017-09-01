@@ -4,7 +4,6 @@
 	.checkbox{
 		width: 1rem;
 		height: 1rem;
-		cursor: pointer;
 		position: absolute;
 		top: 0; left: 0;
 		div{
@@ -17,7 +16,6 @@
 	}
 	.labelBox{
 		margin-left: 1.6rem;
-		height: 1rem;
-		line-height: 1rem;
+		@include lineHeight(1rem);
 	}
 }

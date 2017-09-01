@@ -1,6 +1,6 @@
 const cusHeader = {
   state: {
-    adminState: false,
+    adminState: true,
     indexLocation: true,
     cusName: '印云用户',
     cusPortrait: '/static/img/cus_header_demo.png',

@@ -1,35 +1,28 @@
 .coFormButton{
 	width: 100%;
-	height: 2.2rem;
-	line-height: 2.2rem;
-	text-align: center;
+	@include lineHeight(2.2rem);
 }
-.lightStyle{
+// 浅色系
+.lightStyle, .lightStyleForbid{
 	border: 1px solid #c7d4da;
 	background-color: #fff;
-	cursor: pointer;
 }
+.lightStyle:hover{ background-color: #e9eff2; }
+// 浅色禁用
 .lightStyleForbid{
-	border: 1px solid #c7d4da;
-	background-color: #fff;
 	color: #979999;
-	cursor: default;
+	cursor: default !important;
 }
-.darkStyle{
+// 深色系
+.darkStyle, .darkStyleForbid{
 	color: #fff;
 	border: none;
-	background-color: #2987f9;
-	cursor: pointer;
 }
-.darkStyle:hover{
-	background-color: #2479e0;
-}
-.darkStyle:active{
-	background-color: #216ecc;
-}
+.darkStyle{ background-color: #2987f9; }
+.darkStyle:hover{ background-color: #2479e0; }
+.darkStyle:active{ background-color: #216ecc; }
+// 深色禁用
 .darkStyleForbid{
-	color: #fff;
-	border: none;
 	background-color: #999;
-	cursor: default;
+	cursor: default !important;
 }

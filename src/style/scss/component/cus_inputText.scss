@@ -1,18 +1,10 @@
 .coInputText{
 	position: relative;
 	display: inline-block;
-	.labelLeft{
-		color: #242e33;
-		margin-right: 0.4rem;
-	}
+	.labelLeft{ margin-right: 0.4rem; }
 	input{
-		box-sizing: border-box;
-		height: 2rem;
-		line-height: 2rem;
-		border: 1px solid #a3c0cc;
-		border-radius: 2px;
+		@include lineHeight(2rem);
 		padding: 0 1rem;
-		color: #242e33;
 	}
 	// 提示字颜色
 	input::-webkit-input-placeholder{ color: #667880; }
@@ -31,17 +23,19 @@
 	input.forbid::-webkit-input-placeholder{ color: #979999; }
 	// 左侧有图标时
 	input.leftPadding{ padding-left: 2.8rem; }
-    // 左侧图标样式
-	.imgLeft{
+	// 右侧有图标时
+	input.rightPadding{ padding-right: 2rem; }
+    // 左、右侧图标样式
+	.imgLeft, .imgRight{
 		position: absolute;
-		left: 0; top: 0;
+		top: 0;
 		width: 2rem;
-		height: 2rem;
-		line-height: 2rem;
+		@include lineHeight(2rem);
 		display: inline-block;
 		text-align: center;
 		img{ width: 0.9rem; }
 	}
+	.imgLeft{ left: 0; }
 	.imgLeft::after{
 		content: '';
 		border-right: 1px solid #e4edf1;
@@ -49,26 +43,13 @@
 		height: 1.4rem;
 		margin-top: 0.3rem;
 	}
-	// 右侧有图标时
-	input.rightPadding{ padding-right: 2rem; }
-	// 右侧图标样式
-	.imgRight{
-		position: absolute;
-		right: 0; top: 0;
-		width: 2rem;
-		height: 2rem;
-		line-height: 2rem;
-		display: inline-block;
-		text-align: center;
-		img{ width: 0.9rem; }
-	}
+	.imgRight{ right: 0; }
 	.buttonRight{
 		width: 5.8rem;
-		height: 1.8rem;
+		height: 2rem;
 		margin-left: 0.7rem;
 		border: none;
 		background-color: #667880;
-		cursor: pointer;
 	}
 	.buttonRight:hover{ background-color: #009cff; }
 	.buttonRight:focus{ background-color: #0087dd; }
@@ -76,7 +57,7 @@
 		border: 1px solid #bdbfbf;
 		background-color: #f5f7f7;
 		color: #979999;
-		cursor: default;
+		cursor: default !important;
 	}
 	.buttonRight.forbid:hover{ background-color: #f5f7f7; }
 	.buttonRight.forbid:focus{ background-color: #f5f7f7; }
@@ -85,8 +66,7 @@
 		position: absolute;
 		top: 0;
 		width: 20rem;
-		height: 2rem;
-		line-height: 2rem;
+		@include lineHeight(2rem);
 		img{
 			width: 1.2rem;
 			margin: 0.35rem 0.3rem 0 0;

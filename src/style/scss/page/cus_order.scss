@@ -1,0 +1,146 @@
+#cusOrder{
+	.banner{
+		padding-top: 3.6rem;
+		position: relative;
+		height: 7.9rem;
+		img{
+			height: 7.9rem;
+			margin: 0 3.2rem;
+		}
+		.introWords{
+			width: 51.6rem;
+			position: absolute;
+			top: 3.3rem;
+		}
+	}
+	.main{
+		.container{
+			aside{
+				min-height: 34rem;
+				width: 12.3rem;
+				ul{
+					padding: 2.5rem 0.7rem;
+					li{
+						width: 8.5rem;
+						border: 1px solid #cfdfe6;
+					}
+					li.step{
+						position: relative;
+						@include lineHeight(2.3rem);
+						margin-bottom: 1.2rem;
+						img{
+							position: absolute;
+							top: 0; right: 0;
+							width: 1.2rem;
+							margin: 0.5rem;
+						}
+						div{
+							padding: 0 2.2rem 0 0.6rem;
+							text-overflow: ellipsis;
+							white-space: nowrap;
+							overflow: hidden;
+						}
+					}
+					li.step:nth-child(2){
+						height: 2.5rem;
+						div.progress{
+							padding: 0;
+							width: 8.5rem;
+							height: 0.2rem;
+							position: absolute;
+							bottom: 0;
+							background-color: #e9f1f3;
+							div.progressDone{
+								height: 0.2rem;
+								padding: 0;
+								background-color: #268bff;
+							}
+						}
+					}
+					li.Charge{
+						height: 8.5rem;
+						img{
+							width: 3.2rem;
+							margin-top: 1.5rem;
+							margin-bottom: 1.1rem;
+						}
+					}
+				}
+			}
+			article{
+				.coCusRightMainModule{ min-height: 34rem; }
+				.body{
+					form{
+						label{
+							display: inline-block;
+							width: 5rem;
+							text-align: right;
+						} 
+						.choosePart, .uploadPart, .accountPart{ padding: 2rem 2.4rem; }
+						.choosePart >div~div{ margin-top: 1.2rem; }
+						.choosePart select{
+							@include lineHeight(2rem);
+							width: 10.7rem;
+							padding: 0 0.9rem;
+							margin-left: 0.4rem;
+							// 添加自定义下拉箭头
+							background-image: url(../static/img/form_select_icon2.png);
+							background-size: 0.4rem 0.9rem;
+						}
+						.uploadPart{
+							padding-left: 7.6rem; 
+							border-top: 1px solid #f0f4f5;
+							button{
+								height: 2.3rem;
+								width: 8.9rem;
+								border: 1px solid #e9f1f5;
+								background-color: #f7fbfc;
+								color: #667880;
+								position: relative;
+								cursor: pointer;
+								input{
+									width: 8.9rem;
+									height: 2.3rem;
+									opacity: 0;
+									cursor: pointer;
+									position: absolute;
+									top: 0; left: 0;
+								}
+								img{
+									width: 1.2rem;
+									position: absolute;
+									top: 0.7rem; left: 1.4rem;
+								}
+								span{
+									margin-left: 0.6rem;
+								}
+							}
+							button:hover{ background-color: #f1f7f9; }
+							button:focus{ background-color: #e9f1f5; }
+						}
+						.accountPart{
+							>div:nth-child(1){
+								position: relative;
+								@include lineHeight(1.4rem);
+								label{
+									position: absolute;
+									top: 0; left: 0;
+								}
+								img{
+									position: absolute;
+									left: 5.4rem; top: 0;
+									width: 1.4rem;
+								}
+								span{ margin-left: 7.2rem; }
+							}
+							input{
+								width: 9rem;
+								margin: 2.2rem 5.2rem 9.7rem;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

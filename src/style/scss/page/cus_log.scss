@@ -6,41 +6,9 @@
 		margin: 4.9rem auto 0;
 		width: 12.8rem;
 		.titleLogo{
-			text-align: center;
 			margin-bottom: 3.4rem;
-			img{
-				width: 9.1rem;
-			}
-		}
-		form{
-			.coInputText{
-				margin-bottom: 1rem;
-				input{ width: 12.8rem; }
-				.imgRight{
-					button{
-						border: none;
-						background: none;
-						padding: 0;
-						cursor: pointer;
-					}
-					button:focus{ outline: none; }
-				}
-			}
-			.inputCheckboxBox{
-				margin-bottom: 1.4rem;
-				margin-top: -0.2rem;
-				height: 1rem;
-				line-height: 1rem;
-				a{
-					text-decoration: underline;
-				}
-			}
-			.buttonBox{
-				margin-bottom: 1rem;
-			}
+			img{ width: 9.1rem; }
 		}
 	}
-	.coMsgBox{
-		top: 17.3rem; left: 50%;
-	}
+	.coMsgBox{ top: 17.3rem; left: 50%; }
 }

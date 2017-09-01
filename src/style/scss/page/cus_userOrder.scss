@@ -1,0 +1,80 @@
+#cusUserOrder{
+	.body{
+		padding: 0 2.2rem;
+		.main{
+			padding-top: 4.4rem;
+			.orderPart{
+				position: relative;
+				margin: 1.1rem 0;
+				width: 38.2rem;
+				border: 1px solid #e9f1f3;
+				article{
+					width: 29.5rem;
+					min-height: 11.4rem;
+					padding: 1.1rem 1.5rem 1.7rem 1rem;
+					border-right: 1px solid #e9f1f3;
+					.headInfo{
+						position: relative;
+						.orderTime{
+							position: absolute;
+							top: 0; right: 0;
+						}
+					}
+					.shopName{ margin: 1.1rem 0; }
+					ul{
+						position: relative;
+						li{
+							margin-bottom: 0.5rem;
+							@include lineHeight(1rem);
+							img{
+								width: 0.95rem;
+								margin-right: 0.4rem;
+							}
+						}
+						button{
+							border: none;
+							background: none;
+							height: 1rem;
+							padding: 0 0.4rem;
+							img{ width: 0.9rem; }
+						}
+						.Allopen{
+							@include lineHeight(1rem);
+							position: absolute;
+							bottom: -1.5rem; left: 0;
+							padding-left: 0.1rem;
+						}
+						.Allclose{
+							position: absolute;
+
+						}
+					}
+				}
+				aside{
+					position: absolute;
+					top: 0; right: 0;
+					.circle{
+						margin: 0.8rem 1.7rem;
+						width: 5.2rem;
+						height: 4.2rem;
+						border-radius: 50%;
+						line-height: 1.5rem;
+						padding-top: 1rem;
+					}
+					.unpaid{ background-color: #d2ba7b; }
+					.paid{ background-color: #40c5fc; }
+					.canceled{
+						background-color: #edeff0;
+						@include lineHeight(5.2rem);
+						padding-top: 0;
+					}
+					button, a{
+						border: none;
+						background: none;
+						margin: 0.4rem 0;
+					}
+				}
+			}
+		}
+	}
+}

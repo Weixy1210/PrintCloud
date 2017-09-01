@@ -73,7 +73,7 @@
 
 <script>
   import $ from 'jquery'
-  import module from '../../components/cus/cus_regMainModule.vue'
+  import module from '../../components/cus/cus_rightMainModule.vue'
   import cusInputText from '../../components/cus/cus_inputText.vue'
   import cusCheckbox from '../../components/cus/cus_checkbox.vue'
   import cusButton from '../../components/cus/cus_button.vue'

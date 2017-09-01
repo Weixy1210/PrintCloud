@@ -9,31 +9,38 @@
 .font18{ font-size: 0.9rem; }
 // 20px
 .font20{ font-size: 1rem; }
+// 22px
+.font22{ font-size: 1.1rem; }
 // 24px
 .font24{ font-size: 1.2rem; }
 // 28px
 .font28{ font-size: 1.4rem; }
-// 字体加粗
-.fontBold{ font-weight: bold; }
+// 38px
+.font38{ font-size: 1.9rem; }
+
 // 默认字体设置
 html{
 	font-family: "Microsoft Yahei", 微软雅黑, "PingFang SC", 苹方, 思源黑体, sans-serif;
+	input, textarea{ font-family: "Microsoft Yahei", 微软雅黑, "PingFang SC", 苹方, 思源黑体, sans-serif !important; }
+	// 默认黑字
 	color: #3b4348;
-	a{ color: #3b4348; }
+	a, select, option, input, textarea, button{ color: #3b4348; }
+	// 灰字
+	.grayFont{ color: #667880; }
+	// 蓝色突出字
+	.blueFont{ color: #007fe0; }
+	.blueFont2{ color: #4e73dd; }
+	// 灰色链接字
+	.grayAFont{
+		color: #999;
+		text-decoration: underline;
+	}
+	// 彩色背景白字
+	.whiteFont{ color: #fff; }
+	// 字体加粗
+	.fontBold{ font-weight: bold; }
 }
-// 字体加粗
-.fontBold{
-	font-weight: bold;
-}
-// 蓝色突出字
-.blueFont{ color: #007fe0; }
-// 灰色链接字
-.gruyAFont{
-	color: #999;
-	text-decoration: underline;
-}
-// 彩色背景白字
-.whiteFont{ color: #fff; }
+
 // 引入字体
 @font-face{
 	font-family: "思源黑体";

@@ -1,0 +1,52 @@
+#cusUserMessage{
+	.body{
+		padding: 0 2.2rem;
+		.main{
+			padding-top: 4.4rem;
+			.messagePart{
+				position: relative;
+				margin: 1.1rem 0;
+				width: 38.2rem;
+				border: 1px solid #e9f1f3;
+				.partHead{
+					padding: 0.8rem 1.2rem 0.9rem 1.4rem;
+					div{ @include lineHeight(1.2rem); }
+					.leftPart{
+						@include lineHeight(1.2rem);
+						img{
+							width: 1.2rem;
+							margin-right: 0.4rem;
+						}
+					}
+				}
+				.partBody{
+					margin-top: 1.2rem;
+					border-top: 1px solid #e9f1f3;
+					padding: 1.1rem 1.2rem 1.2rem 1.4rem;
+					.partTitle{
+						margin-bottom: 1.1rem;
+					}
+					.partContent{
+						line-height: 1.4rem;
+						.hide{
+							height: 4.2rem;
+						}
+						.toggleBtn{
+							margin-top: 0.6rem;
+							button{
+								border: none;
+								background: none;
+								padding: 0;
+								img{
+									width: 0.9rem;
+									margin-left: 0.7rem;
+								}
+							}
+						}
+					}
+				}
+				.unread{ color: #a1adb3; }
+			}
+		}
+	}
+}

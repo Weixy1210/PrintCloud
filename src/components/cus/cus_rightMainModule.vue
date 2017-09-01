@@ -1,5 +1,5 @@
 <template>
-  <div class="coCusRegMainModile">
+  <div class="coCusRightMainModule bgWhiteColor">
     <div class="title font18">
       <img :src="titleImgSrc">{{title}}
     </div>
@@ -11,7 +11,7 @@
 
 <script>
   export default{
-    name: 'coCusRegMainModile',
+    name: 'coCusRightMainModule',
     props: {
       titleImgSrc: '',
       title: ''

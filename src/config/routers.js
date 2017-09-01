@@ -9,9 +9,18 @@ import pageCustomerMain from '../pages/cus/cus_pageMain.vue'
 import pageCustomerIndex from '../pages/cus/cus_pageIndex.vue'
 import pageCustomerLog from '../pages/cus/cus_pageLog.vue'
 import pageCustomerReg from '../pages/cus/cus_pageReg.vue'
+import pageCustomerOrder from '../pages/cus/cus_pageOrder.vue'
+import pageCustomerOrderCheck from '../pages/cus/cus_pageOrderCheck.vue'
+import pageCustomerUserBanner from '../pages/cus/cus_pageUserBanner.vue'
 // 第三层
 import pageCustomerRegIndex from '../pages/cus/cus_pageRegIndex.vue'
 import pageCustomerRegFind from '../pages/cus/cus_pageRegFind.vue'
+import pageCustomerUserContainer from '../pages/cus/cus_pageUserContainer.vue'
+import pageCustomerUserOrderDetail from '../pages/cus/cus_pageUserOrderDetail.vue'
+// 第四层
+import pageCustomerUserSet from '../pages/cus/cus_pageUserSet.vue'
+import pageCustomerUserMessage from '../pages/cus/cus_pageUserMessage.vue'
+import pageCustomerUserOrder from '../pages/cus/cus_pageUserOrder.vue'
 // 配置路由
 Vue.use(Router)
 const router = new Router({
@@ -42,6 +51,42 @@ const router = new Router({
               component: pageCustomerRegFind
             }
           ]
+        },
+        {
+          path: 'order',
+          component: pageCustomerOrder
+        },
+        {
+          path: 'order/check',
+          component: pageCustomerOrderCheck
+        },
+        {
+          path: 'user',
+          component: pageCustomerUserBanner,
+          children: [
+            {
+              path: '/',
+              component: pageCustomerUserContainer,
+              children: [
+                {
+                  path: 'set',
+                  component: pageCustomerUserSet
+                },
+                {
+                  path: 'message',
+                  component: pageCustomerUserMessage
+                },
+                {
+                  path: 'order',
+                  component: pageCustomerUserOrder
+                }
+              ]
+            },
+            {
+              path: 'order/Detail',
+              component: pageCustomerUserOrderDetail
+            }
+          ]
         }
       ]
     },
@@ -54,5 +99,11 @@ const router = new Router({
       component: pageError2
     }
   ]
+})
+router.beforeEach((to, from, next) => {
+  // 页面跳转传值(或许有用)
+  if (from.fullPath === '/order' && to.fullPath === '/order/check') {
+  }
+  next()
 })
 export default router

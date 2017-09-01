@@ -13,39 +13,18 @@ header#cusHeader{
 			a{
 				width: 3.2rem;
 				height: 3.6rem;
-				text-align: center;
-				img{
-					margin-top: 0.8rem;
-				}
-				div{
-					margin-top: 0.4rem;
-					line-height: 1;
-				}
+				img{ margin-top: 0.8rem; }
+				div{ margin-top: 0.4rem; }
 			}
-			a.registerDark{
-				background-color: #859ca6;
-				color: #fff;
-			}
-			a.registerDark:hover{
-				background-color: #4082c4;
-			}
-			a.registerLight:hover{
-				background-color: #e9eff2;
-			}
-			a.logIn:hover{
-				background-color: #e9eff2;
-			}
+			// 首页样式
+			a.registerDark{ background-color: #859ca6; }
+			a.registerDark:hover{ background-color: #4082c4; }
 		}
 		.cusState2{
 			height: 3.6rem;
-			overflow: hidden;
 			.cusInfo{
-				cursor: pointer;
 				height: 3.6rem;
-				div{ 
-					height: 3.6rem;
-					line-height: 3.6rem;
-				}
+				div{ @include lineHeight(3.6rem); }
 				div.portraitBox{
 					margin: 0 0.4rem 0 0.5rem;
 					line-height: 4.5rem;
@@ -58,44 +37,31 @@ header#cusHeader{
 				div.selectIcon{ 
 					margin: 0 0.7rem 0 0.3rem;
 					line-height: 3.7rem;
-					img{
-						width: 0.6rem;
-					}
+					img{ width: 0.6rem; }
 				}
 			}
 			.dropDownBox{
-				background-color: #fff;
 				box-shadow: 0 0 4px 2px rgba(35, 24, 21, 0.05);
 				padding: 0.75rem 0;
 				a{
-					cursor: pointer;
 					display: block;
 					padding: 0 0.4rem;
-					height: 1.8rem;
-					line-height: 1.8rem;
+					@include lineHeight(1.8rem);
 					img{
 						margin: 0.5rem;
 						width: 0.6rem;
 					}
 					.msgNumber{
 						width: 1.3rem;
-						height: 0.8rem;
+						@include lineHeight(0.8rem);
 						border-radius: 0.3rem;
 						background-color: #f53;
 						margin: 0.5rem 0.3rem;
-						line-height: 0.8rem;
-						text-align: center;
 					}
-				}
-				a:hover{
-					background-color: #e8eff1;
 				}
 			}
 		}
-		.cusState2:hover{
-			background-color: #e8eff1;
-			overflow: visible;
-		}
+		.cusState2:hover{ overflow: visible; }
 	}
 }
 header::after{    // 第二层阴影

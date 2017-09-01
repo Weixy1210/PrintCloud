@@ -3,16 +3,16 @@
     <section class="banner">
       <div class="container">
         <article class="fl font28 whiteFont">在线查找身边的打印店，上传文件，立即打印</article>
-        <aside class="fr bgColor font16">
+        <aside class="fr bgLightColor1 font16 borderBox">
           <form
             <div class="inputSelect">
               <label>选择支持我们服务的学校：</label>
-              <select name="printSchool" id="index_printSchool" class="font16">
+              <select name="printSchool" id="index_printSchool" class="borderBox font16 borderRadius">
                 <option v-for="school in this.$store.state.cusIndex.orderSchools" :value="school.schoolID">{{school.schoolName}}</option>
               </select>
             </div>
             <hr/>
-            <router-link to="/" class="inputFile">
+            <router-link to="/order" class="inputFile cursorPointer textCenter">
             	<img src="/static/img/cus_index_uploud.png">
             	<div class="blueFont">上传文件</div>
             </router-link>
@@ -36,7 +36,7 @@
                 <br>
                 我们会把重要的信息发送到您绑定的手机号上。  
               </div>
-              <router-link to="/reg" class="font14 gruyAFont">现在注册</router-link>
+              <router-link to="/reg" class="font14 grayAFont">现在注册</router-link>
             </article>
           </li>
           <li>
@@ -51,7 +51,7 @@
                 <br>
                 我们推荐使用pdf格式进行打印。
               </div>
-              <router-link to="/error2" class="font14 gruyAFont">查看支持服务的高校列表</router-link>
+              <router-link to="/error2" class="font14 grayAFont">查看支持服务的高校列表</router-link>
             </article>
           </li>
           <li>
@@ -64,34 +64,34 @@
               <div class="subContent font16">
                 如果您查询到打印已经完成，或者到达预约的打印完成时间，即可到指定的打印店获取您的文件。 
               </div>
-              <router-link to="/" class="font14 gruyAFont">订单状态查询</router-link>
+              <router-link to="/" class="font14 grayAFont">订单状态查询</router-link>
             </article>
           </li>
         </ul>
       </div>
     </section>
-    <section class="connect">
-      <div class="blueImgBg"></div>
+    <section class="connect overFlowHidden">
+      <div class="blueImgBg bgBlueColor1"></div>
       <div class="container">
         <form class="connectForm">
           <div class="conFormTitle font18 fontBold whiteFont">联系我们</div>
           <div class="conFormBody">
             <div>
               <input type="text" name="conName"
-                placeholder="您的称呼" class="whiteFont"
+                placeholder="您的称呼" class="whiteFont borderBox"
                 @blur='blurBgColor'>
               <input type="text" name="conAddress"
-                placeholder="联系方式（手机/邮箱/QQ）" class="whiteFont fr"
+                placeholder="联系方式（手机/邮箱/QQ）" class="whiteFont fr borderBox"
                 @blur='blurBgColor'>
             </div>
             <div>
               <textarea name="conText"
                 placeholder="说点什么" rows="4"
-                class="whiteFont"
+                class="whiteFont borderBox"
                 @blur='blurBgColor'>
               </textarea>
             </div>
-            <div><input type="submit" value="发送" class="bgColor font18" @click.prevent="submitSuggest"></div>
+            <div><input type="button" value="发送" class="bgLightColor1 font18 textCenter borderRadius btnHover2" @click.prevent="submitSuggest"></div>
           </div>
         </form>
         <!-- 消息提示框 -->
@@ -103,9 +103,9 @@
       <div class="registerNow">
         <div class="container">
           <img src="/static/img/cus_index_footPIC.png">
-          <div class="registerNowContent">
+          <div class="registerNowContent textCenter">
             <div class="whiteFont font16">现在开始，使用我们的服务，节约宝贵的时间</div>
-            <router-link to="/reg" class="whiteFont font18">立即注册</router-link>
+            <router-link to="/reg" class="whiteFont font18 btnBlue1">立即注册</router-link>
           </div>
         </div>
       </div>

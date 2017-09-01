@@ -12,9 +12,11 @@ select{  // 将默认的select选择框样式清除
 	-webkit-appearance:none;
 }
 select::-ms-expand { display: none; }  // 清除ie的默认选择框样式清除，隐藏下拉箭头
+input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+textarea{ resize: none; }
 
 // 屏幕适配, 目前只考虑960及以上的屏幕
-@media screen and (min-device-width: 960px){
+@media screen and (min-device-width: 960px){    // 960-1080px间的PC
 	html{
 		font-size: 17px;
 	}
@@ -30,23 +32,31 @@ select::-ms-expand { display: none; }  // 清除ie的默认选择框样式清除
 	}
 }
 
+// 常用函数定义
+@mixin lineHeight($h) {
+  height: $h;
+  line-height: $h;
+}
+
 // 通用样式
 html{
 	position: relative;
 	line-height: 1;
-	// height: 100%;
-	// body{ height: 100%; }
-	// .view{ height: 100%; }
 	select{
-		border: 1px #abb7bd solid;
-		border-radius: 2px;
 		// 添加自定义下拉箭头
 		background-color: #fff;
-		background-image: url(../static/img/form_select_icon.png);
 		background-repeat:no-repeat;
-		background-size: 0.6rem 0.55rem;
 		background-position: 94% 50%;
 	}
+	a, button, select, input[type=button]{ cursor: pointer; }
+	.cursorPointer{ cursor: pointer; }
 	.fl{ float: left; }
 	.fr{ float: right; }
+	.overFlowHidden{ overflow: hidden; }
+	.borderBox{ box-sizing: border-box; }
+	.borderRadius{ border-radius: 2px; }
+	.borderColor{ border: 1px solid #a3c0cc; }
+	.textCenter{ text-align: center; }
+	.textLeft{ text-align: left; }
+	.textRight{ text-align: right; }
 }

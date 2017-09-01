@@ -1,6 +1,6 @@
 <template>
-  <div class="coCheckbox font14">
-    <div class="checkbox" @click='checkboxClick'>
+  <div class="coCheckbox font16">
+    <div class="checkbox cursorPointer" @click='checkboxClick'>
       <img v-if="checkState" src="/static/img/form_checkbox.png">
       <div v-else></div>
     </div>

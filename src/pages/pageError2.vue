@@ -1,5 +1,5 @@
 <template>
-  <span>抱歉，此处页面未完成。</span>
+  <span>抱歉，此功能未开放。</span>
 </template>
 
 <script>
