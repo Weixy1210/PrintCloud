@@ -1,6 +1,6 @@
 #cusIndex{
 	.banner{
-		background-image: url(/static/img/cus_index_banner.jpg);
+		// background-image: url(/static/img/cus_index_banner.jpg)
 		background-size: cover;
 		padding-top: 3.6rem;
 		height: 32.5rem;
@@ -20,7 +20,7 @@
 						margin: 0.9rem 0;
 						border: 1px #acb9bf solid;
 						// 添加自定义下拉箭头
-						background-image: url(../static/img/form_select_icon.png);
+						// background-image: url(/static/img/form_select_icon.png)
 						background-size: 0.6rem 0.55rem;
 					}
 				}

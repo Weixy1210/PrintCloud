@@ -1,4 +1,5 @@
 import api from '../api.js'
+import blaskface from '../../../static/img/cus_msgBox_notice_blaskface.png'
 const cusRegFind = {
   state: {
     mobile: {
@@ -40,7 +41,7 @@ const cusRegFind = {
       warnText: ''
     },
     msgState: '',
-    msgImgSrc: '/static/img/cus_msgBox_notice_blaskface.png',
+    msgImgSrc: blaskface,
     msgText: '重设失败，请检查网络'
   },
   mutations: {
@@ -48,7 +49,7 @@ const cusRegFind = {
       switch (strN) {
         case '1':
           state.msgState = '1'
-          state.msgImgSrc = '/static/img/cus_msgBox_notice_blaskface.png'
+          state.msgImgSrc = blaskface
           state.msgText = '重设失败，请检查网络'
           break
         default:

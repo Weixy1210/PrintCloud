@@ -74,7 +74,7 @@
 				width: 16rem;
 				.progressDone{
 					position: absolute;
-					background-image: url(/static/img/cus_order_loadState.png);
+					// background-image: url(/static/img/cus_order_loadState.png);
 					span{ margin-right: -2rem; }
 				}
 			}
@@ -143,12 +143,12 @@
 			}
 			input[name=plus]{
 				top: 0; right: 0;
-				background-image: url(/static/img/form_numberSelect_upIcon.png);
+				// background-image: url(/static/img/form_numberSelect_upIcon.png);
 			}
 			input[name=minus]{
 				bottom: 0; right: 0;
 				border-top: none;
-				background-image: url(/static/img/form_numberSelect_downIcon.png);
+				// background-image: url(/static/img/form_numberSelect_downIcon.png);
 			}
 		}
 		>div:last-child{

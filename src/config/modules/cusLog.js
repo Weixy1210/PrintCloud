@@ -1,4 +1,6 @@
 import api from '../api.js'
+import wrong from '../../../static/img/cus_msgBox_notice_wrong.png'
+import blaskface from '../../../static/img/cus_msgBox_notice_blaskface.png'
 const cusLog = {
   state: {
     name: {
@@ -29,12 +31,12 @@ const cusLog = {
       switch (strN) {
         case '1':
           state.msgState = '1'
-          state.msgImgSrc = '/static/img/cus_msgBox_notice_wrong.png'
+          state.msgImgSrc = wrong
           state.msgText = '账号密码错误'
           break
         case '2':
           state.msgState = '2'
-          state.msgImgSrc = '/static/img/cus_msgBox_notice_blaskface.png'
+          state.msgImgSrc = blaskface
           state.msgText = '登陆失败，请检查网络'
           break
         default:

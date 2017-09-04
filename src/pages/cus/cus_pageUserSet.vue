@@ -1,7 +1,7 @@
 <template>
   <article id="cusUserSet">
     <!-- 标题 -->
-    <module titleImgSrc="/static/img/cus_user_set_title.png" title="个人设置">
+    <module :titleImgSrc="titleImg" title="个人设置">
       <!-- 核心内容 -->
       <form slot="body">
         <div class="partOne">
@@ -102,8 +102,8 @@
             @inputOnBlur="userkeywordsInputBlur">
             <div slot="iconRight" class="imgRight">
               <button type="button" @click="keywordsShowToggle">
-                <img v-if="this.$store.state.userSet.keywordsInput.showKey" src="/static/img/cus_log_openEye.png">
-                <img v-else src="/static/img/cus_log_closeEye.png">
+                <img v-if="this.$store.state.userSet.keywordsInput.showKey" src="../../../static/img/cus_log_openEye.png">
+                <img v-else src="../../../static/img/cus_log_closeEye.png">
               </button>
             </div>
           </cus-inputText>
@@ -129,6 +129,7 @@
   import cusInputText from '../../components/cus/cus_inputText.vue'
   import cusButton from '../../components/cus/cus_button.vue'
   import cusMsgBox from '../../components/msgBox.vue'
+  import titlePicture from '../../../static/img/cus_user_set_title.png'
   export default{
     name: 'cusUserSet',
     components: {
@@ -136,6 +137,11 @@
       'cus-inputText': cusInputText,
       'cus-button': cusButton,
       'cus-msgBox': cusMsgBox
+    },
+    data: function () {
+      return {
+        titleImg: titlePicture
+      }
     },
     created: function () {
       this.$store.dispatch('userSetInformationInit')

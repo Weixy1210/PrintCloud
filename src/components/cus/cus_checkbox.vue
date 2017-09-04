@@ -1,7 +1,7 @@
 <template>
   <div class="coCheckbox font16">
     <div class="checkbox cursorPointer" @click='checkboxClick'>
-      <img v-if="checkState" src="/static/img/form_checkbox.png">
+      <img v-if="checkState" src="../../../static/img/form_checkbox.png">
       <div v-else></div>
     </div>
     <div class="labelBox" @click='checkboxClick'>

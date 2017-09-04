@@ -4,6 +4,6 @@
 
 <script>
   export default{
-    name: 'errorMsg'
+    name: 'errorMsg2'
   }
 </script>

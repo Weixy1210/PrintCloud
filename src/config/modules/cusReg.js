@@ -1,4 +1,5 @@
 import api from '../api.js'
+import blaskface from '../../../static/img/cus_msgBox_notice_blaskface.png'
 const cusReg = {
   state: {
     indexLocation: true,
@@ -50,7 +51,7 @@ const cusReg = {
     },
     readANDagree: false,
     msgState: '',
-    msgImgSrc: '/static/img/cus_msgBox_notice_blaskface.png',
+    msgImgSrc: blaskface,
     msgText: '注册失败，请检查网络'
   },
   mutations: {
@@ -59,7 +60,7 @@ const cusReg = {
       switch (strN) {
         case '1':
           state.msgState = '1'
-          state.msgImgSrc = '/static/img/cus_msgBox_notice_blaskface.png'
+          state.msgImgSrc = blaskface
           state.msgText = '注册失败，请检查网络'
           break
         default:

@@ -24,66 +24,81 @@ import pageCustomerUserOrder from '../pages/cus/cus_pageUserOrder.vue'
 // 配置路由
 Vue.use(Router)
 const router = new Router({
-  mode: 'history',    // 去掉地址中的#, 注意与后端对接时可能有问题需要调整
+  // mode: 'history',    // 去掉地址中的#, 注意与后端对接时可能有问题需要调整
+  // base: '/PrintCloud/',
   routes: [
     {
       path: '/',
+      name: 'cusMain',
       component: pageCustomerMain,
       children: [
         {
           path: '/',
+          name: 'cusIndex',
           component: pageCustomerIndex
         },
         {
           path: 'log',
+          name: 'cusLog',
           component: pageCustomerLog
         },
         {
           path: 'reg',
+          name: 'cusReg',
           component: pageCustomerReg,
           children: [
             {
               path: '/',
+              name: 'cusRegIndex',
               component: pageCustomerRegIndex
             },
             {
               path: 'find',
+              name: 'cusRegFind',
               component: pageCustomerRegFind
             }
           ]
         },
         {
           path: 'order',
+          name: 'cusOrder',
           component: pageCustomerOrder
         },
         {
           path: 'order/check',
+          name: 'cusOrderCheck',
           component: pageCustomerOrderCheck
         },
         {
           path: 'user',
+          name: 'cusUser',
           component: pageCustomerUserBanner,
           children: [
             {
               path: '/',
+              name: 'cusUserContainer',
               component: pageCustomerUserContainer,
               children: [
                 {
                   path: 'set',
+                  name: 'cusUserSet',
                   component: pageCustomerUserSet
                 },
                 {
                   path: 'message',
+                  name: 'cusUserMessage',
                   component: pageCustomerUserMessage
                 },
                 {
                   path: 'order',
+                  name: 'cusUserOrder',
                   component: pageCustomerUserOrder
                 }
               ]
             },
             {
               path: 'order/Detail',
+              name: 'cusUserOrderDetail',
               component: pageCustomerUserOrderDetail
             }
           ]
@@ -92,10 +107,12 @@ const router = new Router({
     },
     {
       path: '/error',
+      name: 'errorMsg',
       component: pageError
     },
     {
       path: '/error2',
+      name: 'errorMsg2',
       component: pageError2
     }
   ]

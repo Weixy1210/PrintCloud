@@ -3,7 +3,7 @@ const cusHeader = {
     adminState: true,
     indexLocation: true,
     cusName: '印云用户',
-    cusPortrait: '/static/img/cus_header_demo.png',
+    cusPortrait: require('../../../static/img/cus_header_demo.png'),
     newMsg: '15'
   },
   mutations: {

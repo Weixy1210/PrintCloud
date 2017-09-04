@@ -24,7 +24,7 @@
       <div class="coverMain bgWhiteColor">
         <div class="title font22 fontBold textCenter">
           用户登录
-          <button @click="closeLog"><img src="/static/img/close_icon.png" class="btnHover2"></button>
+          <button @click="closeLog"><img src="../../../static/img/close_icon.png" class="btnHover2"></button>
         </div>
         <div class="body"><cus-LogMain @nameBlur="nameBlur" @keywordsBlur="keywordsBlur" @keywordsShowToggle="keywordsShowToggle" @LogIn="LogIn" :warnMsgState="false"></cus-LogMain></div>
         <!-- 消息提示框 -->
@@ -42,7 +42,7 @@
   import cusButton from '../../components/cus/cus_button.vue'
   import cusMsgBox from '../../components/msgBox.vue'
   export default{
-    name: 'cusIndex',
+    name: 'cusMain',
     components: {
       'cus-header': cusHeader,
       'cus-footer': cusFooter,

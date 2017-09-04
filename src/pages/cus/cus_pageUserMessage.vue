@@ -1,6 +1,6 @@
 <template>
   <article id="cusUserMessage">
-    <headModule titleImgSrc="/static/img/cus_userMessage_title.png" title="我的消息">
+    <headModule :titleImgSrc="titleImg" title="我的消息">
       <div slot="body">
         <ul class="tabLine" v-if="this.$store.state.userMessage.location === 'all'">
           <li class="fl active"><button class="fontBold" @click='allLocation'>全部消息</button></li>
@@ -20,23 +20,23 @@
         <div class="main">
           <div v-for="(item, index) in this.$store.state.userMessage.messages" class="messagePart borderBox">
             <div class="partHead font14">
-              <div class="fl leftPart"><img src="/static/img/cus_userMessage_partTitle.png" class="fl">印云</div>
+              <div class="fl leftPart"><img src="../../../static/img/cus_userMessage_partTitle.png" class="fl">印云</div>
               <div class="fr rightPart" :class="item.state">{{item.time}}</div>
             </div>
             <div class="partBody">
               <div class="partTitle blueFont2 fontBold font18" :class="item.state">{{item.title}}</div>
               <div class="partContent font16" v-if="item.showAll">
                 <div v-html="item.content" :class="item.state" class="show"></div>
-                <div class="toggleBtn textRight"><button class="blueFont2 font14" @click="contentShowToggle(index)">收起<img src="/static/img/cus_user_content_off.png" class="fr"></button></div>
+                <div class="toggleBtn textRight"><button class="blueFont2 font14" @click="contentShowToggle(index)">收起<img src="../../../static/img/cus_user_content_off.png" class="fr"></button></div>
               </div>
               <div class="partContent font16" v-else>
                 <div v-html="item.content" :class="item.state" class="hide overFlowHidden"></div>
-                <div class="toggleBtn textRight"><button class="blueFont2 font14" @click="contentShowToggle(index)">展开全部<img src="/static/img/cus_user_content_on.png" class="fr"></button></div>
+                <div class="toggleBtn textRight"><button class="blueFont2 font14" @click="contentShowToggle(index)">展开全部<img src="../../../static/img/cus_user_content_on.png" class="fr"></button></div>
               </div>
             </div>
           </div>
           <ul class="pagination textCenter grayFont font12 fontBold" v-if="this.$store.state.userMessage.totalPage > 1">
-            <li class="fl cursorPointer prevPage bgBlueColor2"><img src="/static/img/cus_user_pagination_prev.png"></li>
+            <li class="fl cursorPointer prevPage bgBlueColor2"><img src="../../../static/img/cus_user_pagination_prev.png"></li>
             <div class="center">
               <li class="fl" v-if="this.$store.state.userMessage.page > 3">···</li>
               <li class="fl cursorPointer btnHover1" :class="pageList[0].class">{{pageList[0].page}}</li>
@@ -44,7 +44,7 @@
               <li class="fl cursorPointer btnHover1" :class="pageList[2].class">{{pageList[2].page}}</li>
               <li class="fl" v-if="this.$store.state.userMessage.page <= this.$store.state.userMessage.totalPage - 3">···</li>
             </div>
-            <li class="fr cursorPointer nextPage bgBlueColor2"><img src="/static/img/cus_user_pagination_next.png"></li>
+            <li class="fr cursorPointer nextPage bgBlueColor2"><img src="../../../static/img/cus_user_pagination_next.png"></li>
           </ul>
         </div>
       </div>
@@ -55,10 +55,16 @@
 <script>
   import $ from 'jquery'
   import headModule from '../../components/cus/cus_rightMainModule.vue'
+  import titlePicture from '../../../static/img/cus_userMessage_title.png'
   export default{
     name: 'cusUserMessage',
     components: {
       'headModule': headModule
+    },
+    data: function () {
+      return {
+        titleImg: titlePicture
+      }
     },
     computed: {
       pageList: function () {

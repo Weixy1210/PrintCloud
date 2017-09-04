@@ -1,6 +1,6 @@
 <template>
   <article id="cusUserOrder">
-    <headModule titleImgSrc="/static/img/cus_userOrder_title.png" title="订单管理">
+    <headModule :titleImgSrc="titleImg" title="订单管理">
       <div slot="body">
         <ul class="tabLine" v-if="this.$store.state.userOrder.location === 'recent'">
           <li class="fl active"><button class="fontBold" @click='recentLocation'>近期订单</button></li>
@@ -20,17 +20,17 @@
               <div class="shopName font16 blueFont2 fontBold">{{item.shop}}</div>
               <ul v-if="item.fileNumber <= 3 || item.allShow" class="font14 grayFont">
                 <li v-for="(file, index2) in item.files">
-                  <img src="/static/img/cus_userOrder_fileList.png" class="fl">{{file.name}}
-                  <button v-if="index2 === item.fileNumber - 1" class="Allclose" @click="AllfilesToggle(index)"><img src="/static/img/cus_user_content_off.png"></button>
+                  <img src="../../../static/img/cus_userOrder_fileList.png" class="fl">{{file.name}}
+                  <button v-if="index2 === item.fileNumber - 1" class="Allclose" @click="AllfilesToggle(index)"><img src="../../../static/img/cus_user_content_off.png"></button>
                 </li>
               </ul>
               <ul v-else class="font14 grayFont">
-                <li><img src="/static/img/cus_userOrder_fileList.png" class="fl">{{item.files[0].name}}</li>
-                <li><img src="/static/img/cus_userOrder_fileList.png" class="fl">{{item.files[1].name}}</li>
-                <li><img src="/static/img/cus_userOrder_fileList.png" class="fl">{{item.files[2].name}}</li>
+                <li><img src="../../../static/img/cus_userOrder_fileList.png" class="fl">{{item.files[0].name}}</li>
+                <li><img src="../../../static/img/cus_userOrder_fileList.png" class="fl">{{item.files[1].name}}</li>
+                <li><img src="../../../static/img/cus_userOrder_fileList.png" class="fl">{{item.files[2].name}}</li>
                 <div class="Allopen">
                   等 <span class="blueFont2">{{item.fileNumber}}</span> 个文件
-                  <button class="fr" @click="AllfilesToggle(index)"><img class="AllstateChange" src="/static/img/cus_user_content_on.png"></button>
+                  <button class="fr" @click="AllfilesToggle(index)"><img class="AllstateChange" src="../../../static/img/cus_user_content_on.png"></button>
                 </div>
               </ul>
             </article>
@@ -57,7 +57,7 @@
             </aside>
           </div>
           <ul class="pagination textCenter grayFont font12 fontBold" v-if="this.$store.state.userOrder.totalPage > 1">
-            <li class="fl cursorPointer prevPage bgBlueColor2"><img src="/static/img/cus_user_pagination_prev.png"></li>
+            <li class="fl cursorPointer prevPage bgBlueColor2"><img src="../../../static/img/cus_user_pagination_prev.png"></li>
             <div class="center">
               <li class="fl" v-if="this.$store.state.userOrder.page > 3">···</li>
               <li class="fl cursorPointer btnHover1" :class="pageList[0].class">{{pageList[0].page}}</li>
@@ -65,7 +65,7 @@
               <li class="fl cursorPointer btnHover1" :class="pageList[2].class">{{pageList[2].page}}</li>
               <li class="fl" v-if="this.$store.state.userOrder.page <= this.$store.state.userOrder.totalPage - 3">···</li>
             </div>
-            <li class="fr cursorPointer nextPage bgBlueColor2"><img src="/static/img/cus_user_pagination_next.png"></li>
+            <li class="fr cursorPointer nextPage bgBlueColor2"><img src="../../../static/img/cus_user_pagination_next.png"></li>
           </ul>
         </div>
       </div>
@@ -76,10 +76,16 @@
 <script>
   import $ from 'jquery'
   import headModule from '../../components/cus/cus_rightMainModule.vue'
+  import titlePicture from '../../../static/img/cus_userOrder_title.png'
   export default{
     name: 'cusUserOrder',
     components: {
       'headModule': headModule
+    },
+    data: function () {
+      return {
+        titleImg: titlePicture
+      }
     },
     computed: {
       pageList: function () {

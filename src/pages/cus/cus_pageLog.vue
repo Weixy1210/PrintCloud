@@ -1,7 +1,7 @@
 <template>
   <div id="cusLog" class="container">
     <div class="logBox">
-      <div class="titleLogo textCenter"><img src="/static/img/cus_log_formTitle.png"></div>
+      <div class="titleLogo textCenter"><img src="../../../static/img/cus_log_formTitle.png"></div>
       <cus-mainForm @nameBlur="nameBlur" @keywordsBlur="keywordsBlur" @keywordsShowToggle="keywordsShowToggle" @LogIn="LogIn"></cus-mainForm>
     </div>
     <!-- 消息提示框 -->

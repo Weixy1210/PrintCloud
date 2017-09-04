@@ -1,6 +1,6 @@
 <template>
   <article id="cusRegFind">
-    <module titleImgSrc="../../../static/img/cus_regFind_title.png" title="找回密码">
+    <module :titleImgSrc="titleImg" title="找回密码">
       <form slot="body">
         <div><cus-inputText labelText="注册手机："
           inputName="mobile" :inputValue="this.$store.state.cusRegFind.mobile.mobileText"
@@ -30,8 +30,8 @@
           @inputOnBlur="keywordsBlur">
           <div slot="iconRight" class="imgRight">
             <button type="button" @click="keywordsShowToggle">
-              <img v-if="this.$store.state.cusRegFind.keywords.showKey" src="/static/img/cus_log_openEye.png">
-              <img v-else="" src="/static/img/cus_log_closeEye.png">
+              <img v-if="this.$store.state.cusRegFind.keywords.showKey" src="../../../static/img/cus_log_openEye.png">
+              <img v-else="" src="../../../static/img/cus_log_closeEye.png">
             </button>
           </div>
         </cus-inputText></div>
@@ -66,6 +66,7 @@
   import cusInputText from '../../components/cus/cus_inputText.vue'
   import cusButton from '../../components/cus/cus_button.vue'
   import cusMsgBox from '../../components/msgBox.vue'
+  import titlePicture from '../../../static/img/cus_regFind_title.png'
   export default{
     name: 'cusRegFind',
     components: {
@@ -73,6 +74,11 @@
       'cus-inputText': cusInputText,
       'cus-button': cusButton,
       'cus-msgBox': cusMsgBox
+    },
+    data: function () {
+      return {
+        titleImg: titlePicture
+      }
     },
     computed: {
       buttonState: function () {

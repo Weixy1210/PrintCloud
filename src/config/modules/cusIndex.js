@@ -1,4 +1,7 @@
 import api from '../api.js'
+import achieve from '../../../static/img/cus_msgBox_notice_achieve.png'
+import notice from '../../../static/img/cus_msgBox_notice_notice.png'
+import blaskface from '../../../static/img/cus_msgBox_notice_blaskface.png'
 const cusIndex = {
   state: {
     orderSchools: [
@@ -28,22 +31,22 @@ const cusIndex = {
       switch (strN) {
         case '1':
           state.msgState = '1'
-          state.msgImgSrc = '/static/img/cus_msgBox_notice_achieve.png'
+          state.msgImgSrc = achieve
           state.msgText = '已发送'
           break
         case '2':
           state.msgState = '2'
-          state.msgImgSrc = '/static/img/cus_msgBox_notice_notice.png'
+          state.msgImgSrc = notice
           state.msgText = '内容为空'
           break
         case '3':
           state.msgState = '3'
-          state.msgImgSrc = '/static/img/cus_msgBox_notice_notice.png'
+          state.msgImgSrc = notice
           state.msgText = '请填写正确的联系方式'
           break
         case '4':
           state.msgState = '4'
-          state.msgImgSrc = '/static/img/cus_msgBox_notice_blaskface.png'
+          state.msgImgSrc = blaskface
           state.msgText = '发送失败，请检查网络'
           break
       }

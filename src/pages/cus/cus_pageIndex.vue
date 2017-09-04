@@ -1,19 +1,19 @@
 <template>
   <div id="cusIndex">
-    <section class="banner">
+    <section class="banner" :style="{backgroundImage: 'url(' + banner + ')'}">
       <div class="container">
         <article class="fl font28 whiteFont">在线查找身边的打印店，上传文件，立即打印</article>
         <aside class="fr bgLightColor1 font16 borderBox">
           <form
             <div class="inputSelect">
               <label>选择支持我们服务的学校：</label>
-              <select name="printSchool" id="index_printSchool" class="borderBox font16 borderRadius">
+              <select name="printSchool" id="index_printSchool" class="borderBox font16 borderRadius":style="{backgroundImage: 'url(' + select + ')'}">
                 <option v-for="school in this.$store.state.cusIndex.orderSchools" :value="school.schoolID">{{school.schoolName}}</option>
               </select>
             </div>
             <hr/>
             <router-link to="/order" class="inputFile cursorPointer textCenter">
-            	<img src="/static/img/cus_index_uploud.png">
+            	<img src="../../../static/img/cus_index_uploud.png">
             	<div class="blueFont">上传文件</div>
             </router-link>
           </form>
@@ -25,7 +25,7 @@
         <div class="introTitle font18 fontBold">如何使用印云</div>
         <ul>
           <li>
-            <aside class="fl"><img src="/static/img/cus_index_intro1.png"></aside>
+            <aside class="fl"><img src="../../../static/img/cus_index_intro1.png"></aside>
             <article>
               <div class="subTitle font24">
                 <span class="subStep blueFont">STEP1</span>
@@ -40,7 +40,7 @@
             </article>
           </li>
           <li>
-            <aside class="fl"><img src="/static/img/cus_index_intro2.png"></aside>
+            <aside class="fl"><img src="../../../static/img/cus_index_intro2.png"></aside>
             <article>
               <div class="subTitle font24">
                 <span class="subStep blueFont">STEP2</span>
@@ -55,7 +55,7 @@
             </article>
           </li>
           <li>
-            <aside class="fl"><img src="/static/img/cus_index_intro3.png"></aside>
+            <aside class="fl"><img src="../../../static/img/cus_index_intro3.png"></aside>
             <article>
               <div class="subTitle font24">
                 <span class="subStep blueFont">STEP3</span>
@@ -64,7 +64,7 @@
               <div class="subContent font16">
                 如果您查询到打印已经完成，或者到达预约的打印完成时间，即可到指定的打印店获取您的文件。 
               </div>
-              <router-link to="/" class="font14 grayAFont">订单状态查询</router-link>
+              <router-link to="/user/order" class="font14 grayAFont">订单状态查询</router-link>
             </article>
           </li>
         </ul>
@@ -98,11 +98,11 @@
         <cus-msgBox :imgSrc="this.$store.state.cusIndex.msgImgSrc" :msg="this.$store.state.cusIndex.msgText">
         </cus-msgBox>
         <!-- 右侧背景图片 -->
-        <img src="/static/img/cus_index_sideImg.jpg" class="rBgImg">  
+        <img src="../../../static/img/cus_index_sideImg.jpg" class="rBgImg">  
       </div>
       <div class="registerNow">
         <div class="container">
-          <img src="/static/img/cus_index_footPIC.png">
+          <img src="../../../static/img/cus_index_footPIC.png">
           <div class="registerNowContent textCenter">
             <div class="whiteFont font16">现在开始，使用我们的服务，节约宝贵的时间</div>
             <router-link to="/reg" class="whiteFont font18 btnBlue1">立即注册</router-link>
@@ -116,10 +116,18 @@
 <script>
   import $ from 'jquery'
   import cusMsgBox from '../../components/msgBox.vue'
+  import bannerPicture from '../../../static/img/cus_index_banner.jpg'
+  import selectPicture from '../../../static/img/form_select_icon.png'
   export default{
     name: 'cusIndex',
     components: {
       'cus-msgBox': cusMsgBox
+    },
+    data: function () {
+      return {
+        banner: bannerPicture,
+        select: selectPicture
+      }
     },
     methods: {
       // 输入文字后永久更改输入框背景

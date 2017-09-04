@@ -13,7 +13,7 @@
         <button type="button" class="setDetail font14 grayFont" @focus="setToggle" @blur="setToggle">
           设置
           <ul class="dropDown bgLightColor3 borderBox">
-            <img src="/static/img/cus_order_dropDown.png">
+            <img src="../../../static/img/cus_order_dropDown.png">
             <li class="font14 grayFont cursorPointer btnHover2">保存设置</li>
             <li class="font14 grayFont cursorPointer btnHover2">复制设置</li>
             <li class="font14 grayFont cursorPointer btnHover2">粘贴设置</li>
@@ -29,7 +29,7 @@
       <div>
         <label>上传进度：</label>
         <div class="progress borderRadius">
-          <div class="progressDone borderRadius" :style="{width: this.$store.state.cusOrder.files[orderNumber].uploadState + '%'}"><span class="grayFont fr">{{this.$store.state.cusOrder.files[orderNumber].uploadState}}%</span></div>
+          <div class="progressDone borderRadius" :style="{width: this.$store.state.cusOrder.files[orderNumber].uploadState + '%', backgroundImage: 'url(' + progress + ')'}"><span class="grayFont fr">{{this.$store.state.cusOrder.files[orderNumber].uploadState}}%</span></div>
         </div>
       </div>
       <!-- 打印页码范围 -->
@@ -54,13 +54,21 @@
             @blur="paginationEndBlur">
           <!-- 起始页码加减按钮 -->
           <div class="leftBtn">
-            <input type="button" name="plus" class="borderColor" @click="paginationBeginPlus">
-            <input type="button" name="minus" class="borderColor" @click="paginationBeginMinus">
+            <input type="button" name="plus" class="borderColor"
+              :style="{backgroundImage: 'url(' + plus + ')'}"
+              @click="paginationBeginPlus">
+            <input type="button" name="minus" class="borderColor"
+              :style="{backgroundImage: 'url(' + minus + ')'}"
+              @click="paginationBeginMinus">
           </div>
           <!-- 结束页码加减按钮 -->
           <div class="rightBtn">
-            <input type="button" name="plus" class="borderColor" @click="paginationEndPlus">
-            <input type="button" name="minus" class="borderColor" @click="paginationEndMinus">
+            <input type="button" name="plus" class="borderColor" 
+              :style="{backgroundImage: 'url(' + plus + ')'}"
+              @click="paginationEndPlus">
+            <input type="button" name="minus" class="borderColor"
+              :style="{backgroundImage: 'url(' + minus + ')'}"
+              @click="paginationEndMinus">
           </div>
         </div>
       </div>
@@ -122,8 +130,12 @@
             :value="this.$store.state.cusOrder.files[orderNumber].printCopies" @blur="printCopiesBlur">
           <!-- 加减按钮 -->
           <div class="btnBox">
-            <input type="button" name="plus" class="borderColor" @click="printCopiesPlus">
-            <input type="button" name="minus" class="borderColor" @click="printCopiesMinus">
+            <input type="button" name="plus" class="borderColor"
+              :style="{backgroundImage: 'url(' + plus + ')'}"
+              @click="printCopiesPlus">
+            <input type="button" name="minus" class="borderColor"
+              :style="{backgroundImage: 'url(' + minus + ')'}"
+              @click="printCopiesMinus">
           </div>
         </div>
       </div>
@@ -138,8 +150,18 @@
 
 <script>
   import $ from 'jquery'
+  import progressPicture from '../../../static/img/cus_order_loadState.png'
+  import plusPicture from '../../../static/img/form_numberSelect_upIcon.png'
+  import minusPicture from '../../../static/img/form_numberSelect_downIcon.png'
   export default{
     name: 'coOrderDetail',
+    data: function () {
+      return {
+        progress: progressPicture,
+        plus: plusPicture,
+        minus: minusPicture
+      }
+    },
     props: {
       orderNumber: {
         type: Number,

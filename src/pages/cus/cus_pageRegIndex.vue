@@ -1,6 +1,6 @@
 <template>
   <article id="cusRegIndex">
-    <module titleImgSrc="/static/img/cus_reg_title.png" title="注册新用户">
+    <module :titleImgSrc="titleImg" title="注册新用户">
       <form slot="body">
         <div><cus-inputText labelText="用户名："
           inputName="userName" :inputValue="this.$store.state.cusReg.userName.nameText"
@@ -38,8 +38,8 @@
           @inputOnBlur="keywordsBlur">
           <div slot="iconRight" class="imgRight">
             <button type="button" @click="keywordsShowToggle">
-              <img v-if="this.$store.state.cusReg.keywords.showKey" src="/static/img/cus_log_openEye.png">
-              <img v-else="" src="/static/img/cus_log_closeEye.png">
+              <img v-if="this.$store.state.cusReg.keywords.showKey" src="../../../static/img/cus_log_openEye.png">
+              <img v-else="" src="../../../static/img/cus_log_closeEye.png">
             </button>
           </div>
         </cus-inputText></div>
@@ -78,6 +78,7 @@
   import cusCheckbox from '../../components/cus/cus_checkbox.vue'
   import cusButton from '../../components/cus/cus_button.vue'
   import cusMsgBox from '../../components/msgBox.vue'
+  import titlePicture from '../../../static/img/cus_reg_title.png'
   export default{
     name: 'cusRegIndex',
     components: {
@@ -86,6 +87,11 @@
       'cus-checkbox': cusCheckbox,
       'cus-button': cusButton,
       'cus-msgBox': cusMsgBox
+    },
+    data: function () {
+      return {
+        titleImg: titlePicture
+      }
     },
     computed: {
       buttonState: function () {

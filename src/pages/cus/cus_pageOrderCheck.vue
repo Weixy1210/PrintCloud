@@ -1,8 +1,8 @@
 <template>
   <div id="cusOrderCheck" class="container">
-    <section><router-link to="/order" class="bgLightColor3 btnHover1 grayFont"><img src="/static/img/cus_orderCheck_back_icon.png">修改订单</router-link></section>
+    <section><router-link to="/order" class="bgLightColor3 btnHover1 grayFont"><img src="../../../static/img/cus_orderCheck_back_icon.png">修改订单</router-link></section>
     <section class="main">
-      <section class="banner">
+      <section class="banner" :style="{backgroundImage: 'url(' + banner + ')'}">
         <div class="font22 whiteFont">西安交通大学康三打印店</div>
         <button class="whiteFont borderRadius">优惠券</button>
       </section>
@@ -35,8 +35,8 @@
         </div>
         <div class="pay">
           <label class="font16 grayFont">选择支付方式：</label>
-          <button class="alipay bgWhiteColor fr textCenter borderBox btnHover1"><img src="/static/img/cus_orderCheck_alipay.png"></button>
-          <button class="weChat bgWhiteColor fr textCenter borderBox btnHover1"><img src="/static/img/cus_orderCheck_weChat.png"></button>
+          <button class="alipay bgWhiteColor fr textCenter borderBox btnHover1"><img src="../../../static/img/cus_orderCheck_alipay.png"></button>
+          <button class="weChat bgWhiteColor fr textCenter borderBox btnHover1"><img src="../../../static/img/cus_orderCheck_weChat.png"></button>
         </div>
       </article>
     </section>
@@ -45,11 +45,13 @@
 
 <script>
   import $ from 'jquery'
+  import bannerPicture from '../../../static/img/cus_orderCheck_banner.jpg'
   export default{
     name: 'cusOrderCheck',
     data: function () {
       return {
-        index: 0
+        index: 0,
+        banner: bannerPicture
       }
     },
     computed: {

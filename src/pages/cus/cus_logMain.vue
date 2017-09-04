@@ -9,7 +9,7 @@
       :warnMsgClass="this.$store.state.cusLog.name.warnExtraClass"
       :warnImgSrc="this.$store.state.cusLog.name.warnImgSrc" :warnText="this.$store.state.cusLog.name.warnText"
       @inputOnBlur="nameBlur" >
-      <div slot="iconLeft" class="imgLeft"><img src="/static/img/cus_log_mobile.png"></div>
+      <div slot="iconLeft" class="imgLeft"><img src="../../../static/img/cus_log_mobile.png"></div>
     </cus-inputText>
     <cus-inputText inputName="keywords"
       :labelState="false" :buttonState="false"
@@ -21,11 +21,11 @@
       :warnMsgClass="this.$store.state.cusLog.keywords.warnExtraClass"
       :warnImgSrc="this.$store.state.cusLog.keywords.warnImgSrc" :warnText="this.$store.state.cusLog.keywords.warnText"
       @inputOnBlur="keywordsBlur">
-      <div slot="iconLeft" class="imgLeft"><img src="/static/img/cus_log_keywords.png"></div>
+      <div slot="iconLeft" class="imgLeft"><img src="../../../static/img/cus_log_keywords.png"></div>
       <div slot="iconRight" class="imgRight">
         <button type="button" @click="keywordsShowToggle">
-          <img v-if="this.$store.state.cusLog.keywords.showKey" src="/static/img/cus_log_openEye.png">
-          <img v-else="" src="/static/img/cus_log_closeEye.png">
+          <img v-if="this.$store.state.cusLog.keywords.showKey" src="../../../static/img/cus_log_openEye.png">
+          <img v-else="" src="../../../static/img/cus_log_closeEye.png">
         </button>
       </div>
     </cus-inputText>

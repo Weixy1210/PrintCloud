@@ -13,80 +13,80 @@
         <ul class="orderState textCenter grayFont">
           <li class="step">
             <div class="icon">
-              <div class="circleIcon"><img src="/static/img/cus_user_orderDetail_step1_down.png"></div>
-              <img src="/static/img/cus_user_orderDetail_stepState_OK.png" class="stateIcon">
+              <div class="circleIcon"><img src="../../../static/img/cus_user_orderDetail_step1_down.png"></div>
+              <img src="../../../static/img/cus_user_orderDetail_stepState_OK.png" class="stateIcon">
             </div>
             <div class="iconText">上传文件</div>
           </li>
           <li class="stepSpace">
-            <img v-if="this.$store.state.userOrderDetail.orderState === 1" src="/static/img/cus_user_orderDetail_stepSpace2.png">
-            <img v-else src="/static/img/cus_user_orderDetail_stepSpace1.png">
+            <img v-if="this.$store.state.userOrderDetail.orderState === 1" src="../../../static/img/cus_user_orderDetail_stepSpace2.png">
+            <img v-else src="../../../static/img/cus_user_orderDetail_stepSpace1.png">
           </li>
           <li class="step">
             <div class="icon ING" v-if="this.$store.state.userOrderDetail.orderState === 1">
-              <div class="circleIcon"><img src="/static/img/cus_user_orderDetail_step2_down.png"></div>
-              <img src="/static/img/cus_user_orderDetail_stepState_ING.png" class="stateIcon">
+              <div class="circleIcon"><img src="../../../static/img/cus_user_orderDetail_step2_down.png"></div>
+              <img src="../../../static/img/cus_user_orderDetail_stepState_ING.png" class="stateIcon">
             </div>
             <div class="icon" v-else>
-              <div class="circleIcon"><img src="/static/img/cus_user_orderDetail_step2_down.png"></div>
-              <img src="/static/img/cus_user_orderDetail_stepState_OK.png" class="stateIcon">
+              <div class="circleIcon"><img src="../../../static/img/cus_user_orderDetail_step2_down.png"></div>
+              <img src="../../../static/img/cus_user_orderDetail_stepState_OK.png" class="stateIcon">
             </div>
             <div class="iconText">在线付款</div>
           </li>
           <li class="stepSpace">
-            <img v-if="this.$store.state.userOrderDetail.orderState === 1" src="/static/img/cus_user_orderDetail_stepSpace3.png">
-            <img v-else-if="this.$store.state.userOrderDetail.orderState === 2" src="/static/img/cus_user_orderDetail_stepSpace2.png">
-            <img v-else src="/static/img/cus_user_orderDetail_stepSpace1.png">
+            <img v-if="this.$store.state.userOrderDetail.orderState === 1" src="../../../static/img/cus_user_orderDetail_stepSpace3.png">
+            <img v-else-if="this.$store.state.userOrderDetail.orderState === 2" src="../../../static/img/cus_user_orderDetail_stepSpace2.png">
+            <img v-else src="../../../static/img/cus_user_orderDetail_stepSpace1.png">
           </li>
           <li class="step">
             <div class="icon" v-if="this.$store.state.userOrderDetail.orderState === 1">
-              <div class="circleIcon"><img src="/static/img/cus_user_orderDetail_step3.png"></div>
+              <div class="circleIcon"><img src="../../../static/img/cus_user_orderDetail_step3.png"></div>
             </div>
             <div class="icon ING" v-else-if="this.$store.state.userOrderDetail.orderState === 2">
-              <div class="circleIcon"><img src="/static/img/cus_user_orderDetail_step3_down.png"></div>
-              <img src="/static/img/cus_user_orderDetail_stepState_ING.png" class="stateIcon">
+              <div class="circleIcon"><img src="../../../static/img/cus_user_orderDetail_step3_down.png"></div>
+              <img src="../../../static/img/cus_user_orderDetail_stepState_ING.png" class="stateIcon">
             </div>
             <div class="icon" v-else>
-              <div class="circleIcon"><img src="/static/img/cus_user_orderDetail_step3_down.png"></div>
-              <img src="/static/img/cus_user_orderDetail_stepState_OK.png" class="stateIcon">
+              <div class="circleIcon"><img src="../../../static/img/cus_user_orderDetail_step3_down.png"></div>
+              <img src="../../../static/img/cus_user_orderDetail_stepState_OK.png" class="stateIcon">
             </div>
             <div class="iconText">完成打印</div>
           </li>
           <li class="stepSpace">
-            <img v-if="this.$store.state.userOrderDetail.orderState < 3" src="/static/img/cus_user_orderDetail_stepSpace3.png">
-            <img v-else-if="this.$store.state.userOrderDetail.orderState === 3" src="/static/img/cus_user_orderDetail_stepSpace2.png">
-            <img v-else src="/static/img/cus_user_orderDetail_stepSpace1.png">
+            <img v-if="this.$store.state.userOrderDetail.orderState < 3" src="../../../static/img/cus_user_orderDetail_stepSpace3.png">
+            <img v-else-if="this.$store.state.userOrderDetail.orderState === 3" src="../../../static/img/cus_user_orderDetail_stepSpace2.png">
+            <img v-else src="../../../static/img/cus_user_orderDetail_stepSpace1.png">
           </li>
           <li class="step">
             <div class="icon" v-if="this.$store.state.userOrderDetail.orderState < 3">
-              <div class="circleIcon"><img src="/static/img/cus_user_orderDetail_step4.png"></div>
+              <div class="circleIcon"><img src="../../../static/img/cus_user_orderDetail_step4.png"></div>
             </div>
             <div class="icon ING" v-else-if="this.$store.state.userOrderDetail.orderState === 3">
-              <div class="circleIcon"><img src="/static/img/cus_user_orderDetail_step4_down.png"></div>
-              <img src="/static/img/cus_user_orderDetail_stepState_ING.png" class="stateIcon">
+              <div class="circleIcon"><img src="../../../static/img/cus_user_orderDetail_step4_down.png"></div>
+              <img src="../../../static/img/cus_user_orderDetail_stepState_ING.png" class="stateIcon">
             </div>
             <div class="icon" v-else>
-              <div class="circleIcon"><img src="/static/img/cus_user_orderDetail_step4_down.png"></div>
-              <img src="/static/img/cus_user_orderDetail_stepState_OK.png" class="stateIcon">
+              <div class="circleIcon"><img src="../../../static/img/cus_user_orderDetail_step4_down.png"></div>
+              <img src="../../../static/img/cus_user_orderDetail_stepState_OK.png" class="stateIcon">
             </div>
             <div class="iconText">等待取件</div>
           </li>
           <li class="stepSpace">
-          	<img v-if="this.$store.state.userOrderDetail.orderState < 4" src="/static/img/cus_user_orderDetail_stepSpace3.png">
-            <img v-else-if="this.$store.state.userOrderDetail.orderState === 4" src="/static/img/cus_user_orderDetail_stepSpace2.png">
-            <img v-else src="/static/img/cus_user_orderDetail_stepSpace1.png">
+          	<img v-if="this.$store.state.userOrderDetail.orderState < 4" src="../../../static/img/cus_user_orderDetail_stepSpace3.png">
+            <img v-else-if="this.$store.state.userOrderDetail.orderState === 4" src="../../../static/img/cus_user_orderDetail_stepSpace2.png">
+            <img v-else src="../../../static/img/cus_user_orderDetail_stepSpace1.png">
           </li>
           <li class="step">
             <div class="icon" v-if="this.$store.state.userOrderDetail.orderState < 4">
-              <div class="circleIcon"><img src="/static/img/cus_user_orderDetail_step5.png"></div>
+              <div class="circleIcon"><img src="../../../static/img/cus_user_orderDetail_step5.png"></div>
             </div>
             <div class="icon ING" v-else-if="this.$store.state.userOrderDetail.orderState === 4">
-              <div class="circleIcon"><img src="/static/img/cus_user_orderDetail_step5_down.png"></div>
-              <img src="/static/img/cus_user_orderDetail_stepState_ING.png" class="stateIcon">
+              <div class="circleIcon"><img src="../../../static/img/cus_user_orderDetail_step5_down.png"></div>
+              <img src="../../../static/img/cus_user_orderDetail_stepState_ING.png" class="stateIcon">
             </div>
             <div class="icon" v-else>
-              <div class="circleIcon"><img src="/static/img/cus_user_orderDetail_step5_down.png"></div>
-              <img src="/static/img/cus_user_orderDetail_stepState_OK.png" class="stateIcon">
+              <div class="circleIcon"><img src="../../../static/img/cus_user_orderDetail_step5_down.png"></div>
+              <img src="../../../static/img/cus_user_orderDetail_stepState_OK.png" class="stateIcon">
             </div>
             <div class="iconText">完成</div>
           </li>
