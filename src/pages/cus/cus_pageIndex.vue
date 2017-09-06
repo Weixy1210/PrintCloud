@@ -148,10 +148,21 @@
       }
     },
     // 实例已经创建完成
-    created: function () { this.$store.dispatch('cusHeaderShowStyle', {b: true}) },
+    created: function () {
+      // 焦点定位到顶部
+      window.scrollTo(0, 0)
+      // 确定首页位置
+      this.$store.dispatch('cusHeaderShowStyle', {b: true})
+    },
     // 组件写入dom结构后
-    mounted: function () { this.$api.MsgBoxLocationX($('.content .coMsgBox'), $('.view').css('font-size')) },
+    mounted: function () {
+      // 消息框定位
+      this.$api.MsgBoxLocationX($('.content .coMsgBox'), $('.view').css('font-size'))
+    },
     // 组件销毁后
-    destroyed: function () { this.$store.dispatch('cusHeaderShowStyle', {b: false}) }
+    destroyed: function () {
+      // 离开首页
+      this.$store.dispatch('cusHeaderShowStyle', {b: false})
+    }
   }
 </script>

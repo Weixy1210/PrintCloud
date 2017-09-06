@@ -42,10 +42,25 @@
 </template>
 
 <script>
+  import api from '../../config/api.js'
   export default{
     name: 'cusHeader',
     methods: {
       LogOut: function () { this.$store.dispatch('cusHeaderLogOut') }
+    },
+    created: function () {
+      // api.setCookie('卫晓依', '123456')
+      // console.log(api.checkCookie())
+      // api.delCookie()
+      // console.log(api.checkCookie())
+      api.post('/php/login.php', {
+        submit: {
+          username: 'abc',
+          password: '1234567'
+        }
+      }, function (res) {
+        console.log(res)
+      })
     }
   }
 </script>
