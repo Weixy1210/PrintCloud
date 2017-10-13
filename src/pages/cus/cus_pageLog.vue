@@ -2,22 +2,22 @@
   <div id="cusLog" class="container">
     <div class="logBox">
       <div class="titleLogo textCenter"><img src="../../../static/img/cus_log_formTitle.png"></div>
-      <cus-mainForm @nameBlur="nameBlur" @keywordsBlur="keywordsBlur" @keywordsShowToggle="keywordsShowToggle" @LogIn="LogIn"></cus-mainForm>
+      <logForm @nameBlur="nameBlur" @keywordsBlur="keywordsBlur" @keywordsShowToggle="keywordsShowToggle" @LogIn="LogIn"></logForm>
     </div>
     <!-- 消息提示框 -->
-    <cus-msgBox :imgSrc="this.$store.state.cusLog.msgImgSrc" :msg="this.$store.state.cusLog.msgText"></cus-msgBox>
+    <coMsgBox :imgSrc="this.$store.state.cusLog.msgImgSrc" :msg="this.$store.state.cusLog.msgText"></coMsgBox>
   </div>
 </template>
 
 <script>
   import $ from 'jquery'
-  import cusLogMain from './cus_logMain.vue'
-  import cusMsgBox from '../../components/msgBox.vue'
+  import cusLogForm from '../../components/cus/cus_logForm.vue'
+  import coMsgBox from '../../components/msgBox.vue'
   export default{
     name: 'cusLog',
     components: {
-      'cus-mainForm': cusLogMain,
-      'cus-msgBox': cusMsgBox
+      'logForm': cusLogForm,
+      'coMsgBox': coMsgBox
     },
     methods: {
       nameBlur: function () {

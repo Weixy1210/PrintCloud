@@ -1,6 +1,22 @@
 const userMessage = {
   state: {
-    location: 'all',  // 分页位置:全部all,已读read,未读unread
+    tabList: [
+      {
+        name: '全部消息',
+        class: 'active',
+        func: function () {}
+      },
+      {
+        name: '已读消息',
+        class: '',
+        func: function () {}
+      },
+      {
+        name: '未读消息',
+        class: '',
+        func: function () {}
+      }
+    ],
     messages: [
       {
         state: 'unread',  // 消息状态,已读read,未读unread

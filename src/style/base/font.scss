@@ -25,11 +25,16 @@ html{
 	// 默认黑字
 	color: #3b4348;
 	a, select, option, input, textarea, button{ color: #3b4348; }
+	.normalFont{ color: #3b4348; }
 	// 灰字
 	.grayFont{ color: #667880; }
+	.grayFont2{ color: #97b7c5; }
 	// 蓝色突出字
 	.blueFont{ color: #007fe0; }
 	.blueFont2{ color: #4e73dd; }
+	.blueFont3{ color: #0877f6; }
+	// 棕色突出字
+	.BrownFont{ color: #c6ae63; }
 	// 灰色链接字
 	.grayAFont{
 		color: #999;

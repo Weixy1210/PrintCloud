@@ -26,8 +26,9 @@
           </ul>
         </aside>
         <article>
-          <module :titleImgSrc="titleImg" title="选择打印店">
-            <form slot="body" class="font16">
+          <div class="title font18"><img :src="titleImg">选择打印店</div>
+          <div class="body">
+            <form class="font16">
               <div class="choosePart">
                 <div>
                   <label>您的学校：</label>
@@ -55,10 +56,10 @@
               </div>
               <div class="accountPart" v-if="this.$store.state.cusOrder.hasFile">
                 <div><label class="font16">总计：</label><img src="../../../static/img/cus_order_small_charge.png"><span class="font20 grayFont" v-text="this.$store.getters.totalPrice"></span></div>
-                <div><cus-button buttonValue="确认订单" extraClass="darkStyle" @clickAction="checkOrder"></cus-button></div>
+                <div><coButton buttonValue="确认订单" extraClass="darkStyle" @clickAction="checkOrder"></coButton></div>
               </div>
             </form>
-          </module>
+          </div>
         </article>
       </div>
     </section>
@@ -67,17 +68,15 @@
 
 <script>
   import $ from 'jquery'
-  import module from '../../components/cus/cus_rightMainModule.vue'
-  import cusButton from '../../components/cus/cus_button.vue'
-  import orderDetail from './cus_orderDetali.vue'
+  import coButton from '../../components/formButton.vue'
+  import orderDetail from '../../components/cus/cus_orderDetail.vue'
   import selectPicture from '../../../static/img/form_select_icon2.png'
   import titlePicture from '../../../static/img/cus_order_title.png'
   export default{
     name: 'cusOrder',
     components: {
-      'module': module,
       orderDetail,
-      'cus-button': cusButton
+      'coButton': coButton
     },
     data: function () {
       return {

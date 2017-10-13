@@ -11,6 +11,10 @@ import userSet from './modules/cusUserSet.js'
 import userMessage from './modules/cusUserMessage.js'
 import userOrder from './modules/cusUserOrder.js'
 import userOrderDetail from './modules/cusUserOrderDetail.js'
+import busFrame from './modules/busFrame.js'
+import busLog from './modules/busLog.js'
+import busOrder from './modules/busOrder.js'
+import busUserSet from './modules/busUserSet.js'
 // 配置Vuex
 Vue.use(Vuex)
 const store = new Vuex.Store({
@@ -24,7 +28,11 @@ const store = new Vuex.Store({
     userSet: userSet,
     userMessage: userMessage,
     userOrder: userOrder,
-    userOrderDetail: userOrderDetail
+    userOrderDetail: userOrderDetail,
+    busFrame: busFrame,
+    busLog: busLog,
+    busOrder: busOrder,
+    busUserSet: busUserSet
   },
   state: {
     cusCover: false,

@@ -1,6 +1,17 @@
 const userOrder = {
   state: {
-    location: 'recent',  // 分页位置:近期recent,全部all
+    tabList: [
+      {
+        name: '近期订单',
+        class: 'active',
+        func: function () {}
+      },
+      {
+        name: '全部订单',
+        class: '',
+        func: function () {}
+      }
+    ],
     orders: [
       {
         ID: '266782-5693',  // 订单编号

@@ -2,7 +2,6 @@ import api from '../api.js'
 import blaskface from '../../../static/img/cus_msgBox_notice_blaskface.png'
 const cusReg = {
   state: {
-    indexLocation: true,
     userName: {
       hasValue: false,
       nameText: '',

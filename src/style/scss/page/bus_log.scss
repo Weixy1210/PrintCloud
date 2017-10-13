@@ -1,0 +1,39 @@
+#busLog{
+	min-width: 26rem;
+	min-height: 30rem;
+	article{
+		.box{
+			width: 12.8rem;
+			margin: auto;
+			padding: 3.4rem;
+			.titleBox{
+				img{
+					width: 9.1rem;
+					margin-bottom: 3.1rem;
+				}
+			}
+			form{
+				.coInputText{
+					margin-bottom: 1rem;
+					input{ width: 12.8rem; }
+					.imgRight{
+						button{
+							border: none;
+							background: none;
+							padding: 0;
+						}
+						button:focus{ outline: none; }
+					}
+					img{ margin-top: 0.55rem; }
+				}
+				.inputCheckboxBox{
+					margin-bottom: 1.4rem;
+					margin-top: -0.2rem;
+					@include lineHeight(1rem)
+					a{ text-decoration: underline; }
+				}
+				.buttonBox{ margin-bottom: 1rem; }
+			}
+		}
+	}
+}

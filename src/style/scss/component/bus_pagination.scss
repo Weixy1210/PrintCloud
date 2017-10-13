@@ -1,0 +1,16 @@
+ul.coBusPagination{
+	margin: 1.8rem 0 3.3rem;
+	li{
+		width: 0.8rem;
+		margin: 0 0.5rem;
+		@include lineHeight(1.6rem);
+	}
+	.prevPage, .nextPage{
+		width: 1.6rem;
+		margin: 0;
+	}
+	.center{
+		display: inline-block;
+		span.active{ color: #0877f6; }
+	}
+}

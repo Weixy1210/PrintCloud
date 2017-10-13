@@ -1,22 +1,9 @@
 <template>
-  <article id="cusUserMessage">
-    <headModule :titleImgSrc="titleImg" title="我的消息">
+  <div id="cusUserMessage">
+    <coBanner></coBanner>
+    <columnsFrame :liList="liList" :titleImgSrc="titleImg" title="我的消息">
       <div slot="body">
-        <ul class="tabLine" v-if="this.$store.state.userMessage.location === 'all'">
-          <li class="fl active"><button class="fontBold" @click='allLocation'>全部消息</button></li>
-          <li class="fl"><button class="fontBold" @click='readLocation'>已读消息</button></li>
-          <li class="fl"><button class="fontBold" @click='unreadLocation'>未读消息</button></li>
-        </ul>
-        <ul class="tabLine" v-if="this.$store.state.userMessage.location === 'read'">
-          <li class="fl"><button class="fontBold" @click='allLocation'>全部消息</button></li>
-          <li class="fl active"><button class="fontBold" @click='readLocation'>已读消息</button></li>
-          <li class="fl"><button class="fontBold" @click='unreadLocation'>未读消息</button></li>
-        </ul>
-        <ul class="tabLine" v-if="this.$store.state.userMessage.location === 'unread'">
-          <li class="fl"><button class="fontBold" @click='allLocation'>全部消息</button></li>
-          <li class="fl"><button class="fontBold" @click='readLocation'>已读消息</button></li>
-          <li class="fl active"><button class="fontBold" @click='unreadLocation'>未读消息</button></li>
-        </ul>
+        <coTab :tabList="this.$store.state.userMessage.tabList"></coTab>
         <div class="main">
           <div v-for="(item, index) in this.$store.state.userMessage.messages" class="messagePart borderBox">
             <div class="partHead font14">
@@ -35,103 +22,68 @@
               </div>
             </div>
           </div>
-          <ul class="pagination textCenter grayFont font12 fontBold" v-if="this.$store.state.userMessage.totalPage > 1">
-            <li class="fl cursorPointer prevPage bgBlueColor2"><img src="../../../static/img/cus_user_pagination_prev.png"></li>
-            <div class="center">
-              <li class="fl" v-if="this.$store.state.userMessage.page > 3">···</li>
-              <li class="fl cursorPointer btnHover1" :class="pageList[0].class">{{pageList[0].page}}</li>
-              <li class="fl cursorPointer btnHover1" :class="pageList[1].class">{{pageList[1].page}}</li>
-              <li class="fl cursorPointer btnHover1" :class="pageList[2].class">{{pageList[2].page}}</li>
-              <li class="fl" v-if="this.$store.state.userMessage.page <= this.$store.state.userMessage.totalPage - 3">···</li>
-            </div>
-            <li class="fr cursorPointer nextPage bgBlueColor2"><img src="../../../static/img/cus_user_pagination_next.png"></li>
-          </ul>
+          <coPagination :page="this.$store.state.userMessage.page" :totalPage="this.$store.state.userMessage.totalPage"
+            @particularPageClick="particularPageClick"></coPagination>
         </div>
       </div>
-    </headModule>
-  </article>
+    </columnsFrame>
+  </div>
 </template>
 
 <script>
   import $ from 'jquery'
-  import headModule from '../../components/cus/cus_rightMainModule.vue'
+  import cusUserBanner from '../../components/cus/cus_userBanner.vue'
+  import columnsFrame from '../../components/cus/cus_columnsFrame.vue'
+  import cusUserTabLine from '../../components/cus/cus_userTab.vue'
+  import cusPagination from '../../components/cus/cus_pagination.vue'
   import titlePicture from '../../../static/img/cus_userMessage_title.png'
   export default{
     name: 'cusUserMessage',
     components: {
-      'headModule': headModule
+      'coBanner': cusUserBanner,
+      'columnsFrame': columnsFrame,
+      'coTab': cusUserTabLine,
+      'coPagination': cusPagination
     },
     data: function () {
       return {
-        titleImg: titlePicture
-      }
-    },
-    computed: {
-      pageList: function () {
-        let page = this.$store.state.userMessage.page
-        let finalPage = this.$store.state.userMessage.totalPage
-        let list = [
+        liList: [
           {
-            page: 0,
-            class: ''
+            path: '/user/set',
+            class: '',
+            name: '个人设置'
           },
           {
-            page: 0,
-            class: ''
+            path: '/user/message',
+            class: 'active',
+            name: '我的消息'
           },
           {
-            page: 0,
-            class: ''
+            path: '/user/order',
+            class: '',
+            name: '我的订单'
           }
-        ]
-        if (page <= 3) {
-          list[0].page = 1
-          list[1].page = 2
-          list[2].page = 3
-          list[page - 1].class = 'active'
-        } else if (page <= finalPage - 3) {
-          list[0].page = page - 1
-          list[1].page = page
-          list[2].page = page + 1
-          list[1].class = 'active'
-        } else {
-          list[0].page = finalPage - 2
-          list[1].page = finalPage - 1
-          list[2].page = finalPage
-          list[2 - (finalPage - page)].class = 'active'
-        }
-        return list
+        ],
+        titleImg: titlePicture
       }
     },
     mounted: function () {
       this.$store.dispatch('userLocationSet', {
         str: 'message'
       })
-      $('#cusUserContainer aside.sideColumn').height($('#cusUserMessage .coCusRightMainModule').height())
+      $('#cusUserMessage aside.sideColumn').height($('#cusUserMessage article.mainColumn').height())
     },
     updated: function () {
-      $('#cusUserContainer aside.sideColumn').height($('#cusUserMessage .coCusRightMainModule').height())
+      $('#cusUserMessage aside.sideColumn').height($('#cusUserMessage article.mainColumn').height())
     },
     methods: {
-      allLocation: function () {
-        this.$store.dispatch('userMessageLocationSet', {
-          str: 'all'
-        })
-      },
-      readLocation: function () {
-        this.$store.dispatch('userMessageLocationSet', {
-          str: 'read'
-        })
-      },
-      unreadLocation: function () {
-        this.$store.dispatch('userMessageLocationSet', {
-          str: 'unread'
-        })
-      },
       contentShowToggle: function (index) {
         this.$store.dispatch('userMessageContentshowAllToggle', {
           index: index
         })
+      },
+      particularPageClick: function (page) {
+        alert(page)
       }
     }
   }

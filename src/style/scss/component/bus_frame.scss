@@ -1,0 +1,176 @@
+.coBusFrame{
+	position: relative;
+	height: 100%;
+	overflow: hidden;
+	section.headerBox{
+		width: 100%;
+		@include lineHeight(2.8rem);
+		box-shadow: 0 1px 2px rgba(35, 24, 21, 0.2);
+		position: absolute;
+		ul{
+			li{
+				height: 2.8rem;
+				position: relative;
+				img{
+					height: 1rem;
+					position: absolute;
+					top: 0.9rem;
+				}
+			}
+			li:first-child{
+				width: 6.7rem;
+				padding-left: 3.8rem;
+				img{ left: 1.9rem; }
+			}
+			li~li a{
+				display: inline-block;
+				width: 5rem;
+				padding-left: 3.2rem;
+				img{ left: 1.7rem; }
+			}
+			li.title{
+				padding-left: 2.8rem;
+				img{ left: 1.6rem; }
+			}
+		}
+	}
+	section.headerBox .bigScreen{
+		li.selectBox{
+			width: auto;
+			padding: 0;
+			margin-right: 4.5rem;
+			form{
+				select{
+					width: 6rem;
+					@include lineHeight(1.4rem);
+					padding: 0 0.7rem;
+					border: 1px #becbce solid;
+					// 自定义下拉箭头
+					background-size: 0.4rem 0.9rem;
+				}
+			}
+		}
+	}
+	section.headerBox .smallScreen{
+		width: 100%;
+		height: 100%;
+	}
+	section.headerBox::after{    // 第二层阴影
+		content: "";
+		display: block;
+		height: 10px;
+		margin-top: -10px;
+		box-shadow: 0 2px 4px rgba(35, 24, 21, 0.05);
+	}
+	section.mainBox{
+		height: 100%;
+		width: 100%;
+		padding-top: 2.8rem;
+		aside{
+			width: 10.5rem;
+			height: 100%;
+			a{
+				display: inline-block;
+				position: relative;
+				@include lineHeight(2.9rem);
+				width: 8.6rem;
+				border-bottom: 1px solid #1c2229;
+				padding-left: 1.9rem;
+				img{
+					position: absolute;
+					top: 1rem; right: 2.2rem;
+				}
+			}
+		}
+		article{ height: 100%; }
+	}
+	aside.orderDetail{
+		width: 18rem;
+		height: 100%;
+		position: absolute;
+		top: 0; right: 0;
+		display: none;
+		box-shadow: -2px 0 4px rgba(35, 24, 21, 0.05);
+		.headBox{
+			position: relative;
+			@include lineHeight(2.8rem);
+			padding-left: 2.4rem;
+			button{
+				background: none;
+				border: none;
+				padding: 0.2rem;
+				position: absolute;
+				top: 0.8rem; left: 0.8rem;
+			}
+		}
+		.partOne, .partTwo, .partThree, .partFour{
+			padding: 1.3rem;
+			border-bottom: 1px solid #d4e0e3;
+		}
+		.partOne{
+			@include lineHeight(1rem);
+			img{
+				height: 1rem;
+				margin-right: 0.5rem;
+			}
+			button{
+				background: none;
+				border: none;
+				img{
+					height: 0.7rem;
+					margin-top: 0.15rem;
+				}
+			}
+		}
+		.partTwo{
+			li{
+				@include lineHeight(1rem);
+				img{
+					height: 0.8rem;
+					margin-right: 0.5rem;
+				}
+			}
+			li~li{ margin-top: 0.6rem; }
+		}
+		.partThree{
+			height: 1.9rem;
+			padding: 0.8rem 1.3rem;
+			span{
+				display: inline-block;
+				@include lineHeight(1.7rem);
+				padding: 0 1.2rem;
+				margin-left: 0.4rem;
+			}
+		}
+		.partFour{
+			.properties span{
+				display: inline-block;
+				padding: 0.4rem 0.8rem;
+				border: 2px solid #0877f6;
+				margin: 0 0.4rem;
+			}
+			.remarks{
+				margin-top: 1rem;
+				height: 5rem;
+				overflow: auto;
+			}
+		}
+		.partFive button{
+			width: 10.2rem;
+			height: 2.4rem;
+			border: none;
+			border-radius: 1.2rem;
+			margin-top: 2.4rem;
+		}
+	}
+	// 屏幕适配
+	@media screen and (max-device-width: 1080px){    // ~1080px的PC
+		.bigScreen{ display: none; }
+		.smallScreen{ display: block; }
+	}
+	@media screen and (min-device-width: 1080.1px){    // 1080px~的PC
+		.bigScreen{ display: block; }
+		.smallScreen{ display: none; }
+	}
+}
+	

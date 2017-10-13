@@ -7,7 +7,7 @@
           <form
             <div class="inputSelect">
               <label>选择支持我们服务的学校：</label>
-              <select name="printSchool" id="index_printSchool" class="borderBox font16 borderRadius":style="{backgroundImage: 'url(' + select + ')'}">
+              <select name="printSchool" class="borderBox font16 borderRadius":style="{backgroundImage: 'url(' + select + ')'}">
                 <option v-for="school in this.$store.state.cusIndex.orderSchools" :value="school.schoolID">{{school.schoolName}}</option>
               </select>
             </div>
@@ -95,8 +95,8 @@
           </div>
         </form>
         <!-- 消息提示框 -->
-        <cus-msgBox :imgSrc="this.$store.state.cusIndex.msgImgSrc" :msg="this.$store.state.cusIndex.msgText">
-        </cus-msgBox>
+        <coMsgBox :imgSrc="this.$store.state.cusIndex.msgImgSrc" :msg="this.$store.state.cusIndex.msgText">
+        </coMsgBox>
         <!-- 右侧背景图片 -->
         <img src="../../../static/img/cus_index_sideImg.jpg" class="rBgImg">  
       </div>
@@ -115,13 +115,13 @@
 
 <script>
   import $ from 'jquery'
-  import cusMsgBox from '../../components/msgBox.vue'
+  import coMsgBox from '../../components/msgBox.vue'
   import bannerPicture from '../../../static/img/cus_index_banner.jpg'
   import selectPicture from '../../../static/img/form_select_icon.png'
   export default{
     name: 'cusIndex',
     components: {
-      'cus-msgBox': cusMsgBox
+      'coMsgBox': coMsgBox
     },
     data: function () {
       return {

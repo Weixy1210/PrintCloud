@@ -1,0 +1,16 @@
+.coBanner{
+	position: relative;
+	height: 16.5rem;
+	img.fl{ width: 23rem; }
+	img.fr{ 
+		width: 16.15rem;
+		margin-top: 2.15rem;
+	}
+	.introWords{
+		width: 51.6rem;
+		position: absolute;
+		top: 8.8rem;
+		span{ display: block; }
+		span:nth-child(1){ margin-bottom: 0.9rem; }
+	}
+}

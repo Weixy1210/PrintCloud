@@ -1,0 +1,42 @@
+#busReg{
+	min-width: 26rem;
+	min-height: 45rem;
+	article{
+		padding: 3.4rem;
+		form{
+			width: 22rem;
+			margin: auto;
+			>div{ margin-bottom: 1.2rem; }
+			.coInputText{
+				label{ 
+					display: inline-block;
+					width: 5rem; 
+					text-align: right;
+				}
+				input{ width: 13rem; }
+				input[name=verification]{ width: 6.25rem; }
+				.imgRight{
+					button{
+						border: none;
+						background: none;
+						padding: 0;
+						margin-top: 0.6rem;
+					}
+					button:focus{ outline: none; }
+				}
+			}
+			.coCheckbox, .buttonBox{ margin-left: 5.6rem; }
+			.coCheckbox a{
+				text-decoration: underline;
+				color: #4e73dd;
+			}
+			.buttonBox{
+				width: 13rem;
+				input[type=button]{
+					margin-bottom: 1.2rem;
+				}
+			}
+			.coMsgBox{ top: 10rem; left: 7.5rem; }
+		}
+	}
+}

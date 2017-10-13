@@ -1,0 +1,42 @@
+.coOrderTable{
+	.tableTitle{
+		@include lineHeight(2.3rem);
+		padding: 0 1.5rem 0 0.5rem;
+		.labelBox{
+			margin-right: 0.8rem;
+			label{ font-size: 0.7rem; }
+		} 
+		button{
+			width: 4rem;
+			height: 1.2rem;
+			border: 1px solid #becbce;
+			background-color: #f0f6f8;
+		}
+		button.fr{ margin-top: 0.5rem; }
+	}
+	table{
+		width: 100%;
+		border-left: 1px solid #d4e0e3;
+		border-collapse: collapse;  // 边框合并
+		tr{
+			@include lineHeight(2.3rem);
+			border-bottom: 1px solid #d4e0e3;
+		}
+		th, td{
+			@include lineHeight(1.7rem);
+			border-right: 1px solid #d4e0e3;
+			.coCheckbox{ margin-top: 0.5rem; }
+			button{
+				background: none;
+				border: none;
+				padding: 0.2rem;
+				margin-top: 0.4rem;
+			}
+			button.forbid{ cursor: default; }
+		}
+		td:nth-child(1), td:nth-child(2){
+			width: 2rem;
+		}
+		tr:nth-of-type(even){ background-color: #f0fafc; }
+	}
+}

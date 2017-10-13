@@ -1,0 +1,14 @@
+.coTabLine{
+	button{
+		width: 3.2rem;
+		height: 3.5rem;
+		background: none;
+		border: 0;
+		padding: 0;
+	}
+	li.active{
+		border-bottom: 2px solid #4e73dd;
+		button{ color: #4e73dd; }
+	}
+	li~li{ margin-left: 2rem; }
+}

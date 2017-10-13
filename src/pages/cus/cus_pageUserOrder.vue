@@ -1,15 +1,9 @@
 <template>
-  <article id="cusUserOrder">
-    <headModule :titleImgSrc="titleImg" title="订单管理">
+  <div id="cusUserOrder">
+    <coBanner></coBanner>
+    <columnsFrame :liList="liList" :titleImgSrc="titleImg" title="订单管理">
       <div slot="body">
-        <ul class="tabLine" v-if="this.$store.state.userOrder.location === 'recent'">
-          <li class="fl active"><button class="fontBold" @click='recentLocation'>近期订单</button></li>
-          <li class="fl"><button class="fontBold" @click='allLocation'>全部订单</button></li>
-        </ul>
-        <ul class="tabLine" v-if="this.$store.state.userOrder.location === 'all'">
-          <li class="fl"><button class="fontBold" @click='recentLocation'>近期订单</button></li>
-          <li class="fl active"><button class="fontBold" @click='allLocation'>全部订单</button></li>
-        </ul>
+        <coTab :tabList="this.$store.state.userOrder.tabList"></coTab>
         <div class="main">
           <div v-for="(item, index) in this.$store.state.userOrder.orders" class="orderPart">
             <article class="borderBox">
@@ -56,34 +50,47 @@
               </div>
             </aside>
           </div>
-          <ul class="pagination textCenter grayFont font12 fontBold" v-if="this.$store.state.userOrder.totalPage > 1">
-            <li class="fl cursorPointer prevPage bgBlueColor2"><img src="../../../static/img/cus_user_pagination_prev.png"></li>
-            <div class="center">
-              <li class="fl" v-if="this.$store.state.userOrder.page > 3">···</li>
-              <li class="fl cursorPointer btnHover1" :class="pageList[0].class">{{pageList[0].page}}</li>
-              <li class="fl cursorPointer btnHover1" :class="pageList[1].class">{{pageList[1].page}}</li>
-              <li class="fl cursorPointer btnHover1" :class="pageList[2].class">{{pageList[2].page}}</li>
-              <li class="fl" v-if="this.$store.state.userOrder.page <= this.$store.state.userOrder.totalPage - 3">···</li>
-            </div>
-            <li class="fr cursorPointer nextPage bgBlueColor2"><img src="../../../static/img/cus_user_pagination_next.png"></li>
-          </ul>
+          <coPagination :page="this.$store.state.userOrder.page" :totalPage="this.$store.state.userOrder.totalPage"></coPagination>
         </div>
       </div>
-    </headModule>
-  </article>
+    </columnsFrame>
+  </div>
 </template>
 
 <script>
   import $ from 'jquery'
-  import headModule from '../../components/cus/cus_rightMainModule.vue'
+  import cusUserBanner from '../../components/cus/cus_userBanner.vue'
+  import columnsFrame from '../../components/cus/cus_columnsFrame.vue'
+  import cusUserTabLine from '../../components/cus/cus_userTab.vue'
+  import cusPagination from '../../components/cus/cus_pagination.vue'
   import titlePicture from '../../../static/img/cus_userOrder_title.png'
   export default{
     name: 'cusUserOrder',
     components: {
-      'headModule': headModule
+      'coBanner': cusUserBanner,
+      'columnsFrame': columnsFrame,
+      'coTab': cusUserTabLine,
+      'coPagination': cusPagination
     },
     data: function () {
       return {
+        liList: [
+          {
+            path: '/user/set',
+            class: '',
+            name: '个人设置'
+          },
+          {
+            path: '/user/message',
+            class: '',
+            name: '我的消息'
+          },
+          {
+            path: '/user/order',
+            class: 'active',
+            name: '我的订单'
+          }
+        ],
         titleImg: titlePicture
       }
     },
@@ -128,10 +135,10 @@
       this.$store.dispatch('userLocationSet', {
         str: 'order'
       })
-      $('#cusUserContainer aside.sideColumn').height($('#cusUserOrder .coCusRightMainModule').height())
+      $('#cusUserOrder aside.sideColumn').height($('#cusUserOrder article.mainColumn').height())
     },
     updated: function () {
-      $('#cusUserContainer aside.sideColumn').height($('#cusUserOrder .coCusRightMainModule').height())
+      $('#cusUserOrder aside.sideColumn').height($('#cusUserOrder article.mainColumn').height())
     },
     methods: {
       recentLocation: function () {

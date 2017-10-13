@@ -1,5 +1,5 @@
 // 用户界面跨越页面通用设计
-header, .content, footer{
+header.coCusHeader, .content, footer.coCusFooter{
 	min-width: 54rem;    // 保证包裹住container
 }
 .container{

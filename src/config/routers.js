@@ -4,33 +4,35 @@ import Router from 'vue-router'
 // 第一层
 import pageError from '../pages/pageError.vue'
 import pageError2 from '../pages/pageError2.vue'
-import pageCustomerMain from '../pages/cus/cus_pageMain.vue'
-// 第二层
+// 用户
+import pageCustomerFrame from '../pages/cus/cus_pageFrame.vue'
 import pageCustomerIndex from '../pages/cus/cus_pageIndex.vue'
 import pageCustomerLog from '../pages/cus/cus_pageLog.vue'
-import pageCustomerReg from '../pages/cus/cus_pageReg.vue'
+import pageCustomerRegister from '../pages/cus/cus_pageReg.vue'
+import pageCustomerFindkey from '../pages/cus/cus_pageFind.vue'
 import pageCustomerOrder from '../pages/cus/cus_pageOrder.vue'
 import pageCustomerOrderCheck from '../pages/cus/cus_pageOrderCheck.vue'
-import pageCustomerUserBanner from '../pages/cus/cus_pageUserBanner.vue'
-// 第三层
-import pageCustomerRegIndex from '../pages/cus/cus_pageRegIndex.vue'
-import pageCustomerRegFind from '../pages/cus/cus_pageRegFind.vue'
-import pageCustomerUserContainer from '../pages/cus/cus_pageUserContainer.vue'
-import pageCustomerUserOrderDetail from '../pages/cus/cus_pageUserOrderDetail.vue'
-// 第四层
 import pageCustomerUserSet from '../pages/cus/cus_pageUserSet.vue'
 import pageCustomerUserMessage from '../pages/cus/cus_pageUserMessage.vue'
 import pageCustomerUserOrder from '../pages/cus/cus_pageUserOrder.vue'
+import pageCustomerUserOrderDetail from '../pages/cus/cus_pageUserOrderDetail.vue'
+// 店家
+import pageBusinessLog from '../pages/bus/bus_pageLog.vue'
+import pageBusinessReg from '../pages/bus/bus_pageReg.vue'
+import pageBusinessIndex from '../pages/bus/bus_pageIndex.vue'
+import pageBusinessHistory from '../pages/bus/bus_pageHistory.vue'
+import pageBusinessPersonalSet from '../pages/bus/bus_pagePersonalSet.vue'
+
 // 配置路由
 Vue.use(Router)
 const router = new Router({
   // mode: 'history',    // 去掉地址中的#, 注意与后端对接时可能有问题需要调整
   // base: '/PrintCloud/',
   routes: [
-    {
+    {  // 用户界面
       path: '/',
-      name: 'cusMain',
-      component: pageCustomerMain,
+      name: 'cusFrame',
+      component: pageCustomerFrame,
       children: [
         {
           path: '/',
@@ -45,19 +47,12 @@ const router = new Router({
         {
           path: 'reg',
           name: 'cusReg',
-          component: pageCustomerReg,
-          children: [
-            {
-              path: '/',
-              name: 'cusRegIndex',
-              component: pageCustomerRegIndex
-            },
-            {
-              path: 'find',
-              name: 'cusRegFind',
-              component: pageCustomerRegFind
-            }
-          ]
+          component: pageCustomerRegister
+        },
+        {
+          path: 'findkey',
+          name: 'cusFind',
+          component: pageCustomerFindkey
         },
         {
           path: 'order',
@@ -70,40 +65,52 @@ const router = new Router({
           component: pageCustomerOrderCheck
         },
         {
-          path: 'user',
-          name: 'cusUser',
-          component: pageCustomerUserBanner,
-          children: [
-            {
-              path: '/',
-              name: 'cusUserContainer',
-              component: pageCustomerUserContainer,
-              children: [
-                {
-                  path: 'set',
-                  name: 'cusUserSet',
-                  component: pageCustomerUserSet
-                },
-                {
-                  path: 'message',
-                  name: 'cusUserMessage',
-                  component: pageCustomerUserMessage
-                },
-                {
-                  path: 'order',
-                  name: 'cusUserOrder',
-                  component: pageCustomerUserOrder
-                }
-              ]
-            },
-            {
-              path: 'order/Detail',
-              name: 'cusUserOrderDetail',
-              component: pageCustomerUserOrderDetail
-            }
-          ]
+          path: 'user/set',
+          name: 'cusUserSet',
+          component: pageCustomerUserSet
+        },
+        {
+          path: 'user/message',
+          name: 'cusUserMessage',
+          component: pageCustomerUserMessage
+        },
+        {
+          path: 'user/order',
+          name: 'cusUserOrder',
+          component: pageCustomerUserOrder
+        },
+        {
+          path: 'user/order/Detail',
+          name: 'cusUserOrderDetail',
+          component: pageCustomerUserOrderDetail
         }
       ]
+    },
+    // 商家界面
+    {
+      path: '/shop/log',
+      name: 'busLog',
+      component: pageBusinessLog
+    },
+    {
+      path: '/shop/reg',
+      name: 'busReg',
+      component: pageBusinessReg
+    },
+    {
+      path: '/shop',
+      name: 'busIndex',
+      component: pageBusinessIndex
+    },
+    {
+      path: '/shop/history',
+      name: 'busHistory',
+      component: pageBusinessHistory
+    },
+    {
+      path: '/shop/personalSet',
+      name: 'busPersonalSet',
+      component: pageBusinessPersonalSet
     },
     {
       path: '/error',

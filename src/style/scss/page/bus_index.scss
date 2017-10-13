@@ -1,0 +1,33 @@
+#busIndex, #busHistory{
+	min-width: 50rem;
+	min-height: 30rem;
+	article{
+		padding: 1.5rem 2.5rem 0;
+		@media screen and (min-device-width: 1080.1px){
+			padding: 1.5rem 4.5rem 0 2rem;
+			margin-left: 10.5rem;
+		}	
+		.headInfo{
+			display: inline-block;
+			width: 100%;
+			padding-left: 0.4rem;
+			margin-bottom: 1.3rem;
+			li:nth-of-type(odd){
+				min-width: 4rem;
+				padding: 1.5rem 0.2rem 1.5rem 1.2rem;
+				span{
+					display: inline-block;
+					margin-bottom: 0.8rem;
+				}
+				span.indent{
+					text-indent: 0.3rem;
+				}
+			}
+			li:nth-of-type(even){
+				color: #cacdcf;
+				margin-top: 2rem;
+			}
+		}
+	}
+}
+#busHistory article{ padding-top: 2.1rem; }
