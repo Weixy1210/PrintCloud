@@ -1,17 +1,20 @@
 <template>
   <div id="cusIndex">
+    <!-- banner块 -->
     <section class="banner" :style="{backgroundImage: 'url(' + banner + ')'}">
       <div class="container">
         <article class="fl font28 whiteFont">在线查找身边的打印店，上传文件，立即打印</article>
         <aside class="fr bgLightColor1 font16 borderBox">
-          <form
+          <!-- 上传打印文件的进入口 -->
+          <form>
             <div class="inputSelect">
               <label>选择支持我们服务的学校：</label>
-              <select name="printSchool" class="borderBox font16 borderRadius":style="{backgroundImage: 'url(' + select + ')'}">
-                <option v-for="school in this.$store.state.cusIndex.orderSchools" :value="school.schoolID">{{school.schoolName}}</option>
+              <select name="printSchool" class="borderBox font16 borderRadius" :style="{backgroundImage: 'url(' + select + ')'}">
+                <option v-for="school in this.cusOrder.printSchools"
+                  :value="school.schoolID" :selected="school.ifSelected">{{school.schoolName}}</option>
               </select>
             </div>
-            <hr/>
+            <hr/>  <!-- 分割线 -->
             <router-link to="/order" class="inputFile cursorPointer textCenter">
             	<img src="../../../static/img/cus_index_uploud.png">
             	<div class="blueFont">上传文件</div>
@@ -20,6 +23,7 @@
         </aside>
       </div>
     </section>
+    <!-- 介绍使用方法块 -->
     <section class="introduction">
       <div class="container">
         <div class="introTitle font18 fontBold">如何使用印云</div>
@@ -70,6 +74,7 @@
         </ul>
       </div>
     </section>
+    <!-- 联系建议等模块 -->
     <section class="connect overFlowHidden">
       <div class="blueImgBg bgBlueColor1"></div>
       <div class="container">
@@ -78,28 +83,26 @@
           <div class="conFormBody">
             <div>
               <input type="text" name="conName"
-                placeholder="您的称呼" class="whiteFont borderBox"
-                @blur='blurBgColor'>
+                class="whiteFont borderBox" placeholder="您的称呼"
+                :value="this.cusIndex.conName" @blur="inputBlur">
               <input type="text" name="conAddress"
-                placeholder="联系方式（手机/邮箱/QQ）" class="whiteFont fr borderBox"
-                @blur='blurBgColor'>
+                class="whiteFont fr borderBox" placeholder="联系方式（手机/邮箱/QQ）"
+                :value="this.cusIndex.conAddress" @blur="inputBlur">
             </div>
             <div>
-              <textarea name="conText"
-                placeholder="说点什么" rows="4"
-                class="whiteFont borderBox"
-                @blur='blurBgColor'>
+              <textarea name="conText" class="whiteFont borderBox" placeholder="说点什么" rows="4"
+                :value="this.cusIndex.conText" @blur="inputBlur">
               </textarea>
+              <!-- 建议提交结果提示框 -->
+              <coMsgBox :imgSrc="this.cusIndex.msgImgSrc" :msg="this.cusIndex.msgText"></coMsgBox>
             </div>
-            <div><input type="button" value="发送" class="bgLightColor1 font18 textCenter borderRadius btnHover2" @click.prevent="submitSuggest"></div>
+            <div><input type="button" value="发送" class="bgLightColor1 font18 textCenter borderRadius btnHover2" @click="clickFunction"></div>
           </div>
         </form>
-        <!-- 消息提示框 -->
-        <coMsgBox :imgSrc="this.$store.state.cusIndex.msgImgSrc" :msg="this.$store.state.cusIndex.msgText">
-        </coMsgBox>
         <!-- 右侧背景图片 -->
-        <img src="../../../static/img/cus_index_sideImg.jpg" class="rBgImg">  
+        <img src="../../../static/img/cus_index_sideImg.jpg" class="rBgImg">
       </div>
+      <!-- 注册推送模块 -->
       <div class="registerNow">
         <div class="container">
           <img src="../../../static/img/cus_index_footPIC.png">
@@ -115,54 +118,59 @@
 
 <script>
   import $ from 'jquery'
+  import {mapState, mapActions} from 'vuex'
   import coMsgBox from '../../components/msgBox.vue'
   import bannerPicture from '../../../static/img/cus_index_banner.jpg'
   import selectPicture from '../../../static/img/form_select_icon.png'
   export default{
     name: 'cusIndex',
-    components: {
-      'coMsgBox': coMsgBox
-    },
+    components: { 'coMsgBox': coMsgBox },
     data: function () {
       return {
         banner: bannerPicture,
         select: selectPicture
       }
     },
+    computed: mapState(['cusIndex', 'cusOrder']),
     methods: {
-      // 输入文字后永久更改输入框背景
-      blurBgColor: function (event) {
-        if (event.target.value === '') {
+      ...mapActions({
+        indexLocation: 'cusHeaderRegShowStyle',
+        schoolsList: 'cusOrderPrintSchoolsListInit',
+        valueChange: 'cusIndexSuggestionInfoChange',
+        sendSuggestion: 'cusIndexSendSuggestion'
+      }),
+      inputBlur: function (event) {
+        let value = event.target.value
+        let name = event.target.name
+        if (value === '') {
+          // 未输入框中无字
           event.target.style.backgroundColor = '#186ccc'
         } else {
+          // 输入文字后更改输入框背景
           event.target.style.backgroundColor = '#105bb1'
         }
+        // 更新vuex的值
+        this.valueChange({
+          name: name,
+          value: value
+        })
       },
-      // 提交建议
-      submitSuggest: function () {
-        this.$store.dispatch('cusIndexSendSuggest', {
-          textarea: $('.content .connectForm textarea').val(),
-          address: $('.content .connectForm input[name=conAddress]').val(),
-          $msgbox: $('.content .coMsgBox')
+      clickFunction: function () {
+        this.sendSuggestion({
+          $msgbox: $('#cusIndex .connect .coMsgBox')
         })
       }
     },
-    // 实例已经创建完成
+    // 实例创建完成
     created: function () {
-      // 焦点定位到顶部
-      window.scrollTo(0, 0)
-      // 确定首页位置
-      this.$store.dispatch('cusHeaderShowStyle', {b: true})
+      this.indexLocation({boolean: true})  // 位于首页位置
+      this.schoolsList()                   // 载入可选学校列表
     },
     // 组件写入dom结构后
     mounted: function () {
-      // 消息框定位
-      this.$api.MsgBoxLocationX($('.content .coMsgBox'), $('.view').css('font-size'))
+      window.scrollTo(0, 0)                // 页面焦点定位到顶部
     },
-    // 组件销毁后
-    destroyed: function () {
-      // 离开首页
-      this.$store.dispatch('cusHeaderShowStyle', {b: false})
-    }
+    // 组件销毁, 即离开该页
+    destroyed: function () { this.indexLocation({boolean: false}) }
   }
 </script>

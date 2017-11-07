@@ -1,11 +1,3 @@
-// 消息提示框相关
-// 消息提示框横向位置调整（居中）
-function MsgBoxLocationX ($, font) {
-  let boxWidth = $.width()
-  let fontSize = parseInt(font.match(/[0-9]+/g))
-  let marginLeft = -(boxWidth / 2 + fontSize * 1.2)
-  $.css('margin-left', marginLeft)
-}
 // 消息提示框出现与消失动画
 function MsgBoxShow ($) {
   $.css('display', 'block')
@@ -22,28 +14,30 @@ function MsgBoxShow ($) {
 // input填写错误提醒
 function InputWrong (str, msg, context) {
   context.commit('cus' + str + 'Judge', {
-    b: false,
-    src: '/static/img/cus_msgBox_notice_notice.png',
-    str: msg
+    boolean: false,
+    strClass: 'warn',
+    warnClass: 'warnMsgShow',
+    warnImgSrc: require('../../static/img/cus_msgBox_notice_notice.png'),
+    warnText: msg
   })
-  context.commit('cus' + str + 'WarnClassChange', 'warnMsgShow')
-  context.commit('cus' + str + 'ClassChange', 'warn')
 }
 // input填写正确
 function InputRight (str, state, context) {
   if (state === 'hide') {
-    context.commit('cus' + str + 'Judge', {b: true, src: '', str: ''})
-    context.commit('cus' + str + 'WarnClassChange', '')
+    context.commit('cus' + str + 'Judge', {
+      boolean: true,
+      strClass: '',
+      warnClass: ''
+    })
   }
   if (state === 'show') {
     context.commit('cus' + str + 'Judge', {
-      b: true,
-      src: '/static/img/cus_msgBox_notice_right.png',
-      str: ''
+      boolean: true,
+      strClass: '',
+      warnClass: 'warnMsgShow',
+      warnImgSrc: require('../../static/img/cus_msgBox_notice_right.png')
     })
-    context.commit('cus' + str + 'WarnClassChange', 'warnMsgShow')
   }
-  context.commit('cus' + str + 'ClassChange', '')
 }
 // 验证码初始化
 function CusRegVerificationInit (str, state, context) {
@@ -62,11 +56,11 @@ function CusRegVerificationInit (str, state, context) {
 
 // cookie相关
 // 设置cookie
-function setCookie (username, keywords) {
+function setCookie (username, password) {
   let exp = new Date()
   exp.setTime(exp.getTime() + 7 * 24 * 60 * 60 * 1000)
   document.cookie = 'username=' + escape(username) + ';expires=' + exp.toGMTString()
-  document.cookie = 'keywords=' + escape(keywords) + ';expires=' + exp.toGMTString()
+  document.cookie = 'password=' + escape(password) + ';expires=' + exp.toGMTString()
 }
 // 获取当前cookie
 function getCookie (str) {
@@ -89,20 +83,20 @@ function delCookie () {
   let exp = new Date()
   exp.setTime(exp.getTime() - 1)
   let username = getCookie('username')
-  let keywords = getCookie('keywords')
-  if (username != null || keywords != null) {
+  let password = getCookie('password')
+  if (username != null || password != null) {
     document.cookie = 'username=' + escape(username) + ';expires=' + exp.toGMTString()
-    document.cookie = 'keywords=' + escape(keywords) + ';expires=' + exp.toGMTString()
+    document.cookie = 'password=' + escape(password) + ';expires=' + exp.toGMTString()
   }
 }
 // 判断是否存有cookie
 function checkCookie () {
   let username = getCookie('username')
-  let keywords = getCookie('keywords')
-  if (username !== null && keywords !== null) {
+  let password = getCookie('password')
+  if (username !== null && password !== null) {
     return {
       username: username,
-      keywords: keywords
+      password: password
     }
   } else {
     return null
@@ -133,9 +127,7 @@ function apiAxios (method, url, params, success, failure) {
   })
   .catch(function (err) {
     console.log(err)
-    if (failure) {
-      failure()
-    }
+    if (failure) { failure(err) }
   })
 }
 
@@ -164,9 +156,6 @@ export default {
   },
   MsgBoxShow: function ($) {
     return MsgBoxShow($)
-  },
-  MsgBoxLocationX: function ($, font) {
-    return MsgBoxLocationX($, font)
   },
   InputWrong: function (str, msg, context) {
     return InputWrong(str, msg, context)

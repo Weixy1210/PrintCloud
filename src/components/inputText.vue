@@ -70,7 +70,7 @@
       warnText: { default: '' }          // 提示信息文本内容
     },
     methods: {
-      inputOnBlur: function () { this.$emit('inputOnBlur') },
+      inputOnBlur: function (event) { this.$emit('inputOnBlur', event) },
       buttonClick: function () { this.$emit('buttonClick') }
     },
     mounted: function () {

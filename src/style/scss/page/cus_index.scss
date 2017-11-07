@@ -84,7 +84,7 @@
 			.connectForm{
 				.conFormTitle{ margin: 3.2rem 0 2.2rem; }
 				.conFormBody{
-					div{
+					>div{
 						width: 35.2rem;
 						input, textarea{
 							border: none;
@@ -99,10 +99,17 @@
 						textarea{ width: 35.2rem; }
 						input[type=button]{ width: 11rem; }
 					}
-					>div:nth-child(2){ margin: 1.2rem 0 2.2rem; }
+					>div:nth-child(2){
+						margin: 1.2rem 0 2.2rem;
+						position: relative;
+						.coMsgBox{
+							position: absolute;
+							top: 25%; left: 35%;
+							min-width: 6.5rem;
+						}
+					}
 				}
 			}
-			.coMsgBox{ top: 13rem; left: 50%; }
 		}
 		.registerNow{
 			height: 26.3rem;

@@ -1,8 +1,8 @@
+import api from '../api.js'
 const cusOrder = {
   state: {
-    // 选择打印店部分
-    printSchool: '西安交通大学',
-    printSchools: [],
+    printSchools: [],  // 打印支持的学校列表
+    printSchool: '',   // 选择的学校
     printShop: '新尚打印店',
     printShops: [],
     // 布局辅助, 统一aside与article的高度
@@ -69,6 +69,18 @@ const cusOrder = {
     discount: 10.0
   },
   mutations: {
+    cusOrderPrintSchoolsListInit (state, arr) {
+      state.printSchools = arr.map(function (value, index) {
+        if (index === 0) {
+          // 默认选中第一个选项
+          value.ifSelected = 'selected'
+          state.printSchool = value.schoolName
+        } else {
+          value.ifSelected = ''
+        }
+        return value
+      })
+    },
     heightChange (state, {h}) { state.mainHeight = h },
     // 添加文件
     fileAdd (state, {fileID, fileName, fileUrl, totalPage, unitPrice}) {
@@ -223,6 +235,11 @@ const cusOrder = {
     }
   },
   actions: {
+    cusOrderPrintSchoolsListInit (context) {
+      api.get('/php/home.php', {}, function (res) {
+        if (res.status === 1 || res.status === '1') { context.commit('cusOrderPrintSchoolsListInit', res.data) }
+      })  // 学校列表获取失败的情况未处理
+    },
     heightChange (context, {h}) { context.commit('heightChange', {h}) },
     fileAdd (context, {fileUrl}) {
       // 上传

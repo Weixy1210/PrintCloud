@@ -2,10 +2,9 @@
   <div id="cusLog" class="container">
     <div class="logBox">
       <div class="titleLogo textCenter"><img src="../../../static/img/cus_log_formTitle.png"></div>
+      <!-- 登录主体表单 -->
       <logForm @nameBlur="nameBlur" @keywordsBlur="keywordsBlur" @keywordsShowToggle="keywordsShowToggle" @LogIn="LogIn"></logForm>
     </div>
-    <!-- 消息提示框 -->
-    <coMsgBox :imgSrc="this.$store.state.cusLog.msgImgSrc" :msg="this.$store.state.cusLog.msgText"></coMsgBox>
   </div>
 </template>
 

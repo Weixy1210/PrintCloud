@@ -4,75 +4,102 @@ import notice from '../../../static/img/cus_msgBox_notice_notice.png'
 import blaskface from '../../../static/img/cus_msgBox_notice_blaskface.png'
 const cusIndex = {
   state: {
-    orderSchools: [
-      {
-        schoolID: '0',
-        schoolName: '西安交通大学'
-      },
-      {
-        schoolID: '1',
-        schoolName: '清华大学'
-      },
-      {
-        schoolID: '2',
-        schoolName: '北京大学'
-      },
-      {
-        schoolID: '3',
-        schoolName: '南京大学'
-      }
-    ],
-    msgState: '',
-    msgImgSrc: '',
-    msgText: ''
+    conName: '',     // 建议人的姓名
+    conAddress: '',  // 建议人的联系方式
+    conText: '',     // 建议内容
+    msgImgSrc: '',   // 提示框图片
+    msgText: ''      // 提示框文字
   },
   mutations: {
-    cusIndexSendSuggest (state, strN) {
-      switch (strN) {
-        case '1':
-          state.msgState = '1'
+    cusIndexSuggestionInfoChange (state, {name, value}) {
+      switch (name) {
+        case 'conName':
+          state.conName = value
+          break
+        case 'conAddress':
+          state.conAddress = value
+          break
+        case 'conText':
+          state.conText = value
+          break
+      }
+    },
+    cusIndexSendSuggestion (state, {result, $msgbox}) {
+      switch (result) {
+        case 'success':
           state.msgImgSrc = achieve
           state.msgText = '已发送'
           break
-        case '2':
-          state.msgState = '2'
+        case 'noneInfo':
+          state.msgImgSrc = notice
+          state.msgText = '称呼与联系方式不能为空'
+          break
+        case 'noneTxt':
           state.msgImgSrc = notice
           state.msgText = '内容为空'
           break
-        case '3':
-          state.msgState = '3'
+        case 'wrongFormat':
           state.msgImgSrc = notice
-          state.msgText = '请填写正确的联系方式'
+          state.msgText = '请填写正确的称呼或联系方式'
           break
-        case '4':
-          state.msgState = '4'
+        case 'fail':
           state.msgImgSrc = blaskface
           state.msgText = '发送失败，请检查网络'
           break
       }
+      api.MsgBoxShow($msgbox)  // 显示消息提示框
     }
   },
   getters: {},
   actions: {
-    // 用户首页：提交建议结果反馈
-    cusIndexSendSuggest (context, {textarea, address, $msgbox}) {
-      // 判断联系方式的格式（手机，QQ，邮箱）
+    cusIndexSuggestionInfoChange (context, {name, value}) {
+      context.commit('cusIndexSuggestionInfoChange', {
+        name: name,
+        value: value
+      })
+    },
+    cusIndexSendSuggestion (context, {$msgbox}) {
+      let regName = /(\w){1,20}/
       let regMobileQQ = /([0-9]){5,11}/
       let regMail = /(\w+)@([a-z]+)\.com$/
-      // 没有填写反馈意见
-      if (textarea === '') {
-        context.commit('cusIndexSendSuggest', '2')
+      let regResult = regName.test(context.state.conName) & (regMobileQQ.test(context.state.conAddress) || regMail.test(context.state.conAddress))
+      if (context.state.conName === '' || context.state.conAddress === '') {
+        // 未填写称呼或联系方式
+        context.commit('cusIndexSendSuggestion', {
+          result: 'noneInfo',
+          $msgbox: $msgbox
+        })
+      } else if (!regResult) {
+        // 称呼或联系方式填写格式不正确
+        context.commit('cusIndexSendSuggestion', {
+          result: 'wrongFormat',
+          $msgbox: $msgbox
+        })
+      } else if (context.state.conText === '') {
+        // 没有填写反馈意见
+        context.commit('cusIndexSendSuggestion', {
+          result: 'noneTxt',
+          $msgbox: $msgbox
+        })
       } else {
-        // 填写了联系方式但格式不符
-        if (address !== '' && !regMobileQQ.test(address) && !regMail.test(address)) {
-          context.commit('cusIndexSendSuggest', '3')
-        } else {
-          // 填写符合要求，后台交互
-          context.commit('cusIndexSendSuggest', '1')
-        }
+        api.post('/php/home.php', {
+          name: context.state.conName,
+          address: context.state.conAddress,
+          suggestion: context.state.conText
+        }, function (res) {
+          if (res.status === 1 || res.status === '1') {
+            context.commit('cusIndexSendSuggestion', {
+              result: 'success',
+              $msgbox: $msgbox
+            })
+          }
+        }, function () {
+          context.commit('cusIndexSendSuggestion', {
+            result: 'fail',
+            $msgbox: $msgbox
+          })
+        })
       }
-      // 显示消息提示框
-      api.MsgBoxShow($msgbox)
     }
   }
 }

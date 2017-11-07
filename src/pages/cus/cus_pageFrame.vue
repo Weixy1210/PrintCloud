@@ -27,8 +27,6 @@
           <button @click="closeLog"><img src="../../../static/img/close_icon.png" class="btnHover2"></button>
         </div>
         <div class="body"><logForm @nameBlur="nameBlur" @keywordsBlur="keywordsBlur" @keywordsShowToggle="keywordsShowToggle" @LogIn="LogIn" :warnMsgState="false"></logForm></div>
-        <!-- 消息提示框 -->
-        <coMsgBox :imgSrc="this.$store.state.cusLog.msgImgSrc" :msg="this.$store.state.cusLog.msgText"></coMsgBox>
       </div>
     </div>
   </div>
@@ -50,7 +48,7 @@
       'coButton': coButton,
       'coMsgBox': coMsgBox
     },
-    mounted: function () { this.$api.MsgBoxLocationX($('#coverLog .coMsgBox'), $('.view').css('font-size')) },
+    // mounted: function () { this.$api.MsgBoxLocationX($('#coverLog .coMsgBox'), $('.view').css('font-size')) },
     methods: {
       closeClick: function () { this.$store.dispatch('cusCoverToggle') },
       nameBlur: function () {
