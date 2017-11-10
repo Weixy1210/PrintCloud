@@ -1,5 +1,4 @@
 import api from '../api.js'
-import wrong from '../../../static/img/cus_msgBox_notice_wrong.png'
 import blaskface from '../../../static/img/cus_msgBox_notice_blaskface.png'
 const cusLog = {
   state: {
@@ -44,6 +43,7 @@ const cusLog = {
           warnImgSrc: '',
           warnText: ''
         }
+        state.rememberMe = false
       } else {
         state.name = {
           hasValue: true,
@@ -62,8 +62,8 @@ const cusLog = {
           warnImgSrc: '',
           warnText: ''
         }
+        state.rememberMe = true
       }
-      state.rememberMe = false
       state.msgImgSrc = ''
       state.msgText = ''
     },
@@ -83,13 +83,11 @@ const cusLog = {
       state.password.warnText = warnText
     },
     cusLogPasswordSet (state, str) { state.password.value = str },
-    cusLogKeywordsShowToggle (state) {
-      if (state.keywords.showKey) {
-        state.keywords.showKey = false
-        state.keywords.inputType = 'password'
+    cusLogPasswordShowToggle (state) {
+      if (state.password.inputType !== 'password') {
+        state.password.inputType = 'password'
       } else {
-        state.keywords.showKey = true
-        state.keywords.inputType = 'text'
+        state.password.inputType = 'text'
       }
     },
     cusLogRememberCheckboxToggle (state) {
@@ -99,23 +97,9 @@ const cusLog = {
         state.rememberMe = true
       }
     },
-    cusLogIn (state, strN) {
-      switch (strN) {
-        case '1':
-          state.msgState = '1'
-          state.msgImgSrc = wrong
-          state.msgText = '账号密码错误'
-          break
-        case '2':
-          state.msgState = '2'
-          state.msgImgSrc = blaskface
-          state.msgText = '登陆失败，请检查网络'
-          break
-        default:
-          state.msgState = ''
-          state.msgImgSrc = ''
-          state.msgText = ''
-      }
+    cusLogIn (state) {
+      state.msgImgSrc = blaskface
+      state.msgText = '登陆失败，请检查网络'
     }
   },
   getters: {},
@@ -147,6 +131,7 @@ const cusLog = {
         // 用户名不符合手机号格式
         api.InputWrong('LogName', '账号格式不正确', context)
       } else {
+        // 填写正确（可以再加一个查找账号是否存在）
         api.InputRight('LogName', 'hide', context)
       }
       context.commit('cusLogNameSet', name)
@@ -160,17 +145,47 @@ const cusLog = {
       }
       context.commit('cusLogPasswordSet', password)
     },
-    // 用户登录：所输密码是否可见
-    cusLogkeywordsShowToggle (context, {keywords}) {
-      context.commit('cusLogKeywordsSet', keywords)
-      context.commit('cusLogKeywordsShowToggle')
+    // 所输密码是否可见
+    cusLogPasswordShowToggle (context, {password}) {
+      context.commit('cusLogPasswordSet', password)
+      context.commit('cusLogPasswordShowToggle')
     },
-    // 用户登录：“记住我”状态切换
+    // “记住我”状态切换，记住用cookie记忆（在登录时操作）
     cusLogRememberCheckboxToggle (context) { context.commit('cusLogRememberCheckboxToggle') },
     // 用户登录
     cusLogIn (context, {$msgbox}) {
-      context.commit('cusLogIn', '0')
-      api.MsgBoxShow($msgbox)
+      let info = {
+        username: context.state.name.value,
+        password: context.state.password.value
+      }
+      // 判断是否要记录cookie
+      if (context.state.rememberMe) {  // 记住我
+        api.setCookie(info.username, info.password)
+      } else {  // 不用记住
+        api.delCookie()
+      }
+      // 登录
+      api.post('/php/login.php', info, function (res) {
+        if (res.status.toString() === '1') {
+          // 登陆成功，告知header栏
+          context.commit('cusHeaderLogIn', res.data)
+          context.commit('cusUserInfo', info)
+          // 返回成功信息，告知跳转页面
+          return 'success'
+        } else {
+          // 登录失败，告知header栏
+          context.commit('cusHeaderLogOut')
+          // 删除错误cookie
+          api.delCookie()
+          // 页面提示账号密码错误
+          api.InputWrong('LogName', '账号或密码错误', context)
+          api.InputWrong('LogPassword', '账号或密码错误', context)
+        }
+      }, function () {
+        // 页面提示网络故障
+        context.commit('cusLogIn')
+        api.MsgBoxShow($msgbox)
+      })
     }
   }
 }

@@ -4,58 +4,59 @@
     <columnsFrame :liList="liList" :titleImgSrc="titleImg" title="找回密码">
       <form slot="body">
         <div><coInputText labelText="注册手机："
-          inputName="mobile" :inputValue="this.$store.state.cusRegFind.mobile.mobileText"
-          :inputClass="this.$store.state.cusRegFind.mobile.extraClass"
+          inputName="mobile" :inputValue="this.cusFind.mobile.value"
+          :inputClass="this.cusFind.mobile.extraClass"
           :buttonState="false"
-          :warnMsgClass="this.$store.state.cusRegFind.mobile.warnExtraClass"
-          :warnImgSrc="this.$store.state.cusRegFind.mobile.warnImgSrc" :warnText="this.$store.state.cusRegFind.mobile.warnText"
-          @inputOnBlur="mobileBlur">
+          :warnMsgClass="this.cusFind.mobile.warnExtraClass"
+          :warnImgSrc="this.cusFind.mobile.warnImgSrc" :warnText="this.cusFind.mobile.warnText"
+          @inputOnBlur="inputBlur" @inputEvent="inputEvent">
         </coInputText></div>
         <div><coInputText labelText="验证码："
-          inputName="verification" :inputValue="this.$store.state.cusRegFind.verification.verificationText"
-          :inputCanUse="this.$store.state.cusRegFind.verification.inputState"
-          :inputClass="this.$store.state.cusRegFind.verification.extraClass"
-          :warnMsgClass="this.$store.state.cusRegFind.verification.warnExtraClass"
-          :warnImgSrc="this.$store.state.cusRegFind.verification.warnImgSrc" :warnText="this.$store.state.cusRegFind.verification.warnText"
-          @inputOnBlur="verificationBlur"
-          :buttonText="this.$store.state.cusRegFind.verification.buttonText" :buttonCanUse="this.$store.state.cusRegFind.verification.buttonState"
+          inputName="verification" :inputValue="this.cusFind.verification.value"
+          :inputCanUse="this.cusFind.verification.inputState"
+          :inputClass="this.cusFind.verification.extraClass"
+          :warnMsgClass="this.cusFind.verification.warnExtraClass"
+          :warnImgSrc="this.cusFind.verification.warnImgSrc" :warnText="this.cusFind.verification.warnText"
+          @inputOnBlur="inputBlur" @inputEvent="inputEvent"
+          :buttonText="this.cusFind.verification.buttonText" :buttonCanUse="this.cusFind.verification.buttonState"
           @buttonClick="verificationClick">
         </coInputText></div>
         <div><coInputText labelText="新密码："
-          :inputType="this.$store.state.cusRegFind.keywords.inputType"
-          inputName="keywords" :inputValue="this.$store.state.cusRegFind.keywords.keywordsText"
-          :inputClass="'rightPadding ' + this.$store.state.cusRegFind.keywords.extraClass"
+          :inputType="this.cusFind.password.inputType"
+          inputName="password" :inputValue="this.cusFind.password.value"
+          :inputClass="'rightPadding ' + this.cusFind.password.extraClass"
           :buttonState="false"
-          :warnMsgClass="this.$store.state.cusRegFind.keywords.warnExtraClass"
-          :warnImgSrc="this.$store.state.cusRegFind.keywords.warnImgSrc" :warnText="this.$store.state.cusRegFind.keywords.warnText"
-          @inputOnBlur="keywordsBlur">
+          :warnMsgClass="this.cusFind.password.warnExtraClass"
+          :warnImgSrc="this.cusFind.password.warnImgSrc" :warnText="this.cusFind.password.warnText"
+          @inputOnBlur="inputBlur">
           <div slot="iconRight" class="imgRight">
-            <button type="button" @click="keywordsShowToggle">
-              <img v-if="this.$store.state.cusRegFind.keywords.showKey" src="../../../static/img/cus_log_openEye.png">
+            <button type="button" @click="passwordShowToggle">
+              <img v-if="this.cusFind.password === 'text'" src="../../../static/img/cus_log_openEye.png">
               <img v-else="" src="../../../static/img/cus_log_closeEye.png">
             </button>
           </div>
         </coInputText></div>
         <div><coInputText labelText="重复密码："
-          :inputType="this.$store.state.cusRegFind.keyAgain.inputType"
-          inputName="keyAgain" :inputValue="this.$store.state.cusRegFind.keyAgain.keyAgainText"
-          :inputClass="this.$store.state.cusRegFind.keyAgain.extraClass"
+          :inputType="this.cusFind.keyAgain.inputType"
+          inputName="keyAgain" :inputValue="this.cusFind.keyAgain.value"
+          :inputClass="this.cusFind.keyAgain.extraClass"
           :buttonState="false"
-          :warnMsgClass="this.$store.state.cusRegFind.keyAgain.warnExtraClass"
-          :warnImgSrc="this.$store.state.cusRegFind.keyAgain.warnImgSrc" :warnText="this.$store.state.cusRegFind.keyAgain.warnText"
-           @inputOnBlur="keyAgainBlur">
+          :warnMsgClass="this.cusFind.keyAgain.warnExtraClass"
+          :warnImgSrc="this.cusFind.keyAgain.warnImgSrc" :warnText="this.cusFind.keyAgain.warnText"
+           @inputOnBlur="inputBlur">
         </coInputText></div>
+        <!-- 重设密码按钮 -->
         <div class="buttonBox">
           <coButton v-if='buttonState'
             buttonValue="重设密码" extraClass="darkStyle"
-            @clickAction="register">
+            @clickAction="resetPassword">
           </coButton>
           <coButton v-else
             buttonValue="重设密码" extraClass="darkStyleForbid" disabled="true">
           </coButton>
         </div>
         <!-- 消息提示框 -->
-        <coMsgBox :imgSrc="this.$store.state.cusRegFind.msgImgSrc" :msg="this.$store.state.cusRegFind.msgText"></coMsgBox>
+        <coMsgBox :imgSrc="this.cusFind.msgImgSrc" :msg="this.cusFind.msgText"></coMsgBox>
       </form>
     </columnsFrame>
   </div>
@@ -63,6 +64,7 @@
 
 <script>
   import $ from 'jquery'
+  import {mapState, mapActions} from 'vuex'
   import cusBanner from '../../components/cus/cus_RFbanner.vue'
   import columnsFrame from '../../components/cus/cus_columnsFrame.vue'
   import coInputText from '../../components/inputText.vue'
@@ -96,49 +98,55 @@
       }
     },
     computed: {
+      ...mapState(['cusFind']),
       buttonState: function () {
-        return this.$store.state.cusRegFind.mobile.hasValue && this.$store.state.cusRegFind.verification.hasValue && this.$store.state.cusRegFind.keywords.hasValue && this.$store.state.cusRegFind.keyAgain.hasValue
+        return this.cusFind.mobile.hasValue && this.cusFind.verification.hasValue && this.cusFind.password.hasValue && this.cusFind.keyAgain.hasValue
       }
     },
-    created: function () { this.$store.dispatch('cusRegTabShow', {b: false}) },
     methods: {
-      mobileBlur: function () {
-        this.$store.dispatch('cusRegFindMobileJudge', {
-          mobile: $('.coInputText input[name=mobile]').val()
+      ...mapActions({
+        'findLocation': 'cusHeaderRegShowStyle',
+        'findInit': 'cusFindInit',
+        'nameJudge': 'cusFindNameJudge',
+        'mobileJudge': 'cusFindMobileJudge',
+        'mobileInputJudge': 'cusFindMobileInputJudge',
+        'verificationJudge': 'cusFindVerificationJudge',
+        'verificationInputJudge': 'cusFindVerificationInputJudge',
+        'sendVerification': 'cusFindSendVerification',
+        'passwordJudge': 'cusFindPasswordJudge',
+        'keyAgainJudge': 'cusFindKeyAgainJudge',
+        'showToggle': 'cusFindkeywordsShowToggle',
+        'checkboxToggle': 'cusFindCheckboxToggle',
+        'reset': 'cusResetPassword'
+      }),
+      inputBlur: function (event) {
+        let name = event.target.name
+        let value = event.target.value
+        if (name === 'mobile') { this.mobileJudge({mobile: value}) }
+        if (name === 'verification') { this.verificationJudge({verification: value}) }
+        if (name === 'password') { this.passwordJudge({password: value}) }
+        if (name === 'keyAgain') { this.keyAgainJudge({keyAgain: value}) }
+      },
+      inputEvent: function (event) {
+        let name = event.target.name
+        let value = event.target.value
+        if (name === 'mobile') { this.mobileInputJudge({mobile: value}) }
+        if (name === 'verification') { this.verificationInputJudge({verification: value}) }
+      },
+      verificationClick: function () { this.sendVerification({ $: $('#cusFind input[name=verification]') }) },
+      passwordShowToggle: function () {
+        this.showToggle({
+          password: $('#cusFind input[name=password]').val(),
+          keyAgain: $('#cusFind input[name=keyAgain]').val()
         })
       },
-      verificationBlur: function () {
-        this.$store.dispatch('cusRegFindVerificationJudge', {
-          verification: $('.coInputText input[name=verification]').val()
-        })
-      },
-      verificationClick: function () {
-        this.$store.dispatch('cusRegFindVerificationClick', {
-          $button: $('.coInputText input[name=verification]').siblings('button')
-        })
-      },
-      keywordsBlur: function () {
-        this.$store.dispatch('cusRegFindKeywordsJudge', {
-          keywords: $('.coInputText input[name=keywords]').val()
-        })
-      },
-      keywordsShowToggle: function () {
-        this.$store.dispatch('cusRegFindkeywordsShowToggle', {
-          keywords: $('.coInputText input[name=keywords]').val(),
-          keyAgain: $('.coInputText input[name=keyAgain]').val()
-        })
-      },
-      keyAgainBlur: function () {
-        this.$store.dispatch('cusRegFindKeyAgainJudge', {
-          keyAgain: $('.coInputText input[name=keyAgain]').val()
-        })
-      },
-      register: function () {
-        this.$store.dispatch('cusRegister', {
-          $msgbox: $('#cusRegFind form .coMsgBox')
-        })
-      },
-      openCover: function () { this.$store.dispatch('cusCoverToggle') }
+      resetPassword: function () {
+        this.reset({ $msgbox: $('#cusFind .coMsgBox') })
+      }
+    },
+    created: function () {
+      this.findLocation({location: 'noAction'})  // 位于重设密码页位置
+      this.findInit()  // 初始化表单数据
     }
   }
 </script>

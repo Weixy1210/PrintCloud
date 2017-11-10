@@ -6,7 +6,7 @@
       <!-- 判断, 未登录 -->
       <div v-if="!this.cusHeader.adminState" class="fr cusState1">
         <!-- 注册按钮, 根据是否是首页显示不同样式 -->
-        <router-link v-if="this.cusHeader.indexLocation"
+        <router-link v-if="this.cusHeader.indexLocation === 'index'"
           to="/reg" class="fl registerDark whiteFont textCenter">
             <img src="../../../static/img/cus_header_registerDark.png">
             <div>注册</div>
@@ -56,7 +56,12 @@
         LogOut: 'cusHeaderLogOut'
       })
     },
-    // 实例创建完成, 判断登录状态
-    created: function () { this.LogIn() }
+    // 实例创建完成, 根据cookie尝试自动登录
+    created: function () {
+      // 登录页、注册页、找回密码页不再自动登陆
+      if (this.cusHeader.indexLocation !== 'noAction') {
+        this.LogIn()
+      }
+    }
   }
 </script>

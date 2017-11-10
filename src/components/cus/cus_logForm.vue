@@ -26,15 +26,15 @@
       <div slot="iconLeft" class="imgLeft"><img src="../../../static/img/cus_log_keywords.png"></div>
       <div slot="iconRight" class="imgRight">
         <button type="button" @click="passwordShowToggle">
-          <img v-if="this.cusLog.password.inputType === 'password'" src="../../../static/img/cus_log_openEye.png">
+          <img v-if="this.cusLog.password.inputType !== 'password'" src="../../../static/img/cus_log_openEye.png">
           <img v-else="" src="../../../static/img/cus_log_closeEye.png">
         </button>
       </div>
     </coInputText>
     <!-- 记住我勾选框 -->
     <div class="inputCheckboxBox font16">
-      <coCheckbox labelText='记住我' :checkState="this.cusLog.rememberMe" @checkboxClick="checkboxToggle"></coCheckbox>
-      <router-link to='/reg/find' class="fr blueFont">忘记密码</router-link>
+      <coCheckbox labelText='记住我' :checkState="this.cusLog.rememberMe" @checkboxClick="checkboxClick"></coCheckbox>
+      <router-link to='/findkey' class="fr blueFont">忘记密码</router-link>
     </div>
     <!-- 登录按钮 -->
     <div class="buttonBox">
@@ -54,6 +54,7 @@
 </template>
 
 <script>
+  import $ from 'jquery'
   import {mapState, mapActions} from 'vuex'
   import coInputText from '../../components/inputText.vue'
   import coCheckbox from '../../components/checkbox.vue'
@@ -77,7 +78,10 @@
       ...mapActions({
         'logInit': 'cusLogInit',
         'nameJudge': 'cusLogNameJudge',
-        'passwordJudge': 'cusLogPasswordJudge'
+        'passwordJudge': 'cusLogPasswordJudge',
+        'showToggle': 'cusLogPasswordShowToggle',
+        'checkboxToggle': 'cusLogRememberCheckboxToggle',
+        'logIn': 'cusLogIn'
       }),
       inputBlur: function (event) {
         let name = event.target.name
@@ -85,17 +89,27 @@
         if (name === 'mobile') { this.nameJudge({name: value}) }
         if (name === 'password') { this.passwordJudge({password: value}) }
       },
-      passwordShowToggle: function () { this.$emit('passwordShowToggle') },
-      checkboxToggle: function () { this.$store.dispatch('cusLogRememberCheckboxToggle') },
-      LogIn: function () { this.$emit('LogIn') }
+      passwordShowToggle: function () {
+        this.showToggle({
+          password: $('.coCusLogForm input[name=password]').val()
+        })
+      },
+      checkboxClick: function () { this.checkboxToggle() },
+      LogIn: function () {
+        let item = this
+        this.logIn({
+          $msgbox: $('.coCusLogForm .coMsgBox')
+        }).then(function (res) {  // 为什么这里this就是undefined了？
+          if (res === 'success') {
+            // 跳转页面
+            item.$router.push('/order')
+          }
+        })
+      }
     },
     created: function () {
       // 初始化表单数据
       this.logInit()
-      // 根据header判断是否已经登录
-      if (this.cusHeader.adminState) {
-        this.$router.push('/')
-      }
     }
   }
 </script>

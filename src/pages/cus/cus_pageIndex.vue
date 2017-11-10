@@ -163,14 +163,12 @@
     },
     // 实例创建完成
     created: function () {
-      this.indexLocation({boolean: true})  // 位于首页位置
+      this.indexLocation({location: 'index'})  // 位于首页位置
       this.schoolsList()                   // 载入可选学校列表
     },
     // 组件写入dom结构后
     mounted: function () {
       window.scrollTo(0, 0)                // 页面焦点定位到顶部
-    },
-    // 组件销毁, 即离开该页
-    destroyed: function () { this.indexLocation({boolean: false}) }
+    }
   }
 </script>

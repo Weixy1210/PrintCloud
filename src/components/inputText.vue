@@ -14,7 +14,7 @@
       :type="inputType" :name="inputName"
       :placeholder="inputPlaceholder" :value="inputValue"
       :class="inputClass" class="font16 borderRadius borderColor borderBox" 
-      @blur="inputOnBlur">
+      @blur="inputOnBlur" @input="inputEvent">
     <!-- 禁用状态的输入框,inputCanUse=false -->
     <input v-else disabled="true"
       :type="inputType" :name="inputName"
@@ -71,6 +71,7 @@
     },
     methods: {
       inputOnBlur: function (event) { this.$emit('inputOnBlur', event) },
+      inputEvent: function (event) { this.$emit('inputEvent', event) },
       buttonClick: function () { this.$emit('buttonClick') }
     },
     mounted: function () {

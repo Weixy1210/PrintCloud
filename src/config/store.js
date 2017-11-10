@@ -5,7 +5,7 @@ import cusHeader from './modules/cusHeader.js'
 import cusIndex from './modules/cusIndex.js'
 import cusLog from './modules/cusLog.js'
 import cusReg from './modules/cusReg.js'
-import cusRegFind from './modules/cusRegFind.js'
+import cusFind from './modules/cusFind.js'
 import cusOrder from './modules/cusOrder.js'
 import userSet from './modules/cusUserSet.js'
 import userMessage from './modules/cusUserMessage.js'
@@ -23,7 +23,7 @@ const store = new Vuex.Store({
     cusIndex: cusIndex,
     cusLog: cusLog,
     cusReg: cusReg,
-    cusRegFind: cusRegFind,
+    cusFind: cusFind,
     cusOrder: cusOrder,
     userSet: userSet,
     userMessage: userMessage,
@@ -35,22 +35,22 @@ const store = new Vuex.Store({
     busUserSet: busUserSet
   },
   state: {
-    cusCover: false,
+    cusAgreementCover: false,
     cusCoverLog: false
   },
   mutations: {
-    cusCoverToggle (state) {
-      if (state.cusCover) {
-        state.cusCover = false
+    cusAgreementCoverToggle (state) {
+      if (state.cusAgreementCover) {
+        state.cusAgreementCover = false
       } else {
-        state.cusCover = true
+        state.cusAgreementCover = true
       }
     },
     cusCoverLogClose (state) { state.cusCoverLog = false },
     cusCoverLogOpen (state) { state.cusCoverLog = true }
   },
   actions: {
-    cusCoverToggle (context) { context.commit('cusCoverToggle') },
+    cusAgreementCoverToggle (context) { context.commit('cusAgreementCoverToggle') },
     cusCoverLogClose (context) { context.commit('cusCoverLogClose') },
     cusCoverLogOpen (context) { context.commit('cusCoverLogOpen') }
   }

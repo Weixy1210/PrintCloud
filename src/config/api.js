@@ -24,39 +24,34 @@ function InputWrong (str, msg, context) {
 // input填写正确
 function InputRight (str, state, context) {
   if (state === 'hide') {
-    context.commit('cus' + str + 'Judge', {
-      boolean: true,
-      strClass: '',
-      warnClass: ''
-    })
+    context.commit('cus' + str + 'Judge', { boolean: true })
   }
   if (state === 'show') {
     context.commit('cus' + str + 'Judge', {
       boolean: true,
-      strClass: '',
       warnClass: 'warnMsgShow',
       warnImgSrc: require('../../static/img/cus_msgBox_notice_right.png')
     })
   }
 }
 // 验证码初始化
-function CusRegVerificationInit (str, state, context) {
+function cusVerificationInit (str, state, context) {
   if (state === 'use') {
-    context.commit('cus' + str + 'VerificationInputStateChange', true)
-    context.commit('cus' + str + 'VerificationButtonChange', {b: true})
+    context.commit('cus' + str + 'VerificationInputState', true)
+    context.commit('cus' + str + 'VerificationButtonState', {boolean: true, str: '发送验证信息'})
   }
   if (state === 'forbid') {
-    context.commit('cus' + str + 'VerificationInputStateChange', false)
-    context.commit('cus' + str + 'VerificationButtonChange', {b: false})
+    context.commit('cus' + str + 'VerificationInputState', false)
+    context.commit('cus' + str + 'VerificationButtonState', {boolean: false, str: '发送验证信息'})
   }
   context.commit('cus' + str + 'VerificationSet', '')
-  context.commit('cusRegVerificationWarnClassChange', '')
-  context.commit('cus' + str + 'VerificationClassChange', '')
+  context.commit('cus' + str + 'VerificationJudge', { boolean: false })
 }
 
 // cookie相关
 // 设置cookie
 function setCookie (username, password) {
+  delCookie()
   let exp = new Date()
   exp.setTime(exp.getTime() + 7 * 24 * 60 * 60 * 1000)
   document.cookie = 'username=' + escape(username) + ';expires=' + exp.toGMTString()
@@ -163,7 +158,7 @@ export default {
   InputRight: function (str, state, context) {
     return InputRight(str, state, context)
   },
-  CusRegVerificationInit: function (str, state, context) {
-    return CusRegVerificationInit(str, state, context)
+  cusVerificationInit: function (str, state, context) {
+    return cusVerificationInit(str, state, context)
   }
 }

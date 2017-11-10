@@ -3,43 +3,31 @@
     <div class="logBox">
       <div class="titleLogo textCenter"><img src="../../../static/img/cus_log_formTitle.png"></div>
       <!-- 登录主体表单 -->
-      <logForm @nameBlur="nameBlur" @keywordsBlur="keywordsBlur" @keywordsShowToggle="keywordsShowToggle" @LogIn="LogIn"></logForm>
+      <logForm></logForm>
     </div>
   </div>
 </template>
 
 <script>
-  import $ from 'jquery'
+  import {mapState, mapActions} from 'vuex'
   import cusLogForm from '../../components/cus/cus_logForm.vue'
-  import coMsgBox from '../../components/msgBox.vue'
   export default{
     name: 'cusLog',
     components: {
-      'logForm': cusLogForm,
-      'coMsgBox': coMsgBox
+      'logForm': cusLogForm
     },
+    computed: mapState(['cusHeader']),
     methods: {
-      nameBlur: function () {
-        this.$store.dispatch('cusLogNameJudge', {
-          userName: $('#cusLog form.cusLogMain input[name=mobile]').val()
-        })
-      },
-      keywordsBlur: function () {
-        this.$store.dispatch('cusLogKeywordsJudge', {
-          keywords: $('#cusLog form.cusLogMain input[name=keywords]').val()
-        })
-      },
-      keywordsShowToggle: function () {
-        this.$store.dispatch('cusLogkeywordsShowToggle', {
-          keywords: $('#cusLog form.cusLogMain input[name=keywords]').val()
-        })
-      },
-      LogIn: function () {
-        this.$store.dispatch('cusLogIn', {
-          $msgbox: $('#cusLog .coMsgBox')
-        })
-      }
+      ...mapActions({
+        logLocation: 'cusHeaderRegShowStyle'
+      })
     },
-    mounted: function () { this.$api.MsgBoxLocationX($('#cusLog .coMsgBox'), $('.view').css('font-size')) }
+    created: function () {
+      this.logLocation({location: 'noAction'})  // 位于登录页位置
+      // 已登录则跳转上传页
+      if (this.cusHeader.adminState) {
+        this.$router.push('/order')
+      }
+    }
   }
 </script>

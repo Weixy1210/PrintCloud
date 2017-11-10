@@ -46,6 +46,9 @@ const cusIndex = {
           state.msgImgSrc = blaskface
           state.msgText = '发送失败，请检查网络'
           break
+        default:
+          state.msgImgSrc = ''
+          state.msgText = ''
       }
       api.MsgBoxShow($msgbox)  // 显示消息提示框
     }
@@ -87,9 +90,14 @@ const cusIndex = {
           address: context.state.conAddress,
           suggestion: context.state.conText
         }, function (res) {
-          if (res.status === 1 || res.status === '1') {
+          if (res.status.toString() === '1') {
             context.commit('cusIndexSendSuggestion', {
               result: 'success',
+              $msgbox: $msgbox
+            })
+          } else {
+            context.commit('cusIndexSendSuggestion', {
+              result: 'fail',
               $msgbox: $msgbox
             })
           }

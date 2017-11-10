@@ -6,7 +6,7 @@
     </div>
     <coFooter></coFooter>
     <!-- 用户协议覆盖层 -->
-    <div v-if="this.$store.state.cusCover" id="coverUserAgreement" class="cover">
+    <div v-if="this.$store.state.cusAgreementCover" id="coverUserAgreement" class="cover">
       <div class="coverMain bgWhiteColor">
         <div class="title font18 fontBold textCenter">用户协议</div>
         <div class="body font14 bgLightColor3">
@@ -50,7 +50,7 @@
     },
     // mounted: function () { this.$api.MsgBoxLocationX($('#coverLog .coMsgBox'), $('.view').css('font-size')) },
     methods: {
-      closeClick: function () { this.$store.dispatch('cusCoverToggle') },
+      closeClick: function () { this.$store.dispatch('cusAgreementCoverToggle') },
       nameBlur: function () {
         this.$store.dispatch('cusLogNameJudge', {
           userName: $('#coverLog form.cusLogMain input[name=mobile]').val()
