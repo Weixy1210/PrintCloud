@@ -9,9 +9,10 @@
           <form>
             <div class="inputSelect">
               <label>选择支持我们服务的学校：</label>
-              <select name="printSchool" class="borderBox font16 borderRadius" :style="{backgroundImage: 'url(' + select + ')'}">
-                <option v-for="school in this.cusOrder.printSchools"
-                  :value="school.schoolID" :selected="school.ifSelected">{{school.schoolName}}</option>
+              <select name="printSchool" class="borderBox font16 borderRadius" :style="{backgroundImage: 'url(' + select + ')'}" :value="this.cusOrder.printSchoolID" @change="selectChange">
+                <option v-for="school in this.cusOrder.printSchools" :value="school.schoolID">
+                  {{school.schoolName}}
+                </option>
               </select>
             </div>
             <hr/>  <!-- 分割线 -->
@@ -136,9 +137,11 @@
       ...mapActions({
         indexLocation: 'cusHeaderRegShowStyle',
         schoolsList: 'cusOrderPrintSchoolsListInit',
+        schoolSelect: 'cusOrderPrintSchoolSelect',
         valueChange: 'cusIndexSuggestionInfoChange',
         sendSuggestion: 'cusIndexSendSuggestion'
       }),
+      selectChange: function (event) { this.schoolSelect({id: event.target.value}) },
       inputBlur: function (event) {
         let value = event.target.value
         let name = event.target.name
@@ -164,7 +167,8 @@
     // 实例创建完成
     created: function () {
       this.indexLocation({location: 'index'})  // 位于首页位置
-      this.schoolsList()                   // 载入可选学校列表
+      // 未获取学校列表，则进行获取
+      if (this.cusOrder.printSchools.length === 0) { this.schoolsList() }
     },
     // 组件写入dom结构后
     mounted: function () {

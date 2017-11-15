@@ -50,7 +50,7 @@ const cusReg = {
     checkBox: false,
     msgImgSrc: '',
     msgText: '',
-    controller: ''
+    controller: ''  // setInterval的控制器
   },
   mutations: {
     cusRegInit (state) {
@@ -180,7 +180,11 @@ const cusReg = {
       state.msgText = '注册失败，请检查网络'
     }
   },
-  getters: {},
+  getters: {
+    cusRegButtonState (state) {
+      return state.userName.hasValue && state.mobile.hasValue && state.verification.hasValue && state.password.hasValue && state.keyAgain.hasValue && state.checkBox
+    }
+  },
   actions: {
     // 初始化变量数据
     cusRegInit (context) { context.commit('cusRegInit') },
@@ -246,9 +250,7 @@ const cusReg = {
     // 点击发送验证码
     cusRegSendVerification (context) {
       let i = 30
-      let value
       context.state.controller = setInterval(function () {
-        value = context.state.verification.value
         if (i < 0) {
           clearInterval(context.state.controller)
           context.commit('cusRegVerificationButtonState', {boolean: true, str: '发送验证信息'})
@@ -256,7 +258,6 @@ const cusReg = {
           context.commit('cusRegVerificationButtonState', {boolean: false, str: '已发送(' + i + ')'})
         }
         i--
-        context.commit('cusFindVerificationSet', value)
       }, 1000)
       // 后台交互：发送
     },
@@ -272,6 +273,10 @@ const cusReg = {
         // 已填写密码
         api.InputRight('RegPassword', 'hide', context)
       }
+      context.commit('cusRegPasswordSet', password)
+    },
+    // 密码输入记录
+    cusRegPasswordInputJudge (context, {password}) {
       context.commit('cusRegPasswordSet', password)
     },
     // 判断重输的密码是否一致

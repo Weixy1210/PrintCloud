@@ -1,112 +1,54 @@
 import api from '../api.js'
+import $ from 'jquery'
 const cusOrder = {
   state: {
-    printSchools: [],  // 打印支持的学校列表
-    printSchool: '',   // 选择的学校
-    printShop: '新尚打印店',
-    printShops: [],
-    // 布局辅助, 统一aside与article的高度
-    mainHeight: 0,
-    // 是否上传文件
-    hasFile: false,
-    // files: [
-    //   {
-    //     fileID: '000',
-    //     fileName: '复习题.doc',
-    //     fileUrl: 'c:\\desktop\\复习题.doc',
-    //     detailState: true,  // 是否打开详情设置
-    //     extraSetClass: 'overFlowHidden',  // 是否打开设置菜单
-    //     uploadState: 60,  // 上传进度
-    //     pagination: {
-    //       type: 'part',
-    //       begin: 1,
-    //       end: 5,
-    //       max: 5,
-    //       extraClass: {
-    //         all: '',
-    //         part: 'chosed'
-    //       }
-    //     },
-    //     pageSize: {
-    //       type: 'A4',
-    //       extraClass: {
-    //         A4: 'chosed',
-    //         B5: '',
-    //         A3: ''
-    //       }
-    //     },
-    //     printSide: {
-    //       type: 'single',
-    //       extraClass: {
-    //         single: 'chosed',
-    //         double: ''
-    //       }
-    //     },
-    //     printColor: {
-    //       type: 'noColor',
-    //       extraClass: {
-    //         noColor: 'chosed',
-    //         colors: ''
-    //       }
-    //     },
-    //     printWay: {
-    //       type: 'onePage',
-    //       extraClass: {
-    //         onePage: 'chosed',
-    //         fourPage: '',
-    //         sixPage: '',
-    //         eightPage: ''
-    //       }
-    //     },
-    //     printCopies: 1,
-    //     unitPrice: 0.1,  // 单价
-    //     price: 0.5,  // 单个文件的总价
-    //     remarks: '急需，尽快！'
-    //   }
-    // ],
-    files: [],  // 文件列表
-    // 折扣金额
-    discount: 10.0
+    mainHeight: 0,        // 布局辅助参数, 统一aside与article的高度
+    printSchools: [],     // 打印支持的学校列表
+    printSchoolID: '',    // 选择的学校
+    printShops: [],       // 打印支持的店家列表
+    printShopID: '',      // 选择的打印店
+    defaultUnitPrice: 0,  // 默认选项下的打印单价
+    hasFile: false,       // 是否有上传文件
+    files: [],            // 上传文件列表
+    totalPrice: 0,        // 打印总额
+    discount: 0,          // 折扣金额
+    finalPrice: 0         // 最终总额
   },
   mutations: {
+    cusOrderHeightChange (state, h) { state.mainHeight = h },
     cusOrderPrintSchoolsListInit (state, arr) {
-      state.printSchools = arr.map(function (value, index) {
-        if (index === 0) {
-          // 默认选中第一个选项
-          value.ifSelected = 'selected'
-          state.printSchool = value.schoolName
-        } else {
-          value.ifSelected = ''
-        }
-        return value
-      })
+      state.printSchools = arr
+      state.printSchoolID = arr[0].schoolID  // 默认选中第一个
     },
-    heightChange (state, {h}) { state.mainHeight = h },
-    // 添加文件
-    fileAdd (state, {fileID, fileName, fileUrl, totalPage, unitPrice}) {
-      // 已上传文件
+    cusOrderPrintSchoolSelect (state, id) { state.printSchoolID = id },
+    cusOrderPrintShopsListInit (state, arr) {
+      state.printShops = arr
+      state.printShopID = arr[0].shopID  // 默认选中第一个
+    },
+    cusOrderPrintShopSelect (state, id) { state.printShopID = id },
+    cusOrderFileAdd (state, {fileID, fileName, fileUrl, totalPage, unitPrice, uploadState}) {
       if (!state.hasFile) { state.hasFile = true }
       // 关闭其他文件的细节显示
-      for (let i in state.files) { state.files[i].detailState = false }
-      // 新增文件
+      let len = state.files.length
+      for (let i = 0; i < len; ++i) { state.files[i].detailState = false }
+      // 新增打印文件
       state.files.push({
         fileID: fileID,
         fileName: fileName,
         fileUrl: fileUrl,
-        detailState: true,
-        extraSetClass: 'overFlowHidden',
-        uploadState: 0,
-        pagination: {
-          type: 'all',
-          begin: 1,
-          end: totalPage,
-          max: totalPage,
-          extraClass: {
+        detailState: true,                // 细节显示打开
+        extraSetClass: 'overFlowHidden',  // 关闭下拉菜单
+        uploadState: uploadState,         // 上传进度
+        pagination: {          // 打印页码范围, 默认全部
+          beginPage: 1,        // 开始打印页
+          endPage: totalPage,  // 结束打印页
+          maxPage: totalPage,  // 文件总页数
+          extraClass: {        // 控制选择按钮
             all: 'chosed',
             part: ''
           }
         },
-        pageSize: {
+        pageSize: {            // 打印纸张大小
           type: 'A4',
           extraClass: {
             A4: 'chosed',
@@ -114,33 +56,31 @@ const cusOrder = {
             A3: ''
           }
         },
-        printSide: {
+        printSide: {           // 打印单面或双面
           type: 'single',
           extraClass: {
             single: 'chosed',
             double: ''
           }
         },
-        printColor: {
+        printColor: {          // 打印黑白或彩色
           type: 'noColor',
           extraClass: {
             noColor: 'chosed',
             colors: ''
           }
         },
-        printWay: {
+        printWay: {            // 一张纸打印几页
           type: 'onePage',
           extraClass: {
             onePage: 'chosed',
             fourPage: '',
-            sixPage: '',
-            eightPage: ''
+            sixPage: ''
           }
         },
-        printCopies: 1,
-        unitPrice: unitPrice,
-        price: unitPrice * totalPage * 1 / 1,
-        remarks: ''
+        printCopies: 1,        // 打印份数, 默认一份
+        unitPrice: unitPrice,  // 打印单价
+        remarks: ''            // 备注
       })
     },
     // 更新文件上传进度
@@ -220,35 +160,88 @@ const cusOrder = {
     }
   },
   getters: {
-    filesCount (state) { return state.files.length },
-    totalPrice (state) {
-      let totalPrice = 0
-      for (let i in state.files) {
-        totalPrice += state.files[i].price
+    // 侧边栏文件名
+    totalFilesName (state) {
+      let str = ''
+      let len = state.files.length
+      for (let i = 0; i < len; ++i) {
+        if (i !== 0) { str += '；' }
+        str += state.files[i].fileName
       }
-      return totalPrice
+      return str
     },
-    finalPrice (state, getters) {
-      let finalPrice = getters.totalPrice - state.discount
-      if (finalPrice < 0) { finalPrice = 0 }
-      return finalPrice
-    }
+    // 总体上传进度
+    totalUploadState (state) {
+      let uploadState = 0
+      let len = state.files.length
+      // 取最慢的进度
+      for (let i = 0; i < len; ++i) {
+        if (i === 0) {
+          uploadState = state.files[i].uploadState
+        } else {
+          if (state.files[i].uploadState < uploadState) { uploadState = state.files[i].uploadState }
+        }
+      }
+      return uploadState
+    },
+    // 上传文件的本地路径
+    cusOrderFileUrl (state, n) {
+      return function (n) {
+        let urlLen = state.files[n].fileUrl.length - state.files[n].fileName.length
+        let url = state.files[n].fileUrl.substr(0, urlLen)
+        return url
+      }
+    },
+    filesCount (state) { return state.files.length }
   },
   actions: {
+    // 侧边栏高度调整
+    cusOrderHeightChange (context, {h}) { context.commit('cusOrderHeightChange', h) },
+    // 获取学校列表
     cusOrderPrintSchoolsListInit (context) {
+      context.commit('cusOrderPrintSchoolsListInit', [{schoolID: '', schoolName: ''}])
       api.get('/php/home.php', {}, function (res) {
-        if (res.status === 1 || res.status === '1') { context.commit('cusOrderPrintSchoolsListInit', res.data) }
+        if (res.status.toString() === '1') { context.commit('cusOrderPrintSchoolsListInit', res.data) }
       })  // 学校列表获取失败的情况未处理
     },
-    heightChange (context, {h}) { context.commit('heightChange', {h}) },
-    fileAdd (context, {fileUrl}) {
-      // 上传
-      context.commit('fileAdd', {
-        fileID: '003',
-        fileName: '学习笔记.doc',
-        fileUrl: 'c:\\desktop\\学习笔记.doc',
-        totalPage: 6,
-        unitPrice: 0.1
+    // 选择学校
+    cusOrderPrintSchoolSelect (context, {id}) { context.commit('cusOrderPrintSchoolSelect', id) },
+    // 获取打印店列表
+    cusOrderPrintShopsListInit (context) {
+      context.commit('cusOrderPrintShopsListInit', [{shopID: '', shopName: ''}])
+      api.post('', {schoolID: context.state.printSchoolID}, function (res) {
+        if (res.status.toString() === '1') { context.commit('cusOrderPrintShopsListInit', res.data) }
+      })  // 打印店列表获取失败的情况未处理
+    },
+    // 选择打印店
+    cusOrderPrintShopSelect (context, {id}) { context.commit('cusOrderPrintShopSelect', id) },
+    // 添加打印文件
+    cusOrderFileAdd (context, {file, fileName, fileUrl}) {
+      let formData = new FormData()
+      formData.append('file', file)
+      // 添加文件
+      context.commit('cusOrderFileAdd', {
+        fileID: 0,
+        fileName: fileName,
+        fileUrl: fileUrl,
+        totalPage: 0,
+        unitPrice: 0,
+        uploadState: 0
+      })
+      // 上传文件
+      $.ajax({
+        url: '',
+        type: 'POST',
+        data: formData,
+        async: true,         // 异步
+        processData: false,  // 告诉jQuery不要去处理发送的数据
+        contentType: false,  // 告诉jQuery不要去设置Content-Type请求头
+        success: function (res) {
+          console.log(res)
+        },
+        error: function (err) {
+          console.log(err)
+        }
       })
     },
     fileDelete (context, {index}) { context.commit('fileDelete', {index: index}) },

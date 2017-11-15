@@ -33,13 +33,13 @@
     </coInputText>
     <!-- 记住我勾选框 -->
     <div class="inputCheckboxBox font16">
-      <coCheckbox labelText='记住我' :checkState="this.cusLog.rememberMe" @checkboxClick="checkboxClick"></coCheckbox>
-      <router-link to='/findkey' class="fr blueFont">忘记密码</router-link>
+      <coCheckbox labelText="记住我" :checkState="this.cusLog.rememberMe" @checkboxClick="checkboxClick"></coCheckbox>
+      <router-link to="/findkey" class="fr blueFont">忘记密码</router-link>
     </div>
     <!-- 登录按钮 -->
     <div class="buttonBox">
       <!-- 全部输入完成后才可点击登录 -->
-      <coButton v-if='this.cusLog.name.hasValue && this.cusLog.password.hasValue'
+      <coButton v-if="this.buttonState"
         buttonValue="登录" extraClass="darkStyle" @clickAction="LogIn">
       </coButton>
       <coButton v-else
@@ -55,7 +55,7 @@
 
 <script>
   import $ from 'jquery'
-  import {mapState, mapActions} from 'vuex'
+  import {mapState, mapGetters, mapActions} from 'vuex'
   import coInputText from '../../components/inputText.vue'
   import coCheckbox from '../../components/checkbox.vue'
   import coButton from '../../components/formButton.vue'
@@ -68,7 +68,12 @@
       'coButton': coButton,
       'coMsgBox': coMsgBox
     },
-    computed: mapState(['cusLog', 'cusHeader']),
+    computed: {
+      ...mapState(['cusLog', 'cusHeader']),
+      ...mapGetters({
+        buttonState: 'cusLogButtonState'
+      })
+    },
     props: {
       warnMsgState: {
         default: true
@@ -76,12 +81,12 @@
     },
     methods: {
       ...mapActions({
-        'logInit': 'cusLogInit',
-        'nameJudge': 'cusLogNameJudge',
-        'passwordJudge': 'cusLogPasswordJudge',
-        'showToggle': 'cusLogPasswordShowToggle',
-        'checkboxToggle': 'cusLogRememberCheckboxToggle',
-        'logIn': 'cusLogIn'
+        logInit: 'cusLogInit',
+        nameJudge: 'cusLogNameJudge',
+        passwordJudge: 'cusLogPasswordJudge',
+        showToggle: 'cusLogPasswordShowToggle',
+        checkboxToggle: 'cusLogRememberCheckboxToggle',
+        logIn: 'cusLogIn'
       }),
       inputBlur: function (event) {
         let name = event.target.name

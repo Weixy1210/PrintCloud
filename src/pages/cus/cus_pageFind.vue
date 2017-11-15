@@ -19,7 +19,7 @@
           :warnImgSrc="this.cusFind.verification.warnImgSrc" :warnText="this.cusFind.verification.warnText"
           @inputOnBlur="inputBlur" @inputEvent="inputEvent"
           :buttonText="this.cusFind.verification.buttonText" :buttonCanUse="this.cusFind.verification.buttonState"
-          @buttonClick="verificationClick">
+          @buttonClick="this.sendVerification">
         </coInputText></div>
         <div><coInputText labelText="新密码："
           :inputType="this.cusFind.password.inputType"
@@ -28,7 +28,7 @@
           :buttonState="false"
           :warnMsgClass="this.cusFind.password.warnExtraClass"
           :warnImgSrc="this.cusFind.password.warnImgSrc" :warnText="this.cusFind.password.warnText"
-          @inputOnBlur="inputBlur">
+          @inputOnBlur="inputBlur" @inputEvent="inputEvent">
           <div slot="iconRight" class="imgRight">
             <button type="button" @click="passwordShowToggle">
               <img v-if="this.cusFind.password === 'text'" src="../../../static/img/cus_log_openEye.png">
@@ -47,7 +47,7 @@
         </coInputText></div>
         <!-- 重设密码按钮 -->
         <div class="buttonBox">
-          <coButton v-if='buttonState'
+          <coButton v-if="this.buttonState"
             buttonValue="重设密码" extraClass="darkStyle"
             @clickAction="resetPassword">
           </coButton>
@@ -64,7 +64,7 @@
 
 <script>
   import $ from 'jquery'
-  import {mapState, mapActions} from 'vuex'
+  import {mapState, mapGetters, mapActions} from 'vuex'
   import cusBanner from '../../components/cus/cus_RFbanner.vue'
   import columnsFrame from '../../components/cus/cus_columnsFrame.vue'
   import coInputText from '../../components/inputText.vue'
@@ -99,25 +99,26 @@
     },
     computed: {
       ...mapState(['cusFind']),
-      buttonState: function () {
-        return this.cusFind.mobile.hasValue && this.cusFind.verification.hasValue && this.cusFind.password.hasValue && this.cusFind.keyAgain.hasValue
-      }
+      ...mapGetters({
+        buttonState: 'cusFindButtonState'
+      })
     },
     methods: {
       ...mapActions({
-        'findLocation': 'cusHeaderRegShowStyle',
-        'findInit': 'cusFindInit',
-        'nameJudge': 'cusFindNameJudge',
-        'mobileJudge': 'cusFindMobileJudge',
-        'mobileInputJudge': 'cusFindMobileInputJudge',
-        'verificationJudge': 'cusFindVerificationJudge',
-        'verificationInputJudge': 'cusFindVerificationInputJudge',
-        'sendVerification': 'cusFindSendVerification',
-        'passwordJudge': 'cusFindPasswordJudge',
-        'keyAgainJudge': 'cusFindKeyAgainJudge',
-        'showToggle': 'cusFindkeywordsShowToggle',
-        'checkboxToggle': 'cusFindCheckboxToggle',
-        'reset': 'cusResetPassword'
+        findLocation: 'cusHeaderRegShowStyle',
+        findInit: 'cusFindInit',
+        nameJudge: 'cusFindNameJudge',
+        mobileJudge: 'cusFindMobileJudge',
+        mobileInputJudge: 'cusFindMobileInputJudge',
+        verificationJudge: 'cusFindVerificationJudge',
+        verificationInputJudge: 'cusFindVerificationInputJudge',
+        sendVerification: 'cusFindSendVerification',
+        passwordJudge: 'cusFindPasswordJudge',
+        passwordInputJudge: 'cusFindPasswordInputJudge',
+        keyAgainJudge: 'cusFindKeyAgainJudge',
+        showToggle: 'cusFindkeywordsShowToggle',
+        checkboxToggle: 'cusFindCheckboxToggle',
+        reset: 'cusResetPassword'
       }),
       inputBlur: function (event) {
         let name = event.target.name
@@ -132,17 +133,15 @@
         let value = event.target.value
         if (name === 'mobile') { this.mobileInputJudge({mobile: value}) }
         if (name === 'verification') { this.verificationInputJudge({verification: value}) }
+        if (name === 'password') { this.passwordInputJudge({password: value}) }
       },
-      verificationClick: function () { this.sendVerification({ $: $('#cusFind input[name=verification]') }) },
       passwordShowToggle: function () {
         this.showToggle({
           password: $('#cusFind input[name=password]').val(),
           keyAgain: $('#cusFind input[name=keyAgain]').val()
         })
       },
-      resetPassword: function () {
-        this.reset({ $msgbox: $('#cusFind .coMsgBox') })
-      }
+      resetPassword: function () { this.reset({ $msgbox: $('#cusFind .coMsgBox') }) }
     },
     created: function () {
       this.findLocation({location: 'noAction'})  // 位于重设密码页位置

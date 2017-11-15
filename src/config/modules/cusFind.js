@@ -1,5 +1,4 @@
 import api from '../api.js'
-// import $ from 'jquery'
 import blaskface from '../../../static/img/cus_msgBox_notice_blaskface.png'
 const cusFind = {
   state: {
@@ -42,7 +41,7 @@ const cusFind = {
     },
     msgImgSrc: '',
     msgText: '',
-    controller: ''
+    controller: ''  // setInterval的控制器
   },
   mutations: {
     cusFindInit (state) {
@@ -146,7 +145,11 @@ const cusFind = {
       state.msgText = '注册失败，请检查网络'
     }
   },
-  getters: {},
+  getters: {
+    cusFindButtonState (state) {
+      return state.mobile.hasValue && state.verification.hasValue && state.password.hasValue && state.keyAgain.hasValue
+    }
+  },
   actions: {
     // 初始化变量数据
     cusFindInit (context) { context.commit('cusFindInit') },
@@ -212,9 +215,7 @@ const cusFind = {
     // 点击发送验证码
     cusFindSendVerification (context) {
       let i = 30
-      let value
       context.state.controller = setInterval(function () {
-        value = context.state.verification.value
         if (i < 0) {
           clearInterval(context.state.controller)
           context.commit('cusFindVerificationButtonState', {boolean: true, str: '发送验证信息'})
@@ -222,7 +223,6 @@ const cusFind = {
           context.commit('cusFindVerificationButtonState', {boolean: false, str: '已发送(' + i + ')'})
         }
         i--
-        context.commit('cusFindVerificationSet', value)
       }, 1000)
       // 后台交互：发送
     },
@@ -238,6 +238,10 @@ const cusFind = {
         // 验证码填写正确
         api.InputRight('FindKeyAgain', 'hide', context)
       }
+      context.commit('cusFindPasswordSet', password)
+    },
+    // 密码输入记录
+    cusFindPasswordInputJudge (context, {password}) {
       context.commit('cusFindPasswordSet', password)
     },
     // 判断重输的密码是否一致

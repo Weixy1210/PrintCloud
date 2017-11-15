@@ -102,23 +102,24 @@ function checkCookie () {
 var root = process.env.API_ROOT
 // 引用axios
 import axios from 'axios'
-function apiAxios (method, url, params, success, failure) {
+// 发起请求方法
+function apiAxios (method, url, params, processFun, success, failure) {
   axios({
     method: method,
     url: url,
     data: method === 'POST' || method === 'PUT' ? params : null,
     params: method === 'GET' || method === 'DELETE' ? params : null,
     baseURL: root,
-    withCredentials: false
+    withCredentials: false,  // 跨域请求时不需要使用凭证
+    onUploadProgress: function (progressEvent) {
+      // 获取传输所需总共用时
+      if (processFun) { processFun(progressEvent.timeStamp) }
+    }
   })
   .then(function (res) {
     console.log(res)
     let data = JSON.parse(res.data.match(/{\S+}/)[0])
-    if (success) {
-      success(data)
-    } else {
-      console.log('无操作！')
-    }
+    if (success) { success(data) } else { console.log('无操作！') }
   })
   .catch(function (err) {
     console.log(err)
@@ -129,16 +130,19 @@ function apiAxios (method, url, params, success, failure) {
 // 返回在vue模板中的调用接口
 export default {
   get: function (url, params, success, failure) {
-    return apiAxios('GET', url, params, success, failure)
+    return apiAxios('GET', url, params, '', success, failure)
   },
   post: function (url, params, success, failure) {
-    return apiAxios('POST', url, params, success, failure)
+    return apiAxios('POST', url, params, '', success, failure)
   },
   put: function (url, params, success, failure) {
-    return apiAxios('PUT', url, params, success, failure)
+    return apiAxios('PUT', url, params, '', success, failure)
   },
   delete: function (url, params, success, failure) {
-    return apiAxios('DELETE', url, params, success, failure)
+    return apiAxios('DELETE', url, params, '', success, failure)
+  },
+  progressAjax: function (url, params, processFun, success, failure) {
+    return apiAxios('POST', url, params, processFun, success, failure)
   },
   setCookie: function (username, keywords) {
     return setCookie(username, keywords)

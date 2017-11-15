@@ -5,7 +5,7 @@
       <!-- 文件序号 -->
       <div class="fileListNumber whiteFont textCenter">{{orderNumber + 1}}</div>
       <!-- 文件本地地址 -->
-      <div class="fileName grayFont">{{fileUrl}}<span class="blueFont">{{this.$store.state.cusOrder.files[orderNumber].fileName}}</span></div>
+      <div class="fileName grayFont">{{this.fileUrl(orderNumber)}}<span class="blueFont">{{this.cusOrder.files[orderNumber].fileName}}</span></div>
       <!-- 打开/关闭详情设置 -->
       <button type="button" class="detailOpen fontBold font16 grayFont btnHover2" @click="detailOpen">···</button>
       <!-- 右侧设置与删除按钮 -->
@@ -117,9 +117,6 @@
         <input type="button" name="sixPage" value="1面印6页"
           :class="'borderColor bgWhiteColor font16 grayFont ' + this.$store.state.cusOrder.files[orderNumber].printWay.extraClass.sixPage"
           @click="printWaySixPage">
-        <input type="button" name="eightPage" value="1面印8页"
-          :class="'borderColor bgWhiteColor font16 grayFont ' + this.$store.state.cusOrder.files[orderNumber].printWay.extraClass.eightPage"
-          @click="printWayEightPage">
       </div>
       <!-- 打印份数 -->
       <div class="inputNumber">
@@ -150,6 +147,7 @@
 
 <script>
   import $ from 'jquery'
+  import {mapState, mapGetters, mapActions} from 'vuex'
   import progressPicture from '../../../static/img/cus_order_loadState.png'
   import plusPicture from '../../../static/img/form_numberSelect_upIcon.png'
   import minusPicture from '../../../static/img/form_numberSelect_downIcon.png'
@@ -169,17 +167,15 @@
       }
     },
     computed: {
-      fileUrl: function () {
-        return this.$store.state.cusOrder.files[this.orderNumber].fileUrl.substr(0, this.$store.state.cusOrder.files[this.orderNumber].fileUrl.length - this.$store.state.cusOrder.files[this.orderNumber].fileName.length)
-      }
-    },
-    mounted: function () {
-      this.$store.dispatch('heightChange', {h: $('#cusOrder article').height()})
-    },
-    updated: function () {
-      this.$store.dispatch('heightChange', {h: $('#cusOrder article').height()})
+      ...mapState(['cusOrder']),
+      ...mapGetters({
+        fileUrl: 'cusOrderFileUrl'
+      })
     },
     methods: {
+      ...mapActions({
+        heightChange: 'cusOrderHeightChange'
+      }),
       // 打开详情设置
       detailOpen: function () {
         this.$store.dispatch('detailToggle', {index: this.orderNumber})
@@ -345,6 +341,12 @@
           $('input[name=printCopies]').val(1)
         }
       }
+    },
+    mounted: function () {
+      this.heightChange({h: $('#cusOrder article').height()})
+    },
+    updated: function () {
+      this.heightChange({h: $('#cusOrder article').height()})
     }
   }
 </script>

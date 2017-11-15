@@ -27,7 +27,7 @@
           :warnImgSrc="this.cusReg.verification.warnImgSrc" :warnText="this.cusReg.verification.warnText"
           @inputOnBlur="inputBlur" @inputEvent="inputEvent"
           :buttonText="this.cusReg.verification.buttonText" :buttonCanUse="this.cusReg.verification.buttonState"
-          @buttonClick="verificationClick">
+          @buttonClick="this.sendVerification">
         </coInputText></div>
         <div><coInputText labelText="密码："
           :inputType="this.cusReg.password.inputType"
@@ -36,7 +36,7 @@
           :buttonState="false"
           :warnMsgClass="this.cusReg.password.warnExtraClass"
           :warnImgSrc="this.cusReg.password.warnImgSrc" :warnText="this.cusReg.password.warnText"
-          @inputOnBlur="inputBlur">
+          @inputOnBlur="inputBlur" @inputEvent="inputEvent">
           <div slot="iconRight" class="imgRight">
             <button type="button" @click="passwordShowToggle">
               <img v-if="this.cusReg.password.inputType === 'text'" src="../../../static/img/cus_log_openEye.png">
@@ -54,12 +54,12 @@
            @inputOnBlur="inputBlur">
         </coInputText></div>
         <!-- 同意用户协议 -->
-        <div><coCheckbox  labelText="我已经阅读并同意" :checkState="this.cusReg.checkBox" @checkboxClick="checkboxClick">
-          <a slot="other" @click="openAgreementCover">用户协议</a>
+        <div><coCheckbox  labelText="我已经阅读并同意" :checkState="this.cusReg.checkBox" @checkboxClick="this.checkboxToggle">
+          <a slot="other" @click="this.coverOpen">用户协议</a>
         </coCheckbox></div>
         <!-- 注册按钮 -->
         <div class="buttonBox">
-          <coButton v-if='buttonState'
+          <coButton v-if="this.buttonState"
             buttonValue="注册新用户" extraClass="darkStyle"
             @clickAction="register">
           </coButton>
@@ -76,7 +76,7 @@
 
 <script>
   import $ from 'jquery'
-  import {mapState, mapActions} from 'vuex'
+  import {mapState, mapGetters, mapActions} from 'vuex'
   import cusBanner from '../../components/cus/cus_RFbanner.vue'
   import columnsFrame from '../../components/cus/cus_columnsFrame.vue'
   import coInputText from '../../components/inputText.vue'
@@ -113,26 +113,27 @@
     },
     computed: {
       ...mapState(['cusReg']),
-      buttonState: function () {  // 控制注册按钮
-        return this.cusReg.userName.hasValue && this.cusReg.mobile.hasValue && this.cusReg.verification.hasValue && this.cusReg.password.hasValue && this.cusReg.keyAgain.hasValue && this.cusReg.checkBox
-      }
+      ...mapGetters({
+        buttonState: 'cusRegButtonState'
+      })
     },
     methods: {
       ...mapActions({
-        'regLocation': 'cusHeaderRegShowStyle',
-        'regInit': 'cusRegInit',
-        'nameJudge': 'cusRegNameJudge',
-        'mobileJudge': 'cusRegMobileJudge',
-        'mobileInputJudge': 'cusRegMobileInputJudge',
-        'verificationJudge': 'cusRegVerificationJudge',
-        'verificationInputJudge': 'cusRegVerificationInputJudge',
-        'sendVerification': 'cusRegSendVerification',
-        'passwordJudge': 'cusRegPasswordJudge',
-        'keyAgainJudge': 'cusRegKeyAgainJudge',
-        'showToggle': 'cusRegkeywordsShowToggle',
-        'checkboxToggle': 'cusRegCheckboxToggle',
-        'registerNew': 'cusRegister',
-        'coverOpen': 'cusAgreementCoverToggle'
+        regLocation: 'cusHeaderRegShowStyle',
+        regInit: 'cusRegInit',
+        nameJudge: 'cusRegNameJudge',
+        mobileJudge: 'cusRegMobileJudge',
+        mobileInputJudge: 'cusRegMobileInputJudge',
+        verificationJudge: 'cusRegVerificationJudge',
+        verificationInputJudge: 'cusRegVerificationInputJudge',
+        sendVerification: 'cusRegSendVerification',
+        passwordJudge: 'cusRegPasswordJudge',
+        passwordInputJudge: 'cusRegPasswordInputJudge',
+        keyAgainJudge: 'cusRegKeyAgainJudge',
+        showToggle: 'cusRegkeywordsShowToggle',
+        checkboxToggle: 'cusRegCheckboxToggle',
+        registerNew: 'cusRegister',
+        coverOpen: 'cusAgreementCoverToggle'
       }),
       inputBlur: function (event) {
         let name = event.target.name
@@ -148,19 +149,15 @@
         let value = event.target.value
         if (name === 'mobile') { this.mobileInputJudge({mobile: value}) }
         if (name === 'verification') { this.verificationInputJudge({verification: value}) }
+        if (name === 'password') { this.passwordInputJudge({password: value}) }
       },
-      verificationClick: function () { this.sendVerification() },
       passwordShowToggle: function () {
         this.showToggle({
           password: $('#cusReg input[name=password]').val(),
           keyAgain: $('#cusReg input[name=keyAgain]').val()
         })
       },
-      checkboxClick: function () { this.checkboxToggle() },
-      register: function () {
-        this.registerNew({ $msgbox: $('#cusReg .coMsgBox') })
-      },
-      openAgreementCover: function () { this.coverOpen() }
+      register: function () { this.registerNew({ $msgbox: $('#cusReg .coMsgBox') }) }
     },
     created: function () {
       this.regLocation({location: 'noAction'})  // 位于注册页位置

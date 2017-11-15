@@ -102,7 +102,9 @@ const cusLog = {
       state.msgText = '登陆失败，请检查网络'
     }
   },
-  getters: {},
+  getters: {
+    cusLogButtonState (state) { return state.name.hasValue && state.password.hasValue }
+  },
   actions: {
     // 初始化数据
     cusLogInit (context) {
