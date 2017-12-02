@@ -9,7 +9,7 @@
       :warnMsgState="warnMsgState"
       :warnMsgClass="this.cusLog.name.warnExtraClass"
       :warnImgSrc="this.cusLog.name.warnImgSrc" :warnText="this.cusLog.name.warnText"
-      @inputOnBlur="inputBlur" >
+      @inputOnBlur="inputBlur" @inputEvent="inputEvent">
       <div slot="iconLeft" class="imgLeft"><img src="../../../static/img/cus_log_mobile.png"></div>
     </coInputText>
     <!-- 密码 -->
@@ -22,7 +22,7 @@
       :warnMsgState="warnMsgState"
       :warnMsgClass="this.cusLog.password.warnExtraClass"
       :warnImgSrc="this.cusLog.password.warnImgSrc" :warnText="this.cusLog.password.warnText"
-      @inputOnBlur="inputBlur">
+      @inputOnBlur="inputBlur" @inputEvent="inputEvent">
       <div slot="iconLeft" class="imgLeft"><img src="../../../static/img/cus_log_keywords.png"></div>
       <div slot="iconRight" class="imgRight">
         <button type="button" @click="passwordShowToggle">
@@ -83,7 +83,9 @@
       ...mapActions({
         logInit: 'cusLogInit',
         nameJudge: 'cusLogNameJudge',
+        nameInputJudge: 'cusLogNameInputJudge',
         passwordJudge: 'cusLogPasswordJudge',
+        passwordInputJudge: 'cusLogPasswordInputJudge',
         showToggle: 'cusLogPasswordShowToggle',
         checkboxToggle: 'cusLogRememberCheckboxToggle',
         logIn: 'cusLogIn'
@@ -93,6 +95,12 @@
         let value = event.target.value
         if (name === 'mobile') { this.nameJudge({name: value}) }
         if (name === 'password') { this.passwordJudge({password: value}) }
+      },
+      inputEvent: function (event) {
+        let name = event.target.name
+        let value = event.target.value
+        if (name === 'mobile') { this.nameInputJudge({name: value}) }
+        if (name === 'password') { this.passwordInputJudge({password: value}) }
       },
       passwordShowToggle: function () {
         this.showToggle({

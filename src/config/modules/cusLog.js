@@ -132,19 +132,20 @@ const cusLog = {
       } else if (!regMobile.test(name)) {
         // 用户名不符合手机号格式
         api.InputWrong('LogName', '账号格式不正确', context)
-      } else {
-        // 填写正确（可以再加一个查找账号是否存在）
-        api.InputRight('LogName', 'hide', context)
-      }
+      } // 填写正确（可以再加一个查找账号是否存在）
+    },
+    // 判断用户名填写状态
+    cusLogNameInputJudge (context, {name}) {
+      if (name !== '') { api.InputRight('LogName', 'hide', context) }
       context.commit('cusLogNameSet', name)
     },
     // 判断密码是否填写
     cusLogPasswordJudge (context, {password}) {
-      if (password === '') {
-        api.InputWrong('LogPassword', '未填写密码', context)
-      } else {
-        api.InputRight('LogPassword', 'hide', context)
-      }
+      if (password === '') { api.InputWrong('LogPassword', '未填写密码', context) }
+    },
+    // 判断密码填写状态
+    cusLogPasswordInputJudge (context, {password}) {
+      if (password !== '') { api.InputRight('LogPassword', 'hide', context) }
       context.commit('cusLogPasswordSet', password)
     },
     // 所输密码是否可见
@@ -157,21 +158,24 @@ const cusLog = {
     // 用户登录
     cusLogIn (context, {$msgbox}) {
       let info = {
-        username: context.state.name.value,
+        usermobile: context.state.name.value,
         password: context.state.password.value
-      }
-      // 判断是否要记录cookie
-      if (context.state.rememberMe) {  // 记住我
-        api.setCookie(info.username, info.password)
-      } else {  // 不用记住
-        api.delCookie()
       }
       // 登录
       api.post('/php/login.php', info, function (res) {
         if (res.status.toString() === '1') {
           // 登陆成功，告知header栏
           context.commit('cusHeaderLogIn', res.data)
-          context.commit('cusUserInfo', info)
+          context.commit('cusUserInfo', {
+            username: res.data.username,
+            password: info.password
+          })
+          // 是否记住我
+          if (context.state.rememberMe) {
+            api.setCookie(res.data.username, info.password)
+          } else {
+            api.delCookie()
+          }
           // 返回成功信息，告知跳转页面
           return 'success'
         } else {

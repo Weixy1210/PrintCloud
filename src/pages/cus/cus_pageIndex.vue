@@ -172,7 +172,7 @@
     },
     // 组件写入dom结构后
     mounted: function () {
-      window.scrollTo(0, 0)                // 页面焦点定位到顶部
+      window.scrollTo(0, 0)  // 页面焦点定位到顶部
     }
   }
 </script>

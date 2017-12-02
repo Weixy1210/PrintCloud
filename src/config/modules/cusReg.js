@@ -175,9 +175,9 @@ const cusReg = {
         state.checkBox = true
       }
     },
-    cusRegister (state) {
+    cusRegister (state, sta) {
       state.msgImgSrc = blaskface
-      state.msgText = '注册失败，请检查网络'
+      state.msgText = sta === 1 ? '注册失败，请检查网络' : '网络异常'
     }
   },
   getters: {
@@ -189,18 +189,30 @@ const cusReg = {
     // 初始化变量数据
     cusRegInit (context) { context.commit('cusRegInit') },
     // 判断用户名的填写
-    cusRegNameJudge (context, {userName}) {
+    cusRegNameJudge (context, {userName, $msgbox}) {
       if (userName === '') {
         // 用户名为空
         api.InputWrong('RegName', '用户名不能为空', context)
       } else {
-        // 用户名填写正确
-        api.InputRight('RegName', 'show', context)
+        // 用户名填写正确，判断用户名是否已经存在
+        api.post('/php/check.php', {username: userName}, function (res) {
+          if (res.status.toString() === '1') {
+            // 用户名可用
+            api.InputRight('RegName', 'show', context)
+          } else {
+            // 用户名已存在
+            api.InputWrong('RegName', '用户名已存在', context)
+          }
+        }, function () {
+          // 页面提示网络故障
+          context.commit('cusRegister', 0)
+          api.MsgBoxShow($msgbox)
+        })
       }
       context.commit('cusRegNameSet', userName)
     },
     // 判断手机号的填写
-    cusRegMobileJudge (context, {mobile}) {
+    cusRegMobileJudge (context, {mobile, $msgbox}) {
       let regMobile = /([0-9]){11}/
       let controller = context.state.controller
       if (mobile === '') {
@@ -213,6 +225,21 @@ const cusReg = {
         api.InputWrong('RegMobile', '手机号码格式不正确', context)
         clearInterval(controller)  // 清空验证码
         api.cusVerificationInit('Reg', 'forbid', context)
+      } else {
+        // 手机号填写正确，判断手机号是否已经存在
+        api.post('/php/check.php', {usermobile: mobile}, function (res) {
+          if (res.status.toString() === '1') {
+            // 手机号可注册
+            api.InputRight('RegMobile', 'show', context)
+          } else {
+            // 手机号已存在
+            api.InputWrong('RegMobile', '手机号已存在', context)
+          }
+        }, function () {
+          // 页面提示网络故障
+          context.commit('cusRegister', 0)
+          api.MsgBoxShow($msgbox)
+        })
       }
       context.commit('cusRegMobileSet', mobile)
     },
@@ -222,7 +249,7 @@ const cusReg = {
       let controller = context.state.controller
       if (regMobile.test(mobile)) {
         // 手机号填写无误，可以发送验证码
-        api.InputRight('RegMobile', 'show', context)
+        // api.InputRight('RegMobile', 'show', context)
         api.cusVerificationInit('Reg', 'use', context)
       } else {
         // 回到正常输入状态

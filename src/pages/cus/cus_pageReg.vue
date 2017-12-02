@@ -138,8 +138,8 @@
       inputBlur: function (event) {
         let name = event.target.name
         let value = event.target.value
-        if (name === 'userName') { this.nameJudge({userName: value}) }
-        if (name === 'mobile') { this.mobileJudge({mobile: value}) }
+        if (name === 'userName') { this.nameJudge({userName: value, $msgbox: $('#cusReg .coMsgBox')}) }
+        if (name === 'mobile') { this.mobileJudge({mobile: value, $msgbox: $('#cusReg .coMsgBox')}) }
         if (name === 'verification') { this.verificationJudge({verification: value}) }
         if (name === 'password') { this.passwordJudge({password: value}) }
         if (name === 'keyAgain') { this.keyAgainJudge({keyAgain: value}) }

@@ -9,10 +9,7 @@ const cusHeader = {
     newMsg: ''            // 用户未读消息
   },
   mutations: {
-    cusHeaderRegShowStyle (state, str) {
-      state.indexLocation = str
-      console.log(state.indexLocation)
-    },
+    cusHeaderRegShowStyle (state, str) { state.indexLocation = str },
     cusUserInfo (state, data) {
       state.cusUsername = data.username
       state.cusPassword = data.password
