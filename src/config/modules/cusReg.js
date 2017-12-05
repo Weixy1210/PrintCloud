@@ -209,7 +209,11 @@ const cusReg = {
           api.MsgBoxShow($msgbox)
         })
       }
+    },
+    // 用户名输入判断
+    cusRegNameInputJudge (context, {userName}) {
       context.commit('cusRegNameSet', userName)
+      api.InputRight('RegName', 'hide', context)
     },
     // 判断手机号的填写
     cusRegMobileJudge (context, {mobile, $msgbox}) {
@@ -231,9 +235,12 @@ const cusReg = {
           if (res.status.toString() === '1') {
             // 手机号可注册
             api.InputRight('RegMobile', 'show', context)
+            api.cusVerificationInit('Reg', 'use', context)
           } else {
             // 手机号已存在
             api.InputWrong('RegMobile', '手机号已存在', context)
+            clearInterval(controller)  // 清空验证码
+            api.cusVerificationInit('Reg', 'forbid', context)
           }
         }, function () {
           // 页面提示网络故障
@@ -241,23 +248,15 @@ const cusReg = {
           api.MsgBoxShow($msgbox)
         })
       }
-      context.commit('cusRegMobileSet', mobile)
     },
     // 手机号输入判断
     cusRegMobileInputJudge (context, {mobile}) {
-      let regMobile = /([0-9]){11}/
-      let controller = context.state.controller
-      if (regMobile.test(mobile)) {
-        // 手机号填写无误，可以发送验证码
-        // api.InputRight('RegMobile', 'show', context)
-        api.cusVerificationInit('Reg', 'use', context)
-      } else {
-        // 回到正常输入状态
-        api.InputRight('RegMobile', 'hide', context)
-        clearInterval(controller)  // 清空验证码
-        api.cusVerificationInit('Reg', 'forbid', context)
-      }
       context.commit('cusRegMobileSet', mobile)
+      api.InputRight('RegMobile', 'hide', context)
+      // 手机号被修改，中止验证码
+      let controller = context.state.controller
+      clearInterval(controller)  // 清空验证码
+      api.cusVerificationInit('Reg', 'forbid', context)
     },
     // 判断验证码的填写
     cusRegVerificationJudge (context, {verification}) {
@@ -268,11 +267,11 @@ const cusReg = {
         // 验证码填写正确
         api.InputRight('RegVerification', 'hide', context)
       }
-      context.commit('cusRegVerificationSet', verification)
     },
     // 验证码输入记录
     cusRegVerificationInputJudge (context, {verification}) {
       context.commit('cusRegVerificationSet', verification)
+      api.InputRight('RegVerification', 'hide', context)
     },
     // 点击发送验证码
     cusRegSendVerification (context) {
@@ -300,11 +299,11 @@ const cusReg = {
         // 已填写密码
         api.InputRight('RegPassword', 'hide', context)
       }
-      context.commit('cusRegPasswordSet', password)
     },
     // 密码输入记录
     cusRegPasswordInputJudge (context, {password}) {
       context.commit('cusRegPasswordSet', password)
+      api.InputRight('RegPassword', 'hide', context)
     },
     // 判断重输的密码是否一致
     cusRegKeyAgainJudge (context, {keyAgain}) {
@@ -321,7 +320,11 @@ const cusReg = {
       } else {
         api.InputRight('RegKeyAgain', 'show', context)
       }
+    },
+    // 重输密码输入记录
+    cusRegKeyAgainInputJudge (context, {keyAgain}) {
       context.commit('cusRegKeyAgainSet', keyAgain)
+      api.InputRight('RegKeyAgain', 'hide', context)
     },
     // 所输密码是否可见
     cusRegkeywordsShowToggle (context, {password, keyAgain}) {

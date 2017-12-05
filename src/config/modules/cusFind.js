@@ -153,17 +153,6 @@ const cusFind = {
   actions: {
     // 初始化变量数据
     cusFindInit (context) { context.commit('cusFindInit') },
-    // 判断用户名的填写
-    cusFindNameJudge (context, {userName}) {
-      if (userName === '') {
-        // 用户名为空
-        api.InputWrong('RegName', '用户名不能为空', context)
-      } else {
-        // 用户名填写正确
-        api.InputRight('FindName', 'show', context)
-      }
-      context.commit('cusFindNameSet', userName)
-    },
     // 判断手机号的填写
     cusFindMobileJudge (context, {mobile}) {
       let findMobile = /([0-9]){11}/
@@ -178,24 +167,20 @@ const cusFind = {
         api.InputWrong('FindMobile', '手机号码格式不正确', context)
         clearInterval(controller)  // 清空验证码
         api.cusVerificationInit('Find', 'forbid', context)
+      } else {
+        // 手机号填写正确，可发送验证码
+        api.InputRight('FindMobile', 'show', context)
+        api.cusVerificationInit('Find', 'use', context)
       }
-      context.commit('cusFindMobileSet', mobile)
     },
     // 手机号输入判断
     cusFindMobileInputJudge (context, {mobile}) {
-      let findMobile = /([0-9]){11}/
-      let controller = context.state.controller
-      if (findMobile.test(mobile)) {
-        // 手机号填写无误，可以发送验证码
-        api.InputRight('FindMobile', 'show', context)
-        api.cusVerificationInit('Find', 'use', context)
-      } else {
-        // 回到正常输入状态
-        api.InputRight('FindMobile', 'hide', context)
-        clearInterval(controller)  // 清空验证码
-        api.cusVerificationInit('Find', 'forbid', context)
-      }
       context.commit('cusFindMobileSet', mobile)
+      api.InputRight('FindMobile', 'hide', context)
+      // 手机号被修改，中止验证码
+      let controller = context.state.controller
+      clearInterval(controller)  // 清空验证码
+      api.cusVerificationInit('Find', 'forbid', context)
     },
     // 判断验证码的填写
     cusFindVerificationJudge (context, {verification}) {
@@ -206,11 +191,11 @@ const cusFind = {
         // 验证码填写正确
         api.InputRight('FindVerification', 'hide', context)
       }
-      context.commit('cusFindVerificationSet', verification)
     },
     // 验证码输入记录
     cusFindVerificationInputJudge (context, {verification}) {
       context.commit('cusFindVerificationSet', verification)
+      api.InputRight('FindVerification', 'hide', context)
     },
     // 点击发送验证码
     cusFindSendVerification (context) {
@@ -235,14 +220,14 @@ const cusFind = {
         context.commit('cusFindKeyAgainSet', '')
         api.InputRight('FindKeyAgain', 'hide', context)
       } else {
-        // 验证码填写正确
-        api.InputRight('FindKeyAgain', 'hide', context)
+        // 密码填写正确
+        api.InputRight('FindPassword', 'hide', context)
       }
-      context.commit('cusFindPasswordSet', password)
     },
     // 密码输入记录
     cusFindPasswordInputJudge (context, {password}) {
       context.commit('cusFindPasswordSet', password)
+      api.InputRight('FindPassword', 'hide', context)
     },
     // 判断重输的密码是否一致
     cusFindKeyAgainJudge (context, {keyAgain}) {
@@ -259,7 +244,10 @@ const cusFind = {
       } else {
         api.InputRight('FindKeyAgain', 'show', context)
       }
+    },
+    cusFindKeyAgainInputJudge (context, {keyAgain}) {
       context.commit('cusFindKeyAgainSet', keyAgain)
+      api.InputRight('FindKeyAgain', 'hide', context)
     },
     // 所输密码是否可见
     cusFindkeywordsShowToggle (context, {password, keyAgain}) {

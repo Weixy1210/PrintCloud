@@ -43,7 +43,7 @@
           :buttonState="false"
           :warnMsgClass="this.cusFind.keyAgain.warnExtraClass"
           :warnImgSrc="this.cusFind.keyAgain.warnImgSrc" :warnText="this.cusFind.keyAgain.warnText"
-           @inputOnBlur="inputBlur">
+           @inputOnBlur="inputBlur" @inputEvent="inputEvent">
         </coInputText></div>
         <!-- 重设密码按钮 -->
         <div class="buttonBox">
@@ -116,6 +116,7 @@
         passwordJudge: 'cusFindPasswordJudge',
         passwordInputJudge: 'cusFindPasswordInputJudge',
         keyAgainJudge: 'cusFindKeyAgainJudge',
+        keyAgainInputJudge: 'cusFindKeyAgainInputJudge',
         showToggle: 'cusFindkeywordsShowToggle',
         checkboxToggle: 'cusFindCheckboxToggle',
         reset: 'cusResetPassword'
@@ -134,6 +135,7 @@
         if (name === 'mobile') { this.mobileInputJudge({mobile: value}) }
         if (name === 'verification') { this.verificationInputJudge({verification: value}) }
         if (name === 'password') { this.passwordInputJudge({password: value}) }
+        if (name === 'keyAgain') { this.keyAgainInputJudge({keyAgain: value}) }
       },
       passwordShowToggle: function () {
         this.showToggle({

@@ -9,7 +9,7 @@
           :buttonState="false"
           :warnMsgClass="this.cusReg.userName.warnExtraClass"
           :warnImgSrc="this.cusReg.userName.warnImgSrc" :warnText="this.cusReg.userName.warnText"
-          @inputOnBlur="inputBlur">
+          @inputOnBlur="inputBlur" @inputEvent="inputEvent">
         </coInputText></div>
         <div><coInputText labelText="手机号码："
           inputName="mobile" :inputValue="this.cusReg.mobile.value"
@@ -51,7 +51,7 @@
           :buttonState="false"
           :warnMsgClass="this.cusReg.keyAgain.warnExtraClass"
           :warnImgSrc="this.cusReg.keyAgain.warnImgSrc" :warnText="this.cusReg.keyAgain.warnText"
-           @inputOnBlur="inputBlur">
+           @inputOnBlur="inputBlur" @inputEvent="inputEvent">
         </coInputText></div>
         <!-- 同意用户协议 -->
         <div><coCheckbox  labelText="我已经阅读并同意" :checkState="this.cusReg.checkBox" @checkboxClick="this.checkboxToggle">
@@ -122,6 +122,7 @@
         regLocation: 'cusHeaderRegShowStyle',
         regInit: 'cusRegInit',
         nameJudge: 'cusRegNameJudge',
+        nameInputJudge: 'cusRegNameInputJudge',
         mobileJudge: 'cusRegMobileJudge',
         mobileInputJudge: 'cusRegMobileInputJudge',
         verificationJudge: 'cusRegVerificationJudge',
@@ -130,6 +131,7 @@
         passwordJudge: 'cusRegPasswordJudge',
         passwordInputJudge: 'cusRegPasswordInputJudge',
         keyAgainJudge: 'cusRegKeyAgainJudge',
+        keyAgainInputJudge: 'cusRegKeyAgainInputJudge',
         showToggle: 'cusRegkeywordsShowToggle',
         checkboxToggle: 'cusRegCheckboxToggle',
         registerNew: 'cusRegister',
@@ -147,9 +149,11 @@
       inputEvent: function (event) {
         let name = event.target.name
         let value = event.target.value
+        if (name === 'userName') { this.nameInputJudge({userName: value}) }
         if (name === 'mobile') { this.mobileInputJudge({mobile: value}) }
         if (name === 'verification') { this.verificationInputJudge({verification: value}) }
         if (name === 'password') { this.passwordInputJudge({password: value}) }
+        if (name === 'keyAgain') { this.keyAgainInputJudge({keyAgain: value}) }
       },
       passwordShowToggle: function () {
         this.showToggle({

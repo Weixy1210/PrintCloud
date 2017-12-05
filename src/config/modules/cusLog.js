@@ -136,8 +136,8 @@ const cusLog = {
     },
     // 判断用户名填写状态
     cusLogNameInputJudge (context, {name}) {
-      if (name !== '') { api.InputRight('LogName', 'hide', context) }
       context.commit('cusLogNameSet', name)
+      api.InputRight('LogName', 'hide', context)
     },
     // 判断密码是否填写
     cusLogPasswordJudge (context, {password}) {
@@ -145,8 +145,8 @@ const cusLog = {
     },
     // 判断密码填写状态
     cusLogPasswordInputJudge (context, {password}) {
-      if (password !== '') { api.InputRight('LogPassword', 'hide', context) }
       context.commit('cusLogPasswordSet', password)
+      api.InputRight('LogPassword', 'hide', context)
     },
     // 所输密码是否可见
     cusLogPasswordShowToggle (context, {password}) {
